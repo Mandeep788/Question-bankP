@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{url('admin/profile')}}"
+                <a class="sidebar-link" href="{{url('admin/adminprofile')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
                     <span class="hide-menu">Profile</span>

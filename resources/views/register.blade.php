@@ -23,7 +23,7 @@
 			<form method="post">
 				@csrf
 				<img src="img/avatar.svg">
-				<h2 class="title">Welcome</h2>
+				<h1 class="title">Welcome</h1>
                 <div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>
@@ -35,16 +35,25 @@
                 </div>
            		<div class="input-div one">
            		    <div class="i">
-           		   		<i class="fas fa-user"></i>
-           		    </div>
+						<i class="fas fa-at"></i>       		  
+					</div>
            		    <div class="div">
            		   		<h5>Email</h5>
            		   		<input type="email" id="email" class="input" name="email">
            		    </div>
            		</div>
+				{{-- <div class="input-div ">
+					<div class="i">
+						<i class="fas fa-flag"></i>				
+					</div>
+                    <div class="div">
+                        <h5>Country</h5>
+                        <input type="text" name="country" id="country" class="input">
+                    </div>
+                 </div> --}}
                 <div class="input-div one">
 					<div class="i">
-						<i class="fas fa-user"></i>
+						<i class="fas fa-lock"></i>
 					</div>
                     <div class="div">
                         <h5>Password</h5>
@@ -53,18 +62,17 @@
                 </div>
                 <div class="input-div ">
 					<div class="i">
-						<i class="fas fa-user"></i>
+						<i class="fas fa-lock"></i>
 					</div>
                     <div class="div">
                         <h5>confirm password</h5>
 						<input type="password" id="password_confirmation" name="password_confirmation" class="input"/>
-
                     </div>
                 </div>
            		
-            	
             	<a href="#">Forgot Password?</a>
             	<input type="submit" class="btn" id="register" value="Register">
+				<a href="{{url('/login')}}" class="login_btn">Already have an account? LogIn</a>
             </form>
 			@if(Session::has('success'))
 			<p style="color:green;">{{ Session::get('success')}}</p>

@@ -6,17 +6,11 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
-// use Illuminate\Contracts\View\View;
 
-// Route::get('/', function () {
-//     return view('admin.dashboard');
-// });
-// Route::get('/login',function(){
-//     return view('admin.login');
-// });
-// Route::get('/signup',function(){
-//     return view('admin.signup');
-//  });
+
+
+
+
 Route::get('/register',[AuthController::class,'loadRegister']);
 
 Route::post('/register',[AuthController::class,'userRegister'])->name('userRegister');
@@ -36,6 +30,12 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/dashboard',[AuthController::class,'adminDashboard']);
+
+    Route::get('/admin/adminprofile', [AuthController::class,'index']);
+    Route::put('/admin/adminprofile/', [AuthController::class,'update'])->name('profile.update');
+    
+    Route::get('/index',[AuthController::class, 'index']);
+
     Route::get('/admin/technologies',[TechnologyController::class,'show'])->name('show');
     Route::get('/admin/technologies/add',[TechnologyController::class,'index']);
     Route::post('/admin/technologies',[TechnologyController::class,'create'])->name('create');
@@ -60,11 +60,6 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::get('/admin/questions/edit/{id}',[QuestionController::class,'edit']);
     Route::post('/admin/questions/edit/{id}',[QuestionController::class,'update']);
     Route::delete('/admin/questions/delete/{id}',[QuestionController::class,'destroy']);
-
-
-
-
-
 
 
     Route::get('/admin/profile',function(){

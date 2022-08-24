@@ -28,7 +28,7 @@ $(document).ready(function () {
             dataType: "JSON",
 
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status == 200) {
                     $('#update_technology').text('Update Technology');
                     $('#editTechnologyForm')[0].reset();
