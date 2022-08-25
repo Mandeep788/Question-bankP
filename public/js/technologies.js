@@ -174,10 +174,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.framework_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_framework" data-id="`+ value.id + `" href="">
+                                                <a id="delete_framework" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" href="">
+                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -231,10 +231,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.framework_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_framework" data-id="`+ value.id + `" href="">
+                                                <a id="delete_framework" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" href="">
+                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -437,10 +437,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.experience_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_experience" data-id="`+ value.id + `" href="">
+                                                <a id="delete_experience" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" href="">
+                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -471,10 +471,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.experience_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_experience" data-id="`+ value.id + `" href="">
+                                                <a id="delete_experience" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" href="">
+                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>

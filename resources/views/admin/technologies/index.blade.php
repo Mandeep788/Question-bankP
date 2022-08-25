@@ -1,11 +1,11 @@
 @extends('admin_layout.template')
 @section('main-content')
-    <input type="text" name="store_technology_id" id="store_technology_id">
-    <input type="text" name="store_technology_name" id="store_technology_name">
-    <input type="text" name="store_framework_id" id="store_framework_id">
-    <input type="text" name="store_framework_name" id="store_framework_name">
-    <input type="text" name="store_experience_id" id="store_experience_id">
-    <input type="text" name="store_experience_name" id="store_experience_name">
+    <input type="text" name="store_technology_id" id="store_technology_id" hidden>
+    <input type="text" name="store_technology_name" id="store_technology_name" hidden>
+    <input type="text" name="store_framework_id" id="store_framework_id" hidden>
+    <input type="text" name="store_framework_name" id="store_framework_name" hidden>
+    <input type="text" name="store_experience_id" id="store_experience_id" hidden>
+    <input type="text" name="store_experience_name" id="store_experience_name" hidden>
 
     <div id='load_technologies_data'>
         <!--Add Technology Modal -->
@@ -21,14 +21,14 @@
                         <form id="addTechnologyForm" action="{{ url('admin/technologies') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="technology_name">Technology</label>
-                                <input type="text" class="form-control" name="technology_name" id="technology_name"
+                                {{-- <label for="technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="technology_name" id="technology_name"
                                     placeholder="Technology Name">
                             </div>
 
                             <div class="form-group">
-                                <label for="technology_description">Technology Description</label>
-                                <textarea class="form-control" name="technology_description" id="technology_description" rows="3"></textarea>
+                                {{-- <label for="technology_description">Technology Description</label> --}}
+                                <textarea class="form-control mt-4" name="technology_description" id="technology_description" rows="3" placeholder="Description"></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -54,14 +54,14 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="edit_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="edit_technology_name"
-                                    id="edit_technology_name" placeholder="Technology Name">
+                                {{-- <label for="edit_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_technology_name"
+                                    id="edit_technology_name" placeholder="Edit Technology">
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_technology_description">Technology Description</label>
-                                <textarea class="form-control" name="edit_technology_description" id="edit_technology_description" rows="3"></textarea>
+                                {{-- <label for="edit_technology_description">Technology Description</label> --}}
+                                <textarea class="form-control mt-4" name="edit_technology_description" id="edit_technology_description" rows="3" placeholder="Edit Desciption"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="technology_id"></label>
@@ -106,11 +106,11 @@
                                     <h4>{{ $technology->technology_name }}</h4>
                                 </div>
                                 <div id="icons_gap">
-                                    <a id="delete_technology" data-id="{{ $technology->id }}" href="">
+                                    <a id="delete_technology" data-id="{{ $technology->id }}">
                                         <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                     </a>
                                     <a id="edit_technology" data-id="{{ $technology->id }}" data-bs-toggle="modal"
-                                        data-bs-target="#editTechnologyModal" href="">
+                                        data-bs-target="#editTechnologyModal" >
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
                                 </div>
@@ -141,19 +141,19 @@
                                     id="frame_technology_id" hidden>
                             </div>
                             <div class="form-group">
-                                <label for="frame_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="frame_technology_name"
+                                {{-- <label for="frame_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="frame_technology_name"
                                     id="frame_technology_name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="framework_name">Framework</label>
-                                <input type="text" class="form-control" name="framework_name" id="framework_name"
-                                    placeholder="Framework Name">
+                                {{-- <label for="framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-4" name="framework_name" id="framework_name"
+                                    placeholder="Framework">
                             </div>
 
                             <div class="form-group">
-                                <label for="framework_description">Framework Description</label>
-                                <textarea class="form-control" name="framework_description" id="framework_description" rows="3"></textarea>
+                                {{-- <label for="framework_description">Framework Description</label> --}}
+                                <textarea class="form-control mt-4" name="framework_description" id="framework_description" placeholder="Description" rows="3"></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -182,14 +182,14 @@
                                     id="editframe_technology_id" hidden>
                             </div>
                             <div class="form-group">
-                                <label for="edit_framework_name">Framework</label>
-                                <input type="text" class="form-control" name="edit_framework_name"
-                                    id="edit_framework_name" placeholder="Framework Name">
+                                {{-- <label for="edit_framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_framework_name"
+                                    id="edit_framework_name" placeholder="Edit Framework">
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_framework_description">Framework Description</label>
-                                <textarea class="form-control" name="edit_framework_description" id="edit_framework_description" rows="3"></textarea>
+                                {{-- <label for="edit_framework_description">Framework Description</label> --}}
+                                <textarea class="form-control mt-4" name="edit_framework_description" id="edit_framework_description" rows="3" placeholder="Edit Description"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="framework_id" id="framework_id" hidden>
@@ -243,9 +243,9 @@
                         <form id="addExperienceForm" action="{{ url('admin/experiences') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="experience_name">Experience</label>
-                                <input type="text" class="form-control" name="experience_name" id="experience_name"
-                                    placeholder="Experience Name">
+                                {{-- <label for="experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-3" name="experience_name" id="experience_name"
+                                    placeholder="Experience">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -269,9 +269,9 @@
                         <form id="editExperienceForm" action="{{ url('/admin/experiences/edit') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="edit_experience_name">Experience</label>
-                                <input type="text" class="form-control" name="edit_experience_name"
-                                    id="edit_experience_name" placeholder="Experience Name">
+                                {{-- <label for="edit_experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_experience_name"
+                                    id="edit_experience_name" placeholder="Edit Experience">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="experience_id" id="experience_id" hidden>
@@ -292,7 +292,7 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btn"></i></span> Experiences</h5>
+                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btnn"></i></span> Experiences</h5>
                             </div>
                             <div>
                                 <button type="button" id="show_Experience_Modal" data-bs-toggle="modal" data-bs-target="#addExperienceModal"
@@ -315,7 +315,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addQuestionModalLabel">Add Question</h5>
+                        <h5 class="modal-title" id="addQuestionModalLabel">Add Questions</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -323,33 +323,33 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="ques_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="ques_technology_name" id="ques_technology_name"
+                                {{-- <label for="ques_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="ques_technology_name" id="ques_technology_name"
                                 disabled >
                             </div>
                             <div class="form-group">
-                                <label for="ques_framework_name">Framework</label>
-                                <input type="text" class="form-control" name="ques_framework_name" id="ques_framework_name"
+                                {{-- <label for="ques_framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-4" name="ques_framework_name" id="ques_framework_name"
                                 disabled >
                             </div>
                             <div class="form-group">
-                                <label for="ques_experience_name">Experience</label>
-                                <input type="text" class="form-control" name="ques_experience_name" id="ques_experience_name"
+                                {{-- <label for="ques_experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-4" name="ques_experience_name" id="ques_experience_name"
                                   disabled >
                             </div>
                             <div class="form-group">
-                                <label for="question">Question</label>
-                                <input type="text" class="form-control" name="question" id="question"
-                                    placeholder="Question">
+                                {{-- <label for="question">Question</label> --}}
+                                <input type="text" class="form-control mt-4" name="question" id="question"
+                                    placeholder="Add Question">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_experience_id" id="ques_experience_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_experience_id" id="ques_experience_id" hidden>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_framework_id" id="ques_framework_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_framework_id" id="ques_framework_id" hidden>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_technology_id" id="ques_technology_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_technology_id" id="ques_technology_id" hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -405,7 +405,7 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btnn"></i></span> Q&A</h5>
+                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btnnn"></i></span> Q&A</h5>
                             </div>
                             <div>
                                 <button type="button" id="show_Question_Modal" data-bs-toggle="modal" data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add Questions</button>
@@ -503,5 +503,9 @@
             
 
         </div>
+    </div>
+
+    <div>
+        <br><br>
     </div>
 @endsection

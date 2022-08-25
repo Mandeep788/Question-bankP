@@ -62,9 +62,12 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::delete('/admin/questions/delete/{id}',[QuestionController::class,'destroy']);
 
 
-    Route::get('/admin/profile',function(){
-        return view('admin.user');
-        });
+    // Route::get('/admin/profile',function(){
+    //     return view('admin.user');
+    //     });
+        Route::get('/admin/users',function(){
+            return view('admin.user');
+            });
 });
 Route::group(['middleware'=>['web','checkuser']],function(){
 
