@@ -90,8 +90,10 @@
                     <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
                             class="fa-solid fa-pencil"></i></span>
                 </div>
+               
             </div>
         </div>
+       
     </div>
 </div>
 @endsection

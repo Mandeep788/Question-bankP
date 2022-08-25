@@ -89,8 +89,8 @@ class AuthController extends Controller
         public function update(Request $request)
         {
           $id= $request->id;
-        $data = [
-            "name" => $request->name,
+          $data = [
+        "name" => $request->name,
         "email" => $request->email,
         "gender" => $request->gender,
         // "country" => $request->country,

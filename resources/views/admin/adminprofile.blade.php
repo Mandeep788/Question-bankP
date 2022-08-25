@@ -18,7 +18,7 @@
                  <div class="overlay-box">
                      <div class="user-content">
                          @foreach($data as $row)
-                         <img src="" class="user_profile" alt="img">
+                         <img src="{{ asset('img/user.jpg') }}" class="user_profile" alt="img">
                              <!-- <input type="file" name="pic" hidden> -->
                          <h4 class="user_name mt-4">{{$row->name}}</h4>
                          <h5 class="user_mail">{{$row->email}}</h5>

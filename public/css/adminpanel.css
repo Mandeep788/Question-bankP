@@ -91,16 +91,96 @@
 
 .white_box{
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
     margin: 20px 10px 0px;
     border-radius: 10px;
 }
 
-.framework_input input{
-    /* border: none;
-    outline: none; */
-    padding: 15px 50px;
-    border-radius: 20px;
+.big_box{
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.more_info{
+    display: flex;   
+    margin-top: 10px;    
+    justify-content: center;
+    width: 100%;
+    background-color: green;
+    padding: none;   
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+}
+
+.more_info_text{
+    color: white;
+    padding: 3px;
+}
+
+
+.more_info :hover{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: rgb(170, 245, 170);
+    color: green;
+    border-radius: 0px 0px 10px 10px;
+
+}
+
+
+.more_info_tech{
+    display: flex;   
+    margin-top: 10px;    
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(0, 102, 255);
+    padding: none;   
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+}
+
+.more_info_text_tech{
+    color: white;
+    padding: 3px;
+}
+
+
+.more_info_tech :hover{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background:  rgb(149, 190, 252);
+    color: rgb(0, 102, 255);
+    border-radius: 0px 0px 10px 10px;
+
+}
+
+
+.more_info_qa{
+    display: flex;   
+    margin-top: 10px;    
+    justify-content: center;
+    width: 100%;
+    background-color: #0dcaf0;
+    padding: none;   
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+}
+
+.more_info_text_qa{
+    color: white;
+    padding: 3px;
+}
+
+
+.more_info_qa :hover{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background:  #8ee1f1;
+    color: #0dcaf0;
+    border-radius: 0px 0px 10px 10px;
 
 }
 
@@ -115,8 +195,6 @@
     margin: 20px 10px;
     border-radius: 10px;
 }
-
-
 
 #white_boxx{
     background-color: #fff;
@@ -278,4 +356,21 @@ footer a{
     background-color: rgb(0, 183, 255);
     color: white;
 
+}
+
+.page_loader{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+}
+
+.pageloader_button{
+    padding: 7px 20px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: rgb(0, 183, 255);
+    border: none;
+    outline: none;
 }

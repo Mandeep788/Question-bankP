@@ -713,4 +713,23 @@ $(document).ready(function () {
         });
     });
 
+
+
+
+
+
+
+   // load more
+
+
+   $('.page_loader_image').hide();
+    $('#pageloader_button').click(function(){
+        $('.pageloader_button').hide();
+        $('.page_loader_image').show();
+       
+    });
+
+
+
+
 });
