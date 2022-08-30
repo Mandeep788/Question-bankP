@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{url('admin/adminprofile')}}"
+                <a id="admin_profile" class="sidebar-link" href="{{url('admin/profile')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
                     <span class="hide-menu">Profile</span>
@@ -26,19 +26,18 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{url('admin/users')}}"
+                <a class="sidebar-link" href="{{url('/admin/users')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-users"></i>
                     <span class="hide-menu">Users</span>
                 </a>
             </li>
-    
         </ul>
     </div>
 </div>
 <div class="main_section">
     <div class="navbar p-4">
-            <div class="search mx-5">
+            {{-- <div class="search mx-5">
                 <form role="search" class="search_bar">
                     <div class="search_btn">
                         <div>
@@ -51,19 +50,19 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> --}}
             <div class="dropdown">
                 <div class="user_icon">
                     <!-- <a class="profile-pic" href="#"> -->
                         <img src="{{ asset('/img/user.jpg') }}" alt="user-img" width="36" class="img-circle">
-                        <div class="text-white font-medium">ravi sah</div>
+                        <div class="text-white font-medium">{{Auth::user()->name}}</div>
                     <!-- </a> -->
                     <form action="" method="">
                     <div class="dropdown-content">
-                        <a href="{{url('admin/adminprofile')}}">
+                        <a href="{{url('admin/profile')}}">
                         <button type="button" class="profile_details">Update Profile</button>
                     </a>
-                   
+
                         <button type="button" class="logout" name="logout" ><a id="logout" style="text-decoration: none;" href="{{route('logout')}}">Logout</a>
                         </button>
                     </form>

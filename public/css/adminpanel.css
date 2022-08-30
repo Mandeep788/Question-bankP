@@ -196,6 +196,7 @@
     border-radius: 10px;
 }
 
+
 #white_boxx{
     background-color: #fff;
     padding: 20px;
@@ -261,6 +262,14 @@ footer a{
     width: 200px;
     margin-top: 20px;
 }
+/* 
+.experience_label{
+    padding: -5px 10px;
+} */
+
+/* .input-group-text{
+    padding: 10px 30px !important;
+} */
 
 .user_name{
     font-weight: 500;
@@ -376,3 +385,4 @@ footer a{
     border: none;
     outline: none;
 }
+

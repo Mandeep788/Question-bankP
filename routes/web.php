@@ -6,35 +6,22 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
-
-
-
+use App\Http\Controllers\UserController;
 
 
 Route::get('/register',[AuthController::class,'loadRegister']);
-
 Route::post('/register',[AuthController::class,'userRegister'])->name('userRegister');
-
 Route::get('/login',function(){
-
     return redirect('/');
-
 });
 Route::get('/',[AuthController::class,'loadlogin']);
 Route::post('/login',[AuthController::class,'userlogin'])->name('userlogin');
-
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
-
-
 
 Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/dashboard',[AuthController::class,'adminDashboard']);
-
-    Route::get('/admin/adminprofile', [AuthController::class,'index']);
-    Route::put('/admin/adminprofile/', [AuthController::class,'update'])->name('profile.update');
-    
-    Route::get('/index',[AuthController::class, 'index']);
+    Route::get('/admin/dashboard-data',[AuthController::class,'dashboardData']);
 
     Route::get('/admin/technologies',[TechnologyController::class,'show'])->name('show');
     Route::get('/admin/technologies/add',[TechnologyController::class,'index']);
@@ -55,19 +42,21 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::post('/admin/experiences/edit/{id}',[ExperienceController::class,'update']);
     Route::delete('/admin/experiences/delete/{id}',[ExperienceController::class,'destroy']);
 
-    Route::get('/admin/questions',[QuestionController::class,'index']);
+    Route::get('/admin/questions/{id}',[QuestionController::class,'index']);
     Route::post('/admin/questions',[QuestionController::class,'store']);
+    Route::post('/admin/answers',[QuestionController::class,'storeAnswer']);
     Route::get('/admin/questions/edit/{id}',[QuestionController::class,'edit']);
     Route::post('/admin/questions/edit/{id}',[QuestionController::class,'update']);
     Route::delete('/admin/questions/delete/{id}',[QuestionController::class,'destroy']);
 
+    Route::get('/admin/users',[UserController::class,'index'])->name('users.index');
+    Route::get('/admin/users/list', [UserController::class, 'getUsers']);
 
-    // Route::get('/admin/profile',function(){
-    //     return view('admin.user');
-    //     });
-        Route::get('/admin/users',function(){
-            return view('admin.user');
-            });
+
+
+    Route::get('/admin/profile', [AuthController::class,'index']);
+    Route::get('/admin/profile/user', [AuthController::class,'getProfileData']);
+    Route::put('/admin/profile', [AuthController::class,'update'])->name('profile.update');
 });
 Route::group(['middleware'=>['web','checkuser']],function(){
 
