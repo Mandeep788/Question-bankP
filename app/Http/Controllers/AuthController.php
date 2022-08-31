@@ -42,14 +42,7 @@ class AuthController extends Controller
    
     public function loadlogin()
     {
-    //    if(Auth::user() && Auth::user()->role=='admin')
-    //    {
-    //     return redirect('/admin/dashboard');
-    //    }
-    //    else if(Auth::user() && Auth::user()->role=='user')
-    //    {
-    //     return redirect('/dashboard');
-    //    }
+
        return view('login');
     }
     public function userlogin(Request $request)

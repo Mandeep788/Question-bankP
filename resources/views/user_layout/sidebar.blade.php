@@ -46,34 +46,34 @@
           <a class="nav-link" href="#">Home</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">Php</a>
+          <a class="nav-link" id="php_id" href="">Php</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">Java</a>
+          <a class="nav-link" id="java_id" href="#">Java</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">Python</a>
+          <a class="nav-link" id="python_id" href="#">Python</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">Javascript</a>
+          <a class="nav-link" id="javascript_id" href="#">Javascript</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">GoLang</a>
+          <a class="nav-link" id="golang_id" href="#">GoLang</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">C</a>
+          <a class="nav-link" id="c_id" href="#">C</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">C++</a>
+          <a class="nav-link" id="c++_id" href="#">C++</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" id="h" href="#">.Net</a>
+          <a class="nav-link" id=".net_id" href="#">.Net</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">Html</a>
+          <a class="nav-link" id="html_id" href="#">Html</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="#">VB.NET</a>
+          <a class="nav-link" id="vb.net_id" href="#">VB.NET</a>
         </li>
         <li class="nav-item ">
           <a class="nav-link" href="#">More..</a>

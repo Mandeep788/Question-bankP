@@ -4,3 +4,5 @@
 @yield('main-content')
 
 @include('admin_layout.footer')
+
+

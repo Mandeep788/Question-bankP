@@ -6,7 +6,8 @@
     
  </script>
  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
- <script type="text/javascript" src="{{ asset('js/user_update.js') }}"></script>
+ {{-- <script type="text/javascript" src="{{ asset('js/user_edit.js') }}"></script> --}}
 </body>
 
 </html>
+

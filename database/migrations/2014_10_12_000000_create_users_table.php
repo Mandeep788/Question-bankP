@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('gender',['M','F','O'])->nullable();
             $table->text('address')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->enum('role',['admin','user','editor'])->default('user');
             $table->timestamp('last-login')->nullable();
@@ -30,7 +31,7 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     
      * @return void
      */
     public function down()
