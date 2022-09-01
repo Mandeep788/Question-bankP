@@ -220,3 +220,32 @@ a:hover{
 		justify-content: center;
 	}
 }
+.alert{
+	background-color: #32be8f;
+	animation: slideMe .20s ease-in;
+	
+}
+@keyframes slideMe{
+	0%{
+		transform:skewX(53deg) translateY(-50px);
+	}
+	60%{
+		transform:skew(0px);
+	}
+	62%{
+		transform:skewX(0deg) translateY(30px);
+	}
+	70%{
+		transform:skew(-20deg);
+		opacity: 1;
+	}
+	80%{
+		transform:skew(0deg) translate(0);
+	}
+	90%{
+		transform: skew(-5deg);
+	}
+	100%{
+		transform:skew(0deg);
+	}
+}

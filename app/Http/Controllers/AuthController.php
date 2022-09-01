@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
+// use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\navbarTechnologyController;
+
+
 
 class AuthController extends Controller
 {
@@ -30,7 +35,7 @@ class AuthController extends Controller
             'email'=>'string|email|required|max:100|unique:users',
             'password'=>'string|required|confirmed|min:8'
         ]);
-         $user =new User;
+        $user =new User;
          $user->name=$request->name;
          $user->email=$request->email;
          $user->password=bcrypt($request->password);
@@ -39,10 +44,17 @@ class AuthController extends Controller
          return response()->json(['success'=>'succesfully']);
 
     }
-   
     public function loadlogin()
     {
-
+        
+       if(Auth::user() && Auth::user()->role=='admin')
+       {
+        return redirect('/admin/dashboard');
+       }
+       else if(Auth::user() && Auth::user()->role=='user')
+       {
+        return redirect('/dashboard');
+       }
        return view('login');
     }
     public function userlogin(Request $request)
@@ -63,7 +75,9 @@ class AuthController extends Controller
                 }
                 else{
                     return "user";
+
                 }
+                return response()->json(['success'=>'login']);
         }
         else{
             // return  back()->with('error','Credential is invalid');
@@ -71,7 +85,18 @@ class AuthController extends Controller
         }
     }
      public function loadDashboard(){
-        return view('/dashboard');
+
+// **get menu*************
+      
+
+        // $technologies = DB::table('technologies') ->whereBetween('id', [1,6])->get();
+        // $technologies2 = DB::table('technologies') ->whereBetween('id', [8,11])->get();
+        // $technologies3 = DB::table('technologies') ->whereBetween('id', [12,15])->get();
+        // // dd($technologies);
+        // return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
+          return navbarTechnologyController::show();
+     
+//***************************end here********************************************************************** */ 
      }
      public function adminDashboard(){
         return view('admin.dashboard');
@@ -80,6 +105,7 @@ class AuthController extends Controller
      {
         $request->Session()->flush();
         Auth::logout();
-        return redirect('/'); 
+        return redirect('/login'); 
      }
+    
 }

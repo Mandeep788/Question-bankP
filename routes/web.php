@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserUpdateController;
+use App\Http\Controllers\FlutterController;
 
 
 // Route::get('/', function () {
@@ -44,9 +45,9 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 Route::group(['middleware'=>['web','checkuser']],function(){
 //abc
     Route::get('/dashboard',[AuthController::class,'loadDashboard']);
-    Route::get('/view_profile',[UserUpdateController::class,'index'])->name('view_profile');
+    // Route::get('/user_edit',[UserUpdateController::class,'index'])->name('user_edit');
 
-    Route::get('/user_edit',[UserUpdateController::class,'edit']);
+    Route::get('/user_edit',[UserUpdateController::class,'index']);
     Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
-
+    Route::get('/flutter',[FlutterController::class,'index'])->name('flutter.index');
 });

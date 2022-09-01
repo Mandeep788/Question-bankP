@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -10,16 +9,13 @@ class UserUpdateController extends Controller
 {
     public function index(){
         $id =Auth::user()->id;
+        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
         $users = DB::table('users')->where ('id',$id)->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
-        return view('user_layout.view_profile',['users'=>$users]); 
-    }
-    public function edit(){
-        $id =Auth::user()->id;
-        $user = DB::table('users')->where ('id',$id)->get();
+
         
-        return view('user_edit',['user'=>$user]);
+        return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
     }
     
     public function update(Request $request){
@@ -33,6 +29,7 @@ class UserUpdateController extends Controller
         $current_company=$request->input('current_company');
         $experience=$request->input('experience');
         $image=$request->input('image');
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $filename= $file->getClientOriginalName();
@@ -47,6 +44,7 @@ class UserUpdateController extends Controller
             }
             $image= "/img/".$unique_image;
         }
+        
              DB::table('users')
               ->where('id','=',$id)
               ->update(['name' =>$name,

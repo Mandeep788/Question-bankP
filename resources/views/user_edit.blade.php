@@ -1,5 +1,6 @@
 @extends('user_layout.template')
 @section('main-content')
+
     <form class="form1" action="{{ url('/user_edit') }}" enctype="multipart/form-data" method="POST" id="user_edit">
         @csrf
         <div class="container">
@@ -7,7 +8,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <h2>Update Records</h2>
-                        @foreach ($user as $std)
+                        @foreach ($users as $std)
                             <div class="d-flex" style="margin-top: 50px;">
                                 <svg style="margin-right:-40px;margin-left:50px;margin-top:10px;"
                                     xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
@@ -114,8 +115,8 @@
                     </div>
 
 
-                    <button style="color: white;" type="submit" value="submit" id="submit_id"
-                        class="btn btn-info butn">Submit</button>
+                    <button style="color: white;" type="submit" value="submit" id="update_id"
+                        class="btn btn-info butn">Update</button>
                 </div>
 
                 <div class="col-6" profile>
