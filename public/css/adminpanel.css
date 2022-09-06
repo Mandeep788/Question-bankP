@@ -80,9 +80,15 @@
 
 .navbar{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background: #2f323e;
     color: #fff;
+}
+
+.heading h4{
+    margin-top: 20px;
+    font-family: cursive !important;
+    text-transform: capitalize;
 }
 
 .container-fluid{
@@ -136,17 +142,14 @@ color: white;
     padding: 3px;
 }
 
-
-.more_info :hover{
+.more_info a:hover{
     display: block;
     width: 100%;
     text-align: center;
     background: rgb(170, 245, 170);
     color: green;
     border-radius: 0px 0px 10px 10px;
-
 }
-
 
 .more_info_tech{
     display: flex;
@@ -489,4 +492,8 @@ footer a{
 
 .icon_hover:hover{
     cursor: pointer;
+}
+
+.img_circle{
+    border-radius: 20px;
 }

@@ -28,9 +28,21 @@ $(document).ready(function () {
 
                     });
 
-
+                   
+                    
                 });
+                document.querySelector(".updateAdmin").addEventListener('click', function(){
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Profile updated Successfully.',
+                        type: 'success',
+                        icon:'success',
+                        timer: 1000
+                     });
+                  });
+              
             }
+         
 
         });
     }

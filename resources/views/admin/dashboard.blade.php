@@ -30,8 +30,11 @@
                                 </span></li>
                         </ul>
                     </div>
-                    <div class="more_info"><span class="more_info_text"> <a href="{{ url('/admin/users') }}"> More
-                                Info.</a></span></div>
+                    <a href="{{ url('/admin/users') }}">
+                        <div class="more_info">
+                            <span class="more_info_text" style="text-decoration: none">  More Info.</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">

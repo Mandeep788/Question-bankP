@@ -26,6 +26,7 @@ body{
     padding: 0 2rem;
 }
 
+
 .login-content{
 	display: flex;
 	justify-content: flex-start;
@@ -37,7 +38,7 @@ body{
 	position: fixed;
 	width: 400px;
 	margin-left: 100px;
-	margin-top: 60px;
+	margin-top: 20px;
 }
 
 form{

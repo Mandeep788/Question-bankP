@@ -42,36 +42,23 @@
         </ul>
     </div>
 </div>
-<div class="main_section">
-    <div class="navbar p-4">
-            {{-- <div class="search mx-5">
-                <form role="search" class="search_bar">
-                    <div class="search_btn">
-                        <div>
-                            <input type="text" placeholder="Search..." class="search_input form-control mt-0">
-                        </div>
-                        <div class="search_icons">
-                            <a href="#" class="active">
-                                <i class="fas fa-search"></i>
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div> --}}
+    <div class="main_section">
+        <div class="navbar p-3">
+            <div class="heading">
+                <h4>Admin Panel</h4>
+            </div>
             <div class="dropdown">
                 <div class="user_icon">
-                    <!-- <a class="profile-pic" href="#"> -->
-                        <img src="{{ asset('/img/user.jpg') }}" alt="user-img" width="36" class="img-circle">
+                        <img src="{{Auth::user()->image}}" alt="user-img" width="40" height="35px" class="img_circle">
                         <div class="text-white font-medium">{{Auth::user()->name}}</div>
-                    <!-- </a> -->
                     <form action="" method="">
                     <div class="dropdown-content">
                         <a href="{{url('admin/profile')}}">
                         <button type="button" class="profile_details">Update Profile</button>
                     </a>
-
-                        <button type="button" class="logout" name="logout" ><a id="logout" style="text-decoration: none;" href="{{route('logout')}}">Logout</a>
+                        <a id="logout" style="text-decoration: none;" href="{{route('logout')}}"><button type="button" class="logout" name="logout" >Logout
                         </button>
+                        </a>
                     </form>
                 </div>
             </div>
