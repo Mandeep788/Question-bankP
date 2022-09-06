@@ -84,7 +84,19 @@
                                                 <option value="editor">Editor</option>
                                             </select>
                                         </div>
-                                        <div class="form-group my-3 col ">
+
+                                        <div class="form-group my-3 col">
+                                        <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
+                                        <select id="userTech" class="form-control p-2 border-0 mt-3"   multiple="multiple"> 
+                                            <option selected>Select Your Technologies</option>
+                                            @foreach ($technologies as $technology)
+                                                <option value="{{ $technology->technology_name }}">
+                                                    {{ $technology->technology_name }}</option>
+                                            @endforeach
+                                        </select>  
+                                        </div>
+
+                                        {{-- <div class="form-group my-3 col ">
                                             <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
                                             <select id="userTech" class="form-select p-2 border-0 mt-3" size="2"
                                                 multiple>
@@ -94,7 +106,7 @@
                                                         {{ $technology->technology_name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                     <div class="row">
@@ -167,4 +179,6 @@
         <br>
         <br>
     </div>
+
+
 @endsection

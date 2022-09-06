@@ -32,6 +32,9 @@
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
+                            <div class="notification">
+                                <p>test</p>
+                            </div>
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{url('/view_profile')}}"><b>View Profile</b></a></li>
                             <li><a class="dropdown-item" href="{{url('/user_edit')}}">Edit Profile</a></li>
