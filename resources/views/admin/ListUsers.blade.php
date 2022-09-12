@@ -1,7 +1,7 @@
 @extends('admin_layout.template')
 @section('main-content')
     <div class="Users_Data">
-       
+
         <div class="first_section">
             <div class="bg-white">
                 <div class="row align-items-center">
@@ -32,6 +32,7 @@
                                     <th>Designation</th>
                                     <th>Company</th>
                                     <th>Experience</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,29 +85,15 @@
                                                 <option value="editor">Editor</option>
                                             </select>
                                         </div>
-
-                                        <div class="form-group my-3 col">
-                                        <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
-                                        <select id="userTech" class="form-control p-2 border-0 mt-3"   multiple="multiple"> 
-                                            <option selected>Select Your Technologies</option>
-                                            @foreach ($technologies as $technology)
-                                                <option value="{{ $technology->technology_name }}">
-                                                    {{ $technology->technology_name }}</option>
-                                            @endforeach
-                                        </select>  
-                                        </div>
-
-                                        {{-- <div class="form-group my-3 col ">
+                                        <div class="form-group my-3 col ">
                                             <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
-                                            <select id="userTech" class="form-select p-2 border-0 mt-3" size="2"
-                                                multiple>
-                                                <option selected>Select Your Technologies</option>
+                                            <select id="userTech" class="form-control p-2 border-0 selectpicker" multiple data-live-search="true">
                                                 @foreach ($technologies as $technology)
-                                                    <option value="{{ $technology->technology_name }}">
+                                                    <option value="{{ $technology->technology_name}}">
                                                         {{ $technology->technology_name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div> --}}
+                                        </div>
 
                                     </div>
                                     <div class="row">
@@ -161,15 +148,14 @@
                                     </div>
                                     <div class="form-group my-3">
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-success mt-3" name="updateAdmin"
-                                                id="updateAdmin">Update Profile</button>
+                                            <button type="submit" class="btn btn-success mt-3" name="add_user"
+                                                id="add_user">Add User</button>
                                         </div>
                                     </div>
 
                                 </form>
                             </div>
                         </div>
-
                 </div>
             </div>
         </div>
@@ -179,6 +165,4 @@
         <br>
         <br>
     </div>
-
-
 @endsection

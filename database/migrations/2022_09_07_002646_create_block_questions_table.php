@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usertechnologies', function (Blueprint $table) {
+        Schema::create('block_questions', function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('technology_id');
+            $table->unsignedBigInteger('block_id');
+            $table->unsignedBigInteger('question_id');
             $table->timestamps();
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
-
-
-
+            $table->foreign('block_id')->references('id')->on('blocks')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
 
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertechnology');
+        Schema::dropIfExists('block_questions');
     }
 };

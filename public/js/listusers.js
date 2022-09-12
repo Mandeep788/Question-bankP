@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#new_user_registration').hide();
     $('#add_user').click(function (e) {
         e.preventDefault();
@@ -17,24 +18,34 @@ $(document).ready(function () {
             { "data": "role" },
             { "data": "technology_name" },
             { "data": "designation" },
-            { "data": "current_company" },
-            { "data": "experience" }
+            { "data": "last_company" },
+            { "data": "experience" },
+            { "data": "action"},
+            {
+                "Render": function(data, full) {
+                    return '<a class="btn btn-info btn-sm">' + 'Edit' + '</a>';
+                  }
+            },
         ]
-    });
 
+    });
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    // $('#addUserForm').submit(function (e) {
+    //     e.preventDefault();
+    //     let fd = new FormData(document.getElementById("addUserForm"));
+    //     console.log(fd[0]);
 
+    // });
     $('#addUserForm').submit(function (e) {
         e.preventDefault();
         let name = $('#username').val();
         let email = $('#useremail').val();
         let password = $('#userpassword').val();
         let password_confirmation = $('#userConfirmPassword').val();
-
         var user_tech = [];
         $.each($("#userTech option:selected"), function () {
             user_tech.push($(this).val());
@@ -85,11 +96,12 @@ $(document).ready(function () {
                     $('#add_new_user').text('Add User');
                     $('#addUserForm')[0].reset();
                     $('#addUserModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'User Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                        title: 'Added',
+                        text: 'User Added Successfully',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
                         location.reload();
                     });
                 }
@@ -98,7 +110,4 @@ $(document).ready(function () {
 
         });
     });
-
-
 });
-

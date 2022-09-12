@@ -26,6 +26,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/dashboard',[AuthController::class,'adminDashboard']);
     Route::get('/admin/dashboard-data',[AuthController::class,'dashboardData']);
+    Route::get('/admin/notifiications',[AuthController::class,'fetch_notifications']);
 
     Route::get('/admin/technologies',[TechnologyController::class,'show'])->name('show');
     Route::get('/admin/technologies/add',[TechnologyController::class,'index']);
@@ -55,10 +56,23 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/users',[UserController::class,'index'])->name('users.index');
     Route::post('/admin/users',[UserController::class,'store']);
-    Route::get('/admin/users/list', [UserController::class, 'getUsers']);
+    // Route::get('/admin/users/list', [UserController::class, 'getUsers']);
+    Route::get('/admin/userassessment/{id}',[UserController::class,'assessmentIndex']);
+    Route::get('/admin/assessmentdata',[UserController::class,'getSubmittedBlock']);
+    Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
+
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions',[QuizController::class, 'getquestions']);
+    Route::post('/admin/quiz/questions',[QuizController::class, 'savequestions']);
+    Route::get('/admin/totalquizblocks',[QuizController::class,'fetch_all_blocks']);
+    Route::get('/admin/blocks/{id}',[QuizController::class,'fetch_block_questions']);
+    Route::get('/admin/blockusers',[QuizController::class,'fetch_users']);
+    Route::post('/admin/asssignblock',[QuizController::class,'assign_block']);
+
+
+
+
 
     Route::get('/admin/profile', [AuthController::class,'index']);
     Route::get('/admin/profile/user', [AuthController::class,'getProfileData']);
@@ -72,5 +86,6 @@ Route::group(['middleware'=>['web','checkuser']],function(){
 
     Route::get('/user_edit',[UserUpdateController::class,'index']);
     Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
+    Route::get('/core_php',[tech_user_Controller::class,'get_question']);
 
 });

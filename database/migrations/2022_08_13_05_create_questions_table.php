@@ -13,15 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('technology_id');
-            $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
-            $table->unsignedBigInteger('framework_id');
-            $table->foreign('framework_id')->references('id')->on('frameworks')->onDelete('cascade');
-            $table->unsignedBigInteger('experience_id');
-            $table->foreign('experience_id')->references('id')->on('experiences')->onDelete('cascade');
-            $table->text('question');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->enum('gender',['M','F'])->nullable();
+            $table->string('image')->nullable();
+            $table->integer('phone_number')->nullable();
+            $table->text('address')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('current_company')->nullable();
+            $table->string('last_company')->nullable();
+            $table->float('experience')->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->enum('role',['admin','user','editor'])->default('user');
+            $table->timestamp('last_login')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -33,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('users');
     }
 };

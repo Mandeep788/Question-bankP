@@ -13,17 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usertechnologies', function (Blueprint $table) {
+        Schema::create('blocks', function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('technology_id');
+            $table->string('block_name');
             $table->timestamps();
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
-
-
-
-
         });
     }
 
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertechnology');
+        Schema::dropIfExists('test');
     }
 };

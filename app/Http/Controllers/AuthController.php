@@ -37,7 +37,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         if($user->save()){
             $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
-            DB::table('usertechnology')->insert(['users_id'=>$id]);
+            DB::table('usertechnologies')->insert(['users_id'=>$id]);
         }
         return response()->json(['success' => 'succesfully']);
     }
@@ -83,20 +83,20 @@ class AuthController extends Controller
     public function getProfileData()
     {
         $user_id = Auth::user()->id;
-        $query=DB::table('usertechnology')->where('users_id','=',$user_id)->get();
+        $query=DB::table('usertechnologies')->where('users_id','=',$user_id)->get();
         $query=count($query);
         if($query==0){
-        $data = DB::table('users')
-                    ->select('users.name', 'users.email', 'users.gender', 'users.address', 'users.image')
-                    ->where('users.id', $user_id)
-                    ->LeftJoin('usertechnology', 'usertechnology.users_id', '=', 'users.id')
-                    ->whereNull('usertechnology.users_id')
+        $data = DB::table('users as u')
+                    ->select('u.name', 'u.email', 'u.gender', 'u.address', 'u.image', 'u.designation', 'u.experience', 'u.last_company')
+                    ->where('u.id', $user_id)
+                    ->LeftJoin('usertechnologies as ut', 'ut.users_id', '=', 'u.id')
+                    ->whereNull('ut.users_id')
                     ->get();
         }else{
-            $data = DB::table('users')
-                    ->join('usertechnology', 'usertechnology.users_id', '=', 'users.id')
-                    ->where('users.id', $user_id)
-                    ->select('users.name', 'users.email', 'users.gender', 'users.address', 'users.image', 'usertechnology.designation', 'usertechnology.experience', 'usertechnology.last_company')
+            $data = DB::table('users as u')
+                    ->join('usertechnologies as ut', 'ut.users_id', '=', 'u.id')
+                    ->where('u.id', $user_id)
+                    ->select('u.name', 'u.email', 'u.gender', 'u.address', 'u.image', 'u.designation', 'u.experience', 'u.last_company')
                     ->get();
         }
         return response()->json($data);
@@ -110,7 +110,9 @@ class AuthController extends Controller
             "email" => $request->profile_email,
             "gender" => $request->profile_gender,
             "address" =>$request->profile_address,
-            // "image" =>$request->image,
+            "experience" => $request->profile_experience,
+            "designation" => $request->profile_designation,
+            "last_company" => $request->profile_last_company,
         ];
         if($request->hasFile('image')){
             $file=$request->file('image');
@@ -127,26 +129,24 @@ class AuthController extends Controller
             $data['image']= "/uploads/".$unique_image;
         }
 
-        $data1 = [
-            "users_id" =>$id,
-            "experience" => $request->profile_experience,
-            "designation" => $request->profile_designation,
-            "last_company" => $request->profile_last_company,
-        ];
-        $data2 = [
-            "experience" => $request->profile_experience,
-            "designation" => $request->profile_designation,
-            "last_company" => $request->profile_last_company,
-        ];
+        // $data1 = [
+        //     "users_id" =>$id,
+
+        // ];
+        // $data2 = [
+        //     "experience" => $request->profile_experience,
+        //     "designation" => $request->profile_designation,
+        //     "last_company" => $request->profile_last_company,
+        // ];
 
         DB::table('users')->where('id','=',$id)->update($data);
-        $query=DB::table('usertechnology')->where('users_id','=',$id)->get();
-        $query=count($query);
-        if($query==0){
-        DB::table('usertechnology')->where('users_id','=',$id)->insert($data1);
-        }else{
-        DB::table('usertechnology')->where('users_id','=',$id)->update($data2);
-        }
+        // $query=DB::table('usertechnology')->where('users_id','=',$id)->get();
+        // $query=count($query);
+        // if($query==0){
+        // DB::table('usertechnology')->where('users_id','=',$id)->insert($data1);
+        // }else{
+        // DB::table('usertechnology')->where('users_id','=',$id)->update($data2);
+        // }
 
 
         return redirect()->back()->with('status','Profile Update Successfully');
@@ -164,6 +164,19 @@ class AuthController extends Controller
             'users'=>$user,
             'questions'=>$questions,
         ]);
+    }
+    public function fetch_notifications(){
+        $notifications=Db::table('userquizzes as uq')->where('uq.status','Submitted')
+                            ->join('users as u','u.id','=','uq.users_id')
+                            ->join('blocks as b','b.id','=','uq.block_id')
+                            ->select('uq.id','u.name','b.block_name','uq.submitted_at')
+                            ->get();
+        $count_notifications=count($notifications);
+        if(count($notifications)>0){
+            return response()->json(['count_notifications'=>$count_notifications,'notifications'=>$notifications,'status'=>200]);
+        }else{
+            return response()->json(['count_notifications'=>0,'status'=>404]);
+        }
     }
 
     public function loadDashboard()

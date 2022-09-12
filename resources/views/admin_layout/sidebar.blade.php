@@ -5,7 +5,7 @@
     <div class="sidebar_menu mt-3">
         <ul id="sidebarnav">
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{url('admin/dashboard')}}"
+                <a class="sidebar-link active" href="{{url('admin/dashboard')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-bars-staggered"></i>
                     <span class="hide-menu">Dashboard</span>
@@ -39,6 +39,13 @@
                     <span class="hide-menu">Quizes</span>
                 </a>
             </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{url('/admin/quiz')}}"
+                    aria-expanded="false">
+                    <i class="bi bi-table"></i>
+                    <span class="hide-menu">View quiz Blocks</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
@@ -46,6 +53,30 @@
         <div class="navbar p-3">
             <div class="heading">
                 <h4>Admin Panel</h4>
+                <div class=" d-flex">
+                    <div class="heading">
+                        <h4>Admin Panel</h4>
+                    </div>
+                    <div class="notification_bar">
+                        <div class="d-flex dropdown">
+                            <div class="notification">
+                                <i class="bi bi-bell-fill" id="bi"></i>
+                            </div>
+                            <div>
+                                <span class="count">
+                                    <span class="red_circle">
+        
+                                    </span>
+                                    </span>
+                            </div>
+                            <div id="notifications_desc" class="dropdown-content">
+        
+                            </div>
+                        </div>
+        
+        
+                    </div>
+                </div>
             </div>
             <div class="dropdown">
                 <div class="user_icon">
@@ -54,10 +85,10 @@
                     <form action="" method="">
                     <div class="dropdown-content">
                         <a href="{{url('admin/profile')}}">
-                        <button type="button" class="profile_details">Update Profile</button>
-                    </a>
-                        <a id="logout" style="text-decoration: none;" href="{{route('logout')}}"><button type="button" class="logout" name="logout" >Logout
-                        </button>
+                            <button type="button" class="profile_details">Update Profile</button>
+                        </a>
+                        <a id="logout" style="text-decoration: none;" href="{{route('logout')}}">
+                            <button type="button" class="logout" name="logout" >Logout</button>
                         </a>
                     </form>
                 </div>

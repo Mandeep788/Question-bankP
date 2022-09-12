@@ -16,10 +16,10 @@ class UserController extends Controller
     public function getUsers()
     {
         $query = DB::table('users as u')
-            ->join('usertechnology as ut', 'u.id', '=', 'ut.users_id')
+            ->select('u.id', 'u.name', 'u.email', 'u.role', 't.technology_name', 'u.designation', 'u.last_company', 'u.experience')
             ->where('u.role','user')
-            ->select('u.id', 'u.name', 'u.email', 'u.role', 'ut.technology_name', 'ut.designation', 'ut.current_company', 'ut.experience');
-
+            ->LeftJoin('usertechnologies as ut', 'ut.users_id', '=', 'u.id')
+            ->LeftJoin('technologies as t','t.id','=','ut.technology_id');
         return datatables($query)->make(true);
     }
     public function store(Request $request)
@@ -58,5 +58,51 @@ class UserController extends Controller
         }
     }
 
+    public function assessmentIndex($id)
+    {
+        $submittedblock = DB::table('userquizzes as uq')
+            ->join('users as u', 'u.id', '=', 'uq.users_id')
+            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
+            ->where([
+                ['uq.status', 'Submitted'],
+                ['uq.id', $id],
+            ])
+            ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
+            ->get();
+        return view('admin.userassessment', ['submittedblock' => $submittedblock]);
+    }
 
+    public function getSubmittedBlock(Request $request)
+    {
+        $id = $request->id;
+
+        $submitted_data = DB::table('userquizzes as uq')
+            ->join('user_assessments as ua','uq.users_id','=','ua.users_id')
+            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('questions as q', 'q.id', '=', 'bq.question_id')
+            ->where([
+                ['uq.id', $id],
+            ])
+            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id')
+            ->get();
+        if ($submitted_data) {
+            if (count($submitted_data) > 0) {
+                return response()->json(['submitted_data' => $submitted_data, 'status' => 200]);
+            } else {
+                return response()->json(['status' => 404]);
+            }
+        }else{
+            return response()->json(['message'=>'Query Failed','status' => 404]);
+        }
+    }
+    public function insertIndividualMarks(Request $request){
+       $quiz_id=$request->quiz_id;
+       $ques_id=$request->ques_id;
+       $single_mark=$request->single_mark;
+       $data=[
+        'marks_per_ques'=>$single_mark
+       ];
+       $query=DB::table('user_assessments')->where('id',$ques_id)->update($data);
+    }
+    
 }

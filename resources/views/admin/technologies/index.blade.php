@@ -85,7 +85,13 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2">Technologies</h5>
+                                <h6 class="page-title p-3 mt-2">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item active" aria-current="page">Technologies</li>
+                                        </ol>
+                                    </nav>
+                                </h6>
                             </div>
                             <div>
                                 {{-- <a href="{{url('admin/technologies/add')}}"> --}}
@@ -103,7 +109,8 @@
                         <div class="col-lg-4 col-md-12">
                             <div id="white_box">
                                 <div id="clickable" data-id="{{ $technology->id }}">
-                                    <h4>{{ $technology->technology_name }} &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
+                                    <h4>{{ $technology->technology_name }} &nbsp;<i
+                                            class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                 </div>
                                 <div id="icons_gap">
                                     <a id="delete_technology" data-id="{{ $technology->id }}">
@@ -214,8 +221,16 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
-                                            id="back_btn"></i></span> Frameworks</h5>
+                                {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
+                                            id="back_btn"></i></span> Frameworks</h5> --}}
+                                <h6 class="page-title p-3 mt-2">
+                                    <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item active bread_tech" aria-current="page"></li>
+                                        </ol>
+                                    </nav>
+                                </h6>
                             </div>
                             <div>
                                 <button type="button" id="show_Framework_Modal" data-bs-toggle="modal"
@@ -301,8 +316,17 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
-                                            id="back_btnn"></i></span> Experiences</h5>
+                                {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
+                                            id="back_btnn"></i></span> Experiences</h5> --}}
+                                            <h6 class="page-title p-3 mt-2">
+                                                <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+                                                    <ol class="breadcrumb">
+                                                      <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                                      <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
+                                                      <li class="breadcrumb-item active bread_frame" aria-current="page"></li>
+                                                    </ol>
+                                                  </nav>
+                                            </h6>
                             </div>
                             <div>
                                 <button type="button" id="show_Experience_Modal" data-bs-toggle="modal"
@@ -425,7 +449,8 @@
                             @csrf
                             <div class="form-group">
                                 <label for="edit_experience_name">Question</label>
-                                <input type="text" class="form-control" name="edit_question" id="edit_question" required>
+                                <input type="text" class="form-control" name="edit_question" id="edit_question"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="edit_answer">Answer</label>
@@ -462,8 +487,18 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
-                                            id="back_btnnn"></i></span> Q&A</h5>
+                                {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
+                                            id="back_btnnn"></i></span> Q&A</h5> --}}
+                                            <h6 class="page-title p-3 mt-2">
+                                                    <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+                                                    <ol class="breadcrumb">
+                                                      <li class="breadcrumb-item"><a class="bread_home" href="">Technologies</a></li>
+                                                      <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
+                                                      <li class="breadcrumb-item"><a class="bread_framework" href="#"></a></li>
+                                                      <li class="breadcrumb-item active bread_ques" aria-current="page"></li>
+                                                    </ol>
+                                                  </nav>
+                                            </h6>
                             </div>
                             <div class="d-flex">
                                 <div>
@@ -490,12 +525,11 @@
             <div id="dynamic_question" class="container-fluid">
 
             </div>
-             <div class="page_loader">
+            <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_button">Load more...</button>
-                <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image" class="page_loader_image"id="page_loader_image" height="80px" width="300px"/>
+                <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
+                    class="page_loader_image"id="page_loader_image" height="80px" width="300px" />
             </div>
-
-
 
         </div>
     </div>

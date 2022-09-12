@@ -65,6 +65,7 @@
                             <label for="experience" class=" col-md-12 p-0">Experience</label>
                             <div class="input-group col-md-12 border-bottom p-0">
                                 <input type="text" class="form-control p-2 border-0 mt-3"  aria-label="admin_experience" aria-describedby="basic-addon2" placeholder="In Years" name="profile_experience" id="profile_experience">
+                                {{-- <span class="input-group-text experience_label">In years</span> --}}
                               </div>
                          </div>
                          <div class="form-group my-3">
@@ -87,9 +88,10 @@
                         </div>
                          <div class="form-group my-3">
                              <div class="col-sm-12">
-                                 <button type="submit" class="btn btn-success updateAdmin mt-3" name="updateAdmin" id="updateAdmin">Update Profile</button>
+                                 <button type="submit" class="btn btn-success mt-3" name="updateAdmin" id="updateAdmin">Update Profile</button>
                              </div>
                          </div>
+
                      </form>
                  </div>
              </div>
