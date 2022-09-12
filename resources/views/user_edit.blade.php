@@ -35,8 +35,8 @@
                             <path
                                 d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z" />
                         </svg>
-                        <input type="text" class="form-control second" id="mobile_no_id" placeholder="Mobile Number"
-                            name="mobile_no" value="{{ $std->mobile_no }}">
+                        <input type="text" class="form-control second" id="phone_no_id" placeholder="phone_number"
+                            name="phone_number" value="{{ $std->phone_number }}">
                     </div>
                     <div class="mb-3 d-flex">
                         <svg style="margin-right:-40px;margin-left:50px;margin-top:10px;"xmlns="http://www.w3.org/2000/svg"
@@ -47,14 +47,14 @@
                         </svg>
                         <div class="form-check">
                             <input style="margin-left: 25px;" class="form-check-input" type="radio" name="gender"
-                                id="gender_id" value="M" {{ $std->gender == 'M' ? 'checked' : '' }}>
+                                id="gender_id" value="M" checked>
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Male
                             </label>
                         </div>
                         <div class="form-check">
                             <input style="margin-left: 10px;" class="form-check-input" type="radio" name="gender"
-                                id="gender_id" value="F" {{ $std->gender == 'F' ? 'checked' : '' }}>
+                                id="gender_id" value="F">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Female
                             </label>

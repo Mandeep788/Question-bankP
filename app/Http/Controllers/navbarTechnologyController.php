@@ -13,9 +13,9 @@ class navbarTechnologyController extends Controller
     {
         $technologies = DB::table('technologies') ->whereBetween('id', [1,10])->get();
         // dd($technologies);
-        $technologies2 = DB::table('technologies') ->whereBetween('id', [11,14])->get();
+        $frameworks = DB::table('frameworks') ->whereBetween('id', [1,11])->get();
         $technologies3 = DB::table('technologies') ->whereBetween('id', [1,15])->get();
       
-        return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
+        return view('/dashboard', ['technologies' => $technologies,'frameworks'=>$frameworks,'technologies3'=> $technologies3]);
     }
 }

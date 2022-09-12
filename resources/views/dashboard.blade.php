@@ -55,47 +55,37 @@
     <!-- few technology with large div section area--------------------------------- -->
 
     <div class="container-fluid con">
-
         <div class="row">
-            <h2 class="text">Lets Brows All Technologies</h2>
-            @foreach ($technologies2 as $items)
+            <h2 class="text">Lets Browes All Technologies</h2>
+            @foreach ($frameworks as $frame)
                 <div class="col-md-3 col-sm-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body" >
-                            <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
-                         <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:30px;">
-                                {{ $items->technology_name }}
-                            </h5>
-                         
-                        <p class="card-text"style="margin-top:30px;">
-                                {{ $items->technology_description }}</p>
-                    
-                             <a href="{{url('flutter')}}" class="btn btn-default mt-5"style="border:1px solid green;" >Learn More..</a>
+                                <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
+                                <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:30px;">
+                                {{ $frame->framework_name }} </h5>
+                                <p class="card-text"style="margin-top:30px;">
+                                {{ $frame->framework_description }}</p>
+                                <a href="{{url('technologies_second')}}" data-id="{{$frame->id}}" 
+                                class="btn btn-default mt-5"style="border:1px solid green;" >Learn More..</a>
                         </div>
-                      </div>
-
+                    </div>
                 </div>
             @endforeach
 
             {{-- technology with small and multiple div ------------------------- --}}
-
-
             <div class="section">
                 <h2 class="text">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
-
                     @foreach ($technologies3 as $items)
                         <div class="gallery-cell cell_one">
                             <h4 style="margin-top:20%">
                                 {{ $items->technology_name }}
                             </h4>
                             <a href="#" class="btn btn-primary" style="margin-top:2%">Learn More..</a>
-
                         </div>
                     @endforeach
-
                 </div>
-
             </div>
 
             {{-- multiple slider divss of technology--------------------------- --}}

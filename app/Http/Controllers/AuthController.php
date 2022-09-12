@@ -84,7 +84,10 @@ class AuthController extends Controller
         return response()->json(['error'=>'invalid credentials']);
         }
     }
-     public function loadDashboard(){
+     public function loadDashboard(Request $request){
+        if($request->ajax()){
+            return response()->json("true");
+        }
 
 // **get menu*************
       

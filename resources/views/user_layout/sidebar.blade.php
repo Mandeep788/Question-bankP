@@ -40,44 +40,26 @@
               </div>
           </div>
       </div>
-
   </div>
-
 </div>
 <!--------------------- menu bar section--------------------------- -->
-<div class="container-fluid p-0  justify-content-center  ">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="myHeader">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse shadow justify-content-center" id="navbarNav">
-        <ul class="navbar-nav justify-content-center " >
-          @foreach ($technologies as $items)
-          <li class="nav-item">
-              <a class="nav-link" data-id="{{ $items->id }}" href="#">{{$items->technology_name }}&nbsp; | </a>
-          </li>
-      @endforeach
-       
-        </ul>
-      </div>
-    </nav>
-  {{-- <nav class="navbar navbar-expand-lg  navbar-dark  justify-content-center shadow .navbar-toggler" id="myHeader">
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav justify-content-center collapse.navbar-collapse ">
-              @foreach ($technologies as $items)
-                  <li class="nav-item ">
-                      <a class="nav-link" data-id="{{ $items->id }}"
-                          href="#">{{ $items->technology_name }}&nbsp; | </a>
-
-                  </li>
-              @endforeach
-
-          </ul>
-      </div>
-  </nav> --}}
-</div>
+    <div class="container-fluid p-0  justify-content-center  ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light"  id="myHeader">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse shadow justify-content-center" id="navbarNav">
+                <ul class="navbar-nav justify-content-center " >
+                    @foreach ($technologies as $items)
+                    <li class="nav-item">
+                        <a class="nav-link" data-id="{{ $items->id }}" href="#">{{$items->technology_name }}&nbsp; | </a>
+                    </li>
+                    @endforeach
+                </ul>
+        </div>
+        </nav>
+    </div>
 <script>
-  
   window.onscroll = function() {
       myFunction()
   };
@@ -92,8 +74,4 @@
           header.classList.remove("sticky");
       }
   }
-
-
-
-
 </script>

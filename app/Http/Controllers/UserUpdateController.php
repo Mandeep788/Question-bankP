@@ -24,7 +24,7 @@ class UserUpdateController extends Controller
         $email = $request->input('email');
         $gender = $request->input('gender');
         $address = $request->input('address');
-        $mobile_no = $request->input('mobile_no');
+        $phone_number = $request->input('phone_number');
         $last_company=$request->input('last_company');
         $current_company=$request->input('current_company');
         $experience=$request->input('experience');
@@ -51,7 +51,7 @@ class UserUpdateController extends Controller
                         'email'=>$email,
                         'gender'=>$gender ,
                         'address'=>$address,
-                        'mobile_no'=>$mobile_no,
+                        'phone_number'=>$phone_number,
                         'last_company'=>$last_company,
                         'current_company'=>$current_company,
                         'experience'=>$experience,
