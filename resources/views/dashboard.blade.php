@@ -62,16 +62,17 @@
                 <div class="col-md-3 col-sm-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body" >
-                          
+
                             <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
-                         <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:30px;">
+                         <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:25px;">
                                 {{ $items->technology_name }}
                             </h5>
-                         
-                        <p class="card-text"style="margin-top:30px;">
-                                {{ $items->technology_description }}</p>
-                    
-                             <a href="#" class="btn btn-default mt-5"style="border:1px solid green;" >Learn More..</a>
+
+                            <p class="card-text"style="margin-top:20px; font-size:12px;">
+                                {{ $items->technology_description }}
+                            </p>
+
+                             <a href="#" class="btn btn-default mt-2"style="border:1px solid green;" >Learn More..</a>
                         </div>
                       </div>
 

@@ -41,7 +41,7 @@ $(document).ready(function () {
                     }
                     var notifications_desc = "";
                     $.each(response.notifications, function (key, value) {
-                        notifications_desc += `<a href="/admin/userassessment/` + value.id + `" ><p>` + value.name + ` submitted ` + value.block_name + `</p></a><hr>`;
+                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p>` + value.name + ` submitted ` + value.block_name + `</p></a><hr>`;
                     });
                     $('#notifications_desc').append(notifications_desc);
                 } else if (response.status == 404) {
@@ -69,9 +69,10 @@ $(document).ready(function () {
                 // console.log(response);
                 if (response.status == 200) {
                     let i = 1;
-                    $submitted_data = '<div class="row justify-content-center">';
+                    var submitted_data = '<div class="row justify-content-center">';
+                    var store_quiz_id="";
                     $.each(response.submitted_data, function (key, value) {
-                        $submitted_data += `<div class="col-lg-12 col-md-12">
+                        submitted_data += `<div class="col-lg-12 col-md-12">
                                     <div id="white_boxes">
                                         <h4 data-id="`+value.question_id+`"><span>Q`+ i + `.</span>` + value.question + `</h4>
                                         <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
@@ -93,21 +94,20 @@ $(document).ready(function () {
                                                 </select>
                                             </div>
                                             <div class="tick">
-                                                <i class="bi bi-check-circle check_tick" data-id="`+value.id+`" data-quesid="`+value.question_id+`"> Uncheck</i>
+                                            <i class="bi bi-check-circle check_tick" data-id="`+value.id+`" data-quesid="`+value.question_id+`"> Uncheck</i>
                                             </div>
                                         </div>
 
                                     </div>
-
-
                                 </div> `;
+                                store_quiz_id=value.id;
 
                         i++;
                     });
 
-                    $submitted_data += `</div>`;
-
-                    $('#dynamic_submitted_block').append($submitted_data);
+                    submitted_data += `</div>`;
+                    $('#store_quiz_id').val(store_quiz_id);
+                    $('#dynamic_submitted_block').append(submitted_data);
                 } else if (response.status == 404) {
 
                 }
@@ -118,29 +118,29 @@ $(document).ready(function () {
     });
 
     $(document).on('click','.check_tick', function () {
-        
-     let single_mark= $(this).parent().parent().find('.individual_marks').find(":selected").val();
-     if(single_mark!=""){
-        let quiz_id=$(this).data('id');
-        let ques_id=$(this).data('quesid');
-        // console.log(quiz_id);
-        // console.log(ques_id);
-        $.ajax({
-            type: "post",
-            url: "/admin/userassessment",
-            data: {
-                quiz_id:quiz_id,
-                ques_id:ques_id,
-                single_mark:single_mark
-            },
-            dataType: "json",
-            success: function (response) {   
-            }
-        });
-        $(this).addClass('green');
-        $(this).html('  Checked');
-     }
 
+        let single_mark= $(this).parent().parent().find('.individual_marks').find(":selected").val();
+        if(single_mark!=""){
+           let quiz_id=$(this).data('id');
+           let ques_id=$(this).data('quesid');
+
+        //    console.log(quiz_id);
+        //    console.log(ques_id);
+           $.ajax({
+               type: "post",
+               url: "/admin/userassessment",
+               data: {
+                   quiz_id:quiz_id,
+                   ques_id:ques_id,
+                   single_mark:single_mark
+               },
+               dataType: "json",
+               success: function (response) {
+               }
+           });
+           $(this).addClass('green');
+           $(this).html('  Checked');
+        }
 
     });
 
@@ -168,34 +168,11 @@ $(document).ready(function () {
             aggergate=aggergate.toFixed(2);
             // console.log(aggergate);
             $('#store_aggregate').val(aggergate);
-            let users_id = $('#assess_user').val();
-            let question = $('#question_id').val();
-            let answer = $('#answer').val();
-            // console.log(users_id, question, answer);
-            // var parent_id = $(this).parent().parent().attr('id');
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/admin/asssignblock",
-            //     // data:
-            //     processData: false,
-            //     contentType: false,
-            //     dataType: "JSON",
-            //     success: function (response) {
-            //         // console.log(response);
-
-            //         if (response.status == 200) {
-
-            //             swal.fire({
-            //                 title: 'Added',
-            //                 text: 'Test Checked Sucessfully',
-            //                 icon: 'success',
-            //                 timer: 1000
-            //             })
-            //         }
-
-            //     }
-            // });
+            let quiz_id=$('#store_quiz_id').val();
+            console.log(quiz_id);
+            console.log(aggergate);
+           
         });
 
     });
-// });
+

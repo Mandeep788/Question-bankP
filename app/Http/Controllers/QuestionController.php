@@ -45,11 +45,18 @@ class QuestionController extends Controller
             ->whereNull('a.question_id')
             ->limit(2)
             ->get();
-        return response()->json([
-            'Ques' => $ques,
-            'QuesAnswer' => $ques_ans,
-            'status' => 200
-        ]);
+
+
+            if(count($ques_ans)>0 || count($ques)>0){
+                return response()->json([
+                    'Ques' => $ques,
+                    'QuesAnswer' => $ques_ans,
+                    'status' => 200
+                ]);
+            }else{
+                return response()->json(['status'=>404]);
+            }
+
     }
     // Add Question
     public function store(Request $request)

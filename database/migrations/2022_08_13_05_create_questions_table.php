@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('id');
+<<<<<<< HEAD
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -30,6 +31,13 @@ return new class extends Migration
             $table->enum('role',['admin','user','editor'])->default('user');
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
+=======
+            $table->unsignedBigInteger('framework_id');
+            $table->foreign('framework_id')->references('id')->on('frameworks')->onDelete('cascade');
+            $table->unsignedBigInteger('experience_id');
+            $table->foreign('experience_id')->references('id')->on('experiences')->onDelete('cascade');
+            $table->text('question');
+>>>>>>> 19e7f8329ba84fdfad82a9cb601135aa7e2876d2
             $table->timestamps();
         });
     }

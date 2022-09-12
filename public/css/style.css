@@ -4,6 +4,7 @@ body {
     /* background-color: #b3b6b7; */
 
     font-family: 'Open Sans',sans-serif;
+    overflow:inherit;
 
 
   }
@@ -20,17 +21,19 @@ body {
   }
   .COL {
     margin-top: 15px;
-    width:60%;
+    width:50%;
   }
 
   .dropdown {
-    margin-top: 5px;
+    margin-top: 0px;
     border: none;
     margin-left: 20px;
     border-radius: 50%;
   }
   .img2 {
     width: 70px;
+    margin-top: 2px;
+    margin-left: -30px;
     height: 50px;
     border-radius: 50%;
   }
@@ -38,6 +41,14 @@ body {
     position: absolute;
     top: 5%;
     left: 10%;
+  }
+  .bell{
+    cursor:pointer;
+  }
+
+
+  .div{
+    margin-left: 60px;
   }
   /* .navbar-nav {
       margin-left:60px;
@@ -49,6 +60,7 @@ body {
     font-weight: 700;
     color:black;
     font-family: "Josefin Sans",sans-serif;
+
   }
   .nav-item a:hover {
 
@@ -56,7 +68,6 @@ body {
   }
   .nav-item:hover{
     color:black;
-
     border-bottom:4px solid green;
     transition: 0.7s;
     border-radius:20px;
@@ -64,6 +75,12 @@ body {
 
 
   }
+  /* .active.nav-link:hover {
+    border-bottom:4px solid green;
+    border-radius:20px;
+    color: white;
+  } */
+
   .con{
     height: 800px;
     display: flex;
@@ -230,8 +247,52 @@ body {
     margin-top: 2%;
   }
   .tech_display{
-    background-color: whitesmoke ;
+    /* background-color: pink; */
     width:100%;
-    height:120px;
-    /* margin-top:30px; */
+    /* margin-top:10px; */
+
   }
+  .question_display{
+
+    width:70%;
+    height: 1500px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    margin-left:15%;
+  }
+  .paginate{
+  /* position: absolute; */
+  left: 200px;
+  margin-top: -37px;
+  }
+
+  /* quiz -question design code */
+
+  .section{
+    position:relative;
+    width:80%;
+    padding-top: 20px;
+    margin-left:10%;
+    height:auto !important;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  }
+  .question_section{
+
+   margin-left:10%;
+    font-weight: 700;
+    font-size: 20px;
+    padding:20px;
+    width:70%;
+
+  }
+  #form22{
+    margin-left:10%;
+    width:70%;
+    margin-top:8px;
+  }
+  .edit{
+    margin-left: 10%;
+    padding:5px;
+  }
+
+
+

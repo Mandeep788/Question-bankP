@@ -3,7 +3,7 @@
     <input type="text" name="quiz_technology_id" id="quiz_technology_id" hidden>
     <input type="text" name="quiz_technology_name" id="quiz_technology_name" hidden>
     <input type="text" name="quiz_framework_id" id="quiz_framework_id" hidden>
-    <input type="text" name="quiz_framework_name" id="quiz_technology_name" hidden>
+    <input type="text" name="quiz_framework_name" id="quiz_framework_name" hidden>
 
     <div id='load_technologies_quiz'>
 
@@ -13,7 +13,15 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2">Technologies</h5>
+
+                                <h6 class="page-title p-3 mt-2">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item active" aria-current="page">Technologies</li>
+                                        </ol>
+                                    </nav>
+                                </h6>
+
                             </div>
 
                         </div>
@@ -48,10 +56,14 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2">
-                                    {{-- <span><i class="fa-regular fa-circle-left"
-                                            id="back_btn"></i></span> --}}
-                                             Frameworks</h5>
+                                <h6 class="page-title p-3 mt-2">
+                                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item active bread_tech" aria-current="page"></li>
+                                        </ol>
+                                    </nav>
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -76,10 +88,15 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2">
-                                    {{-- <span><i class="fa-regular fa-circle-left"
-                                            id="back_btnnn"></i></span> --}}
-                                             Quiz</h5>
+                                <h6 class="page-title p-3 mt-2">
+                                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                          <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                          <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
+                                          <li class="breadcrumb-item active bread_frame" aria-current="page"></li>
+                                        </ol>
+                                      </nav>
+                                </h6>
                             </div>
                             <div class="d-flex">
                                 <div>
@@ -91,7 +108,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <select id="quiz_experience" class="form-select mt-3 mx-3 w-75 dropdown_quiz_experience">
+                                    <select id="quiz_experience"
+                                        class="form-select mt-3 mx-3 w-75 dropdown_quiz_experience">
                                         <option value="0" selected>All</option>
                                         <option value="1">Beginner</option>
                                         <option value="2">Intermediate</option>
@@ -120,13 +138,15 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                        <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select All</span>
+                                        <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select
+                                            All</span>
                                     </td>
                                     <td>
                                         <form>
-                                        <label for="test_description">Description</label>
-                                        <input type="text" name="test_description" id="test_description" class="test_description" required>
-                                        <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+                                            <label for="test_description">Description</label>
+                                            <input type="text" name="test_description" id="test_description"
+                                                class="test_description" required>
+                                            <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
                                         </form>
                                     </td>
                                 </tr>

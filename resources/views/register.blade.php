@@ -43,7 +43,7 @@
                 </div>
            		<div class="input-div one">
 					<div class="i">
-						<i class="fas fa-at"></i>					 	
+						<i class="fas fa-at"></i>
 					</div>
            		    <div class="div">
            		   		<h5>Email</h5>
@@ -52,7 +52,7 @@
            		</div>
                 <div class="input-div one">
 					<div class="i">
-						<i class="fas fa-lock"></i>					 	
+						<i class="fas fa-lock"></i>
 					</div>
                     <div class="div">
                         <h5>Password</h5>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="input-div ">
 					<div class="i">
-						<i class="fas fa-lock"></i>					 	
+						<i class="fas fa-lock"></i>
 					</div>
                     <div class="div">
                         <h5>confirm password</h5>

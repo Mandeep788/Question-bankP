@@ -41,6 +41,8 @@
 <script src="{{ asset('js/profile.js') }}"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="{{ asset('js/quiz.js') }}"></script>
+<script src="{{ asset('js/blockdata.js') }}"></script>
+
 
 </body>
 </html>

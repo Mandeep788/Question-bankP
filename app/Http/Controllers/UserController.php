@@ -10,17 +10,52 @@ class UserController extends Controller
 {
     public function index()
     {
-        $technologies = DB::table('technologies')->orderBy('technology_name', 'asc')->get();
-        return view('admin.ListUsers', ['technologies' => $technologies]);
+        $query = DB::table('users as u')
+        ->select('u.id', 'u.name', 'u.email', 'u.designation', 'u.last_company', 'u.experience')
+        ->where('u.role', 'user')
+            ->get();
+
+        $users = array();
+        foreach($query as $key=> $userTech)
+        {
+            $array['id'] = $userTech->id;
+            $array['name'] = $userTech->name;
+            $array['email'] = $userTech->email;
+            $array['designation'] = $userTech->designation;
+            $array['last_company'] = $userTech->last_company;
+            $array['experience'] = $userTech->experience;
+            $array['technology_name'] = $this->getUserTech($userTech->id);
+            $users[] = $array;
+        }
+      $technologies = DB::table('technologies')->orderBy('technology_name', 'asc')->get();
+        return view('admin.ListUsers', ['technologies' => $technologies,'users'=>$users]);
+    }
+
+
+    public function getUserTech($user_id)
+    {
+        $query = DB::table('usertechnologies as ut')
+        ->select('t.technology_name')
+        ->where('ut.users_id',$user_id)
+        // ->where('u.role', 'user')
+        ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
+        $i=0;
+        foreach($query as $key=> $userTech){
+            $std[$i]=$userTech->technology_name;
+            $i++;
+        }
+        $technologies=implode(',',$std);
+
+        return $technologies;
+
     }
     public function getUsers()
     {
-        $query = DB::table('users as u')
-            ->select('u.id', 'u.name', 'u.email', 'u.role', 't.technology_name', 'u.designation', 'u.last_company', 'u.experience')
-            ->where('u.role','user')
-            ->LeftJoin('usertechnologies as ut', 'ut.users_id', '=', 'u.id')
-            ->LeftJoin('technologies as t','t.id','=','ut.technology_id');
-        return datatables($query)->make(true);
+
+
+
+
+
     }
     public function store(Request $request)
     {
@@ -30,30 +65,40 @@ class UserController extends Controller
             'email' => 'string|email|required|max:100|unique:users',
             'password' => 'string|required|confirmed|min:8'
         ]);
-        if ($validate->passes()){
+        if ($validate->passes()) {
             $values = [
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'role' => $request->role,
+                'designation' => $request->designation,
+                'current_company' => $request->current_company,
+                'last_company' => $request->last_company,
+                'experience' => $request->experience,
             ];
             $query = DB::table('users')->insert($values);
             if ($query) {
                 $id = DB::table('users')->select('id')->where('name', $request->name)->value('id');
-                $technology_data = [
-                    'users_id' => $id,
-                    'technology_name' => $request->technology_name,
-                    'designation' => $request->designation,
-                    'current_company' => $request->current_company,
-                    'last_company' => $request->last_company,
-                    'experience'=>$request->experience,
-                ];
-                $query2=DB::table('usertechnology')->insert($technology_data);
-                if($query2){
+
+                $technologies_id = $request->technologies_id;
+                $technologies_ids = explode(", ", $technologies_id);
+                $technology_data = array();
+                foreach ($technologies_ids as $technology_id) {
+                    if ($technology_id != "") {
+                        $technology_data[] = array(
+                            'users_id' => $id,
+                            'technology_id' => $technology_id
+                        );
+                    }
+                }
+                $query2 = DB::table('usertechnologies')->insert($technology_data);
+                if ($query2) {
                     return response()->json(['status' => 200]);
+                } else {
+                    return response()->json(['status' => 404]);
                 }
             }
-        } else{
+        } else {
             return response()->json(['status' => 409, 'errors' => $validate->errors()->toArray()]);
         }
     }
@@ -78,7 +123,7 @@ class UserController extends Controller
 
         $submitted_data = DB::table('userquizzes as uq')
             ->join('user_assessments as ua','uq.users_id','=','ua.users_id')
-            ->join('block_questions as bq','+bq.id','=','ua.block_question_id')
+            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
             ->join('questions as q', 'q.id', '=', 'bq.question_id')
             ->where([
                 ['uq.id', $id],
@@ -95,14 +140,20 @@ class UserController extends Controller
             return response()->json(['message'=>'Query Failed','status' => 404]);
         }
     }
+
     public function insertIndividualMarks(Request $request){
-       $quiz_id=$request->quiz_id;
-       $ques_id=$request->ques_id;
-       $single_mark=$request->single_mark;
-       $data=[
-        'marks_per_ques'=>$single_mark
-       ];
-       $query=DB::table('user_assessments')->where('id',$ques_id)->update($data);
-    }
-    
+        // $quiz_id=$request->quiz_id;
+        $ques_id=$request->ques_id;
+        $single_mark=$request->single_mark;
+        $data=[
+         'marks_per_ques'=>$single_mark
+        ];
+        $query=DB::table('user_assessments')->where('id',$ques_id)->update($data);
+        if($query){
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status'=>404]);
+
+        }
+     }
 }

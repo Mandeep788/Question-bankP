@@ -179,6 +179,20 @@ class AuthController extends Controller
         }
     }
 
+    public function fetch_notifications(){
+        $notifications=Db::table('userquizzes as uq')->where('uq.status','Submitted')
+                            ->join('users as u','u.id','=','uq.users_id')
+                            ->join('blocks as b','b.id','=','uq.block_id')
+                            ->select('uq.id','u.name','b.block_name','uq.submitted_at')
+                            ->get();
+        $count_notifications=count($notifications);
+        if(count($notifications)>0){
+            return response()->json(['count_notifications'=>$count_notifications,'notifications'=>$notifications,'status'=>200]);
+        }else{
+            return response()->json(['count_notifications'=>0,'status'=>404]);
+        }
+    }
+
     public function loadDashboard()
     {
         return navbarTechnologyController::show();

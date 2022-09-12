@@ -88,7 +88,7 @@
                         </div>
                          <div class="form-group my-3">
                              <div class="col-sm-12">
-                                 <button type="submit" class="btn btn-success mt-3" name="updateAdmin" id="updateAdmin">Update Profile</button>
+                                 <button type="submit" class="btn btn-success mt-3 updateAdmin" name="updateAdmin" id="updateAdmin">Update Profile</button>
                              </div>
                          </div>
 

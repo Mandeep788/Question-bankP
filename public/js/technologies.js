@@ -59,7 +59,7 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Technology Updated.",
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
                     }).then(function () {
 
@@ -72,7 +72,6 @@ $(document).ready(function () {
             }
         });
     });
-    
     // Add Technologies
     $('#addTechnologyForm').submit(function (e) {
         e.preventDefault();
@@ -96,12 +95,10 @@ $(document).ready(function () {
                     swal.fire({
                         title: 'Added',
                         text: 'Technology Added Successfully',
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
-                     }).then(function () {
-
+                    }).then(function () {
                         location.reload(true);
-
                     });
                 }
 
@@ -156,7 +153,7 @@ $(document).ready(function () {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Technology Deleted.",
-                            icon:'success',
+                            icon: 'success',
                             timer: 1000
                         }).then(function () {
                             location.reload(true);
@@ -180,7 +177,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "get",
-            url: "/admin/frameworks/"+id,
+            url: "/admin/frameworks/" + id,
             dataType: "json",
             success: function (response) {
                 // window.history.pushState('new','title','/admin/frameworks/'+id);
@@ -217,7 +214,12 @@ $(document).ready(function () {
                         $('#store_technology_name').val(value.technology_name);
                         $('.bread_tech').text(value.technology_name);
                         $('.spinner-grow').hide();
-                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                        });
+                        // $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
                         // $('#frame_technology_name').val(value.technology_name);
                     });
@@ -238,7 +240,7 @@ $(document).ready(function () {
         $('.spinner-grow').show();
         $.ajax({
             type: "get",
-            url: "/admin/frameworks/"+id,
+            url: "/admin/frameworks/" + id,
             data: {
                 tech_id: id
             },
@@ -278,16 +280,18 @@ $(document).ready(function () {
                         $('#store_technology_name').val(value.technology_name);
                         $('.bread_tech').text(value.technology_name);
                         $('.spinner-grow').hide();
-                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                        });
+                        // $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
                         // $('#frame_technology_name').val(value.technology_name);
                     });
                 }
-
-
             }
         });
-
     }
 
     //Show add Framework Modal
@@ -323,9 +327,9 @@ $(document).ready(function () {
                     swal.fire({
                         title: 'Added',
                         text: 'Framework Added Successfully',
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
-                     }).then(function () {
+                    }).then(function () {
 
                         FetchFramework();
 
@@ -382,7 +386,7 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Framework Updated.",
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
                     }).then(function () {
 
@@ -423,7 +427,7 @@ $(document).ready(function () {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Framework Deleted.",
-                            icon:'success',
+                            icon: 'success',
                             timer: 1000
                         }).then(function () {
 
@@ -446,7 +450,7 @@ $(document).ready(function () {
         // console.log(framework_name);
         $('#store_framework_id').val(id);
         $('#store_framework_name').val(framework_name);
-        let technology_name=$('#store_technology_name').val();
+        let technology_name = $('#store_technology_name').val();
         $('.bread_technology').text(technology_name);
         $('.bread_frame').text(framework_name);
         $('#load_technologies_data').hide();
@@ -482,6 +486,18 @@ $(document).ready(function () {
                     $experience_data += '</div>';
                     $('.spinner-grow').hide();
                     $('#dynamic_experience').append($experience_data);
+                } else if (response.status == 404) {
+                    $('.spinner-grow').hide();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No record Found!',
+                    }).then(function () {
+                        $('#load_frameworks_data').show();
+                        $('#load_experience_data').hide();
+                        $('#load_question_data').hide();
+                        $('#load_technologies_data').hide();
+                    });
                 }
             }
         });
@@ -518,6 +534,18 @@ $(document).ready(function () {
                     $experience_data += '</div>';
                     $('.spinner-grow').hide();
                     $('#dynamic_experience').append($experience_data);
+                }else if (response.status == 404) {
+                    $('.spinner-grow').hide();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No record Found!',
+                    }).then(function () {
+                        $('#load_frameworks_data').show();
+                        $('#load_experience_data').hide();
+                        $('#load_question_data').hide();
+                        $('#load_technologies_data').hide();
+                    });
                 }
             }
         });
@@ -544,9 +572,9 @@ $(document).ready(function () {
                     swal.fire({
                         title: 'Added',
                         text: 'Experience Added Successfully',
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
-                     }).then(function () {
+                    }).then(function () {
 
                         FetchExperience();
 
@@ -601,7 +629,7 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Experience Updated.",
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
                     }).then(function () {
 
@@ -638,7 +666,7 @@ $(document).ready(function () {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Experience Deleted.",
-                            icon:'success',
+                            icon: 'success',
                             timer: 1000
                         }).then(function () {
                             FetchExperience();
@@ -652,16 +680,17 @@ $(document).ready(function () {
     });
 
     //Fetch Question Function
-    function FetchQuestion(id,technology_id,framework_id,limit) {
-        count=0;
+    function FetchQuestion(id, technology_id, framework_id, limit) {
+        count = 0;
         $('#dynamic_question').empty();
-        $('.spinner-grow').show();
+        // $('.spinner-grow').show();
         $.ajax({
             type: "get",
-            url: "/admin/questions/" + id+"/"+limit+"/"+count,
-            data:{
-                technology_id:technology_id,
-                framework_id:framework_id},
+            url: "/admin/questions/" + id + "/" + limit + "/" + count,
+            data: {
+                technology_id: technology_id,
+                framework_id: framework_id
+            },
             dataType: "json",
             success: function (response) {
                 // console.log(response);
@@ -694,12 +723,20 @@ $(document).ready(function () {
                     $ques_answer += '</div>';
                     $('.spinner-grow').hide();
                     $('#dynamic_question').append($ques_answer);
-                    if(response.QuesAnswer.length==limit){
+                    if (response.QuesAnswer.length == limit) {
                         $('.pageloader_button').show();
-                    }else{
+                    } else {
                         $('.pageloader_button').hide();
 
                     }
+                }else if (response.status == 404) {
+                    $('.pageloader_button').hide();
+                    $('.spinner-grow').hide();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No record Found!',
+                    });
                 }
             }
         });
@@ -708,13 +745,13 @@ $(document).ready(function () {
     $(document).on('click', '#clickexperience', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
         // console.log(limit);
         let experience_name = $(this).data('name');
-        let technology_name=$('#store_technology_name').val();
-        let framework_name=$('#store_framework_name').val();
+        let technology_name = $('#store_technology_name').val();
+        let framework_name = $('#store_framework_name').val();
         // console.log(framework_name);
         $('#store_experience_id').val(id);
         $('#store_experience_name').val(experience_name);
@@ -726,7 +763,7 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').show();
 
-        FetchQuestion(id,technology_id,framework_id,limit);
+        FetchQuestion(id, technology_id, framework_id, limit);
 
     });
 
@@ -752,7 +789,7 @@ $(document).ready(function () {
     $('#addQuestionForm').submit(function (e) {
         e.preventDefault();
         let id = $('#store_experience_id').val();
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
         var Ques_form = new FormData(this);
@@ -771,14 +808,12 @@ $(document).ready(function () {
                     $('#addQuestionForm')[0].reset();
                     $('#addQuestionModal').modal('hide');
                     swal.fire({
-                       title: 'Added',
-                       text: 'Question Added Successfully',
-                       icon:'success',
-                       timer: 1000
+                        title: 'Added',
+                        text: 'Question Added Successfully',
+                        icon: 'success',
+                        timer: 1000
                     }).then(function () {
-
-                        FetchQuestion(id,technology_id,framework_id,limit);
-
+                        FetchQuestion(id, technology_id, framework_id, limit);
                     });
                 }
 
@@ -803,7 +838,7 @@ $(document).ready(function () {
         e.preventDefault();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         let id = $('#store_experience_id').val();
         var Ans_form = new FormData(document.getElementById("addAnswerForm"));
         // console.log(Ans_form);
@@ -824,13 +859,13 @@ $(document).ready(function () {
                     swal.fire({
                         title: 'Added',
                         text: 'Answer Added Successfully',
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
-                     })
-                    .then(function () {
-                        FetchQuestion(id,technology_id,framework_id,limit);
+                    })
+                        .then(function () {
+                            FetchQuestion(id, technology_id, framework_id, limit);
 
-                    });
+                        });
                 }
 
             }
@@ -857,7 +892,7 @@ $(document).ready(function () {
     // Update Question
     $('#editQuestionForm').submit(function (e) {
         e.preventDefault();
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         var update_form = new FormData(document.getElementById("editQuestionForm"));
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
@@ -885,11 +920,11 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Question Answer Updated.",
-                        icon:'success',
+                        icon: 'success',
                         timer: 1000
                     }).then(function () {
 
-                        FetchQuestion(experience_id,technology_id,framework_id,limit);
+                        FetchQuestion(experience_id, technology_id, framework_id, limit);
 
                     });
                 }
@@ -899,7 +934,7 @@ $(document).ready(function () {
 
     //Delete Question Answer Function
     function deleteQuestion(id) {
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         let experience_id = $('#store_experience_id').val();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
@@ -922,10 +957,10 @@ $(document).ready(function () {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Question Deleted.",
-                                icon:'success',
+                                icon: 'success',
                                 timer: 1000
                             }).then(function () {
-                                FetchQuestion(experience_id,technology_id,framework_id,limit);
+                                FetchQuestion(experience_id, technology_id, framework_id, limit);
                             });
                         }
                     }
@@ -947,12 +982,12 @@ $(document).ready(function () {
         let id = $(this).data('id');
         deleteQuestion(id);
     });
-    var count =0;
+    var count = 0;
     // load more
     $('.page_loader_image').hide();
     $('#pageloader_button').click(function () {
         let id = $('#store_experience_id').val();
-        let limit=$('#page_limit').find(":selected").text();
+        let limit = $('#page_limit').find(":selected").text();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
         count++;
@@ -961,16 +996,16 @@ $(document).ready(function () {
         $('.page_loader_image').show();
         $.ajax({
             type: "get",
-            url: "/admin/questions/" + id+"/"+limit+"/"+count,
-            data:{
-                technology_id:technology_id,
-                framework_id:framework_id
+            url: "/admin/questions/" + id + "/" + limit + "/" + count,
+            data: {
+                technology_id: technology_id,
+                framework_id: framework_id
             },
             dataType: "json",
             success: function (response) {
                 // console.log(response);
                 if (response.status == 200) {
-                 let i=(count*limit)+1;
+                    let i = (count * limit) + 1;
                     $ques_answer = '<div class="row justify-content-center">';
                     $.each(response.QuesAnswer, function (key, value) {
                         $ques_answer += `<div class="col-lg-12 col-md-12">
@@ -985,13 +1020,13 @@ $(document).ready(function () {
                     $ques_answer += '</div>';
                     $('#dynamic_question').append($ques_answer);
                     $('.page_loader_image').hide();
-                    let total=parseInt(count*limit)+parseInt(limit);
+                    let total = parseInt(count * limit) + parseInt(limit);
 
-                    let totalrecord=parseInt(count*limit)+parseInt(response.QuesAnswer.length);
+                    let totalrecord = parseInt(count * limit) + parseInt(response.QuesAnswer.length);
 
-                    if(total==totalrecord){
-                         $('.pageloader_button').show();
-                    }else{
+                    if (total == totalrecord) {
+                        $('.pageloader_button').show();
+                    } else {
                         $('.pageloader_button').hide();
                     }
                 }
@@ -1000,12 +1035,12 @@ $(document).ready(function () {
 
     });
 
-    $('#page_limit').on('change', function() {
-        let page_limit= this.value ;
+    $('#page_limit').on('change', function () {
+        let page_limit = this.value;
         let id = $('#store_experience_id').val();
         let technology_id = $('#store_technology_id').val();
         let framework_id = $('#store_framework_id').val();
-        FetchQuestion(id,technology_id,framework_id,page_limit);
+        FetchQuestion(id, technology_id, framework_id, page_limit);
         // alert($page_limit);
-      });
+    });
 });

@@ -24,10 +24,9 @@
                         <table class="table bg-white table-hover table-striped table-bordered yajra-datatable py-3">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>S.N</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Role</th>
                                     <th>Technologies</th>
                                     <th>Designation</th>
                                     <th>Company</th>
@@ -36,6 +35,29 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @php
+                                    $prev="";
+                                @endphp --}}
+                                @foreach ($users as $user)
+                                <tr>
+                                    {{-- @if ($prev==$user['id'])
+                                        @continue
+                                    @else --}}
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$user['name']}}</td>
+                                    <td>{{$user['email']}}</td>
+                                    <td>{{$user['technology_name']}}</td>
+                                    <td>{{$user['designation']}}</td>
+                                    <td>{{$user['last_company']}}</td>
+                                    <td>{{$user['experience']}}</td>
+                                    {{-- @endif
+
+                                    @php
+                                        $prev=$user['id'];
+                                    @endphp --}}
+                                </tr>
+
+                                @endforeach
 
                             </tbody>
                         </table>
@@ -89,7 +111,7 @@
                                             <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
                                             <select id="userTech" class="form-control p-2 border-0 selectpicker" multiple data-live-search="true">
                                                 @foreach ($technologies as $technology)
-                                                    <option value="{{ $technology->technology_name}}">
+                                                    <option value="{{ $technology->id}}">
                                                         {{ $technology->technology_name }}</option>
                                                 @endforeach
                                             </select>

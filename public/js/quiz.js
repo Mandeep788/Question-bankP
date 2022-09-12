@@ -2,6 +2,19 @@ $(document).ready(function () {
     $('#load_frameworks_quiz').hide();
     $('#load_question_quiz').hide();
 
+    $('.bread_home').click(function (e) {
+        e.preventDefault();
+        $('#load_frameworks_quiz').hide();
+        $('#load_question_quiz').hide();
+        $('#load_technologies_quiz').show();
+    });
+    $('.bread_technology').click(function (e) {
+        e.preventDefault();
+        $('#load_frameworks_quiz').show();
+        $('#load_question_quiz').hide();
+        $('#load_technologies_quiz').hide();
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -37,6 +50,9 @@ $(document).ready(function () {
                                     </div>`;
                         $('#quiz_technology_id').val(value.technology_id);
                         $('#quiz_technology_name').val(value.technology_name);
+
+                        $('.bread_tech').text(value.technology_name);
+
                     });
                     $frame_data += '</div>';
                     $('.spinner-grow').hide();
@@ -46,11 +62,17 @@ $(document).ready(function () {
                     $.each(response.technology, function (key, value) {
                         $('#quiz_technology_id').val(value.id);
                         $('#quiz_technology_name').val(value.technology_name);
-                        $('.spinner-grow').hide();
-                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
+                        $('.bread_tech').text(value.technology_name);
 
-                        // $('#frame_technology_id').val(value.id);
-                        // $('#frame_technology_name').val(value.technology_name);
+                        $('.spinner-grow').hide();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                        }).then(function () {
+                            location.reload(true);
+                        });
+
                     });
                 }
 
@@ -101,6 +123,11 @@ $(document).ready(function () {
                     if (response.status == 404) {
                         $('#pageloader_quiz_button').hide();
                         $("#test_table > tbody").empty();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                        })
                         // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
 
                     }
@@ -113,15 +140,20 @@ $(document).ready(function () {
         $('#load_question_quiz').show();
         let tech_id = $('#quiz_technology_id').val();
         let id = $(this).data('id');
+        let name = $(this).data('name');
         let exp_id = 0;
         let limit = $('#quiz_page_limit').find(":selected").text();
         $('#quiz_framework_id').val(id);
+        $('#quiz_framework_name').val(name);
+        let technology_name = $('#quiz_technology_name').val();
+        $('.bread_technology').text(technology_name);
+        $('.bread_frame').text(name);
         // console.log(limit);
         FetchQuizQuestion(tech_id, id, exp_id, limit)
 
     });
 
-    $('#select-all').click(function (event) {
+    $(document).on('click','#select-all',function (event) {
         var $that = $(this);
         $(':checkbox').each(function () {
             this.checked = $that.is(':checked');

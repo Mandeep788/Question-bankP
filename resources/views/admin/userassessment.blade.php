@@ -1,6 +1,8 @@
 @extends('admin_layout.template')
 @section('main-content')
-<input type="text" name="store_aggregate" id="store_aggregate" >
+<input type="text" name="store_aggregate" id="store_aggregate" hidden>
+<input type="text" name="store_quiz_id" id="store_quiz_id" hidden>
+
     <div id="submitted_block" class="container ">
 
         @foreach ($submittedblock as $block)
@@ -30,23 +32,6 @@
         </div>
 
         <div id="dynamic_submitted_block" class="container-fluid">
-            {{-- <div class="row">
-                <div class="col-lg-12 col-md-12">
-
-                    <div id="white_box">
-                        <div class="row justify-content-left">
-                            <div class="col-lg-12 col-md-12">
-                                <div id="white_box">
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div> --}}
 
         </div>
         <div id="" class="container-fluid">

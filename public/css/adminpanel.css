@@ -539,7 +539,7 @@ footer a{
     left: -40px;
     top: 30px;
     background-color: white;
-    width: 200px;
+    width: 300px;
     padding: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -597,3 +597,24 @@ footer a{
 {
     color: rgb(86, 199, 86);
 }
+
+.notication_heading{
+    text-align: left;
+
+}
+
+.notication_heading p a{
+    text-decoration: none;
+    color: black;
+
+
+}
+.notification_div{
+    text-decoration: none;
+    color: black;
+}
+.notification_div:hover{
+    text-decoration: none;
+    color: black;
+}
+
