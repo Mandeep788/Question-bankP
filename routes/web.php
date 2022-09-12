@@ -71,12 +71,12 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::post('/admin/asssignblock',[QuizController::class,'assign_block']);
 
 
-
-
-
     Route::get('/admin/profile', [AuthController::class,'index']);
     Route::get('/admin/profile/user', [AuthController::class,'getProfileData']);
     Route::put('/admin/profile', [AuthController::class,'update'])->name('profile.update');
+
+    Route::get('/admin/totalquestions',[QuestionController::class,'getallquestions']);
+
 });
 Route::group(['middleware'=>['web','checkuser']],function(){
 

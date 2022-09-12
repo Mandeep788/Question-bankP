@@ -78,7 +78,7 @@ class UserController extends Controller
 
         $submitted_data = DB::table('userquizzes as uq')
             ->join('user_assessments as ua','uq.users_id','=','ua.users_id')
-            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('block_questions as bq','+bq.id','=','ua.block_question_id')
             ->join('questions as q', 'q.id', '=', 'bq.question_id')
             ->where([
                 ['uq.id', $id],

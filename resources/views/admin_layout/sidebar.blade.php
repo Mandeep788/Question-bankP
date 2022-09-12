@@ -46,13 +46,18 @@
                     <span class="hide-menu">View quiz Blocks</span>
                 </a>
             </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{url('/admin/totalquestions')}}"
+                    aria-expanded="false">
+                    <i class="bi bi-table"></i>
+                    <span class="hide-menu">Total Questions</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
     <div class="main_section">
         <div class="navbar p-3">
-            <div class="heading">
-                <h4>Admin Panel</h4>
                 <div class=" d-flex">
                     <div class="heading">
                         <h4>Admin Panel</h4>
@@ -77,7 +82,7 @@
         
                     </div>
                 </div>
-            </div>
+        
             <div class="dropdown">
                 <div class="user_icon">
                         <img src="{{Auth::user()->image}}" alt="user-img" width="40" height="35px" class="img_circle">

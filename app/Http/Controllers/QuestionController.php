@@ -125,4 +125,14 @@ class QuestionController extends Controller
             ]);
         }
     }
+
+
+    // Get all Questions
+
+    public function getallquestions()
+
+    {
+
+    }
+
 }
