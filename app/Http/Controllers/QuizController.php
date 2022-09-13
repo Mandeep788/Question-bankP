@@ -103,7 +103,6 @@ class QuizController extends Controller
             $offset = 0;
         } else {
             $offset = $users_count * $limit;
-            // dd($limit);
         }
         if($id==0){
             $questions=DB::table('questions')->where([
@@ -151,4 +150,5 @@ class QuizController extends Controller
             ]);
         }
     }
+
 }

@@ -60,7 +60,6 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/admin/users', [UserController::class, 'store']);
-    // Route::get('/admin/users/list', [UserController::class, 'getUsers']);
     Route::get('/admin/userassessment/{id}', [UserController::class, 'assessmentIndex']);
     Route::get('/admin/assessmentdata', [UserController::class, 'getSubmittedBlock']);
     Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
@@ -73,14 +72,18 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blockusers', [QuizController::class, 'fetch_users']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assign_block']);
 
-
-
-
+    // Route::get('/admin/allquestions', [UserController::class, 'index'])->name('allquestions.index');
 
     Route::get('/admin/profile', [AuthController::class, 'index']);
     Route::get('/admin/profile/user', [AuthController::class, 'getProfileData']);
     Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
 });
+
+
+
+
+
+
 Route::group(['middleware' => ['web', 'checkuser']], function () {
 
     Route::get('/dashboard', [AuthController::class, 'loadDashboard']);

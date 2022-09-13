@@ -128,27 +128,7 @@ class AuthController extends Controller
             }
             $data['image']= "/uploads/".$unique_image;
         }
-
-        // $data1 = [
-        //     "users_id" =>$id,
-
-        // ];
-        // $data2 = [
-        //     "experience" => $request->profile_experience,
-        //     "designation" => $request->profile_designation,
-        //     "last_company" => $request->profile_last_company,
-        // ];
-
         DB::table('users')->where('id','=',$id)->update($data);
-        // $query=DB::table('usertechnology')->where('users_id','=',$id)->get();
-        // $query=count($query);
-        // if($query==0){
-        // DB::table('usertechnology')->where('users_id','=',$id)->insert($data1);
-        // }else{
-        // DB::table('usertechnology')->where('users_id','=',$id)->update($data2);
-        // }
-
-
         return redirect()->back()->with('status','Profile Update Successfully');
 
     }
@@ -179,19 +159,6 @@ class AuthController extends Controller
         }
     }
 
-    public function fetch_notifications(){
-        $notifications=Db::table('userquizzes as uq')->where('uq.status','Submitted')
-                            ->join('users as u','u.id','=','uq.users_id')
-                            ->join('blocks as b','b.id','=','uq.block_id')
-                            ->select('uq.id','u.name','b.block_name','uq.submitted_at')
-                            ->get();
-        $count_notifications=count($notifications);
-        if(count($notifications)>0){
-            return response()->json(['count_notifications'=>$count_notifications,'notifications'=>$notifications,'status'=>200]);
-        }else{
-            return response()->json(['count_notifications'=>0,'status'=>404]);
-        }
-    }
 
     public function loadDashboard()
     {
