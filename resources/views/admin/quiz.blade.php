@@ -3,9 +3,7 @@
     <input type="text" name="quiz_technology_id" id="quiz_technology_id" hidden>
     <input type="text" name="quiz_technology_name" id="quiz_technology_name" hidden>
     <input type="text" name="quiz_framework_id" id="quiz_framework_id" hidden>
-
-
-
+    <input type="text" name="quiz_framework_name" id="quiz_technology_name" hidden>
 
     <div id='load_technologies_quiz'>
 
@@ -50,8 +48,10 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
-                                            id="back_btn"></i></span> Frameworks</h5>
+                                <h5 class="page-title p-3 mt-2">
+                                    {{-- <span><i class="fa-regular fa-circle-left"
+                                            id="back_btn"></i></span> --}}
+                                             Frameworks</h5>
                             </div>
                         </div>
                     </div>
@@ -76,8 +76,10 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
-                                            id="back_btnnn"></i></span> Quiz</h5>
+                                <h5 class="page-title p-3 mt-2">
+                                    {{-- <span><i class="fa-regular fa-circle-left"
+                                            id="back_btnnn"></i></span> --}}
+                                             Quiz</h5>
                             </div>
                             <div class="d-flex">
                                 <div>
@@ -121,9 +123,11 @@
                                         <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select All</span>
                                     </td>
                                     <td>
+                                        <form>
                                         <label for="test_description">Description</label>
-                                        <input type="text" name="test_description" id="test_description" class="test_description">
-                                        <button type="button" class="btn btn-primary make_test">Create Quiz</button>
+                                        <input type="text" name="test_description" id="test_description" class="test_description" required>
+                                        <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+                                        </form>
                                     </td>
                                 </tr>
                             </tfoot>

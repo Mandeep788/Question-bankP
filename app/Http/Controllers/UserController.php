@@ -16,10 +16,10 @@ class UserController extends Controller
     public function getUsers()
     {
         $query = DB::table('users as u')
-            ->join('usertechnology as ut', 'u.id', '=', 'ut.users_id')
+            ->select('u.id', 'u.name', 'u.email', 'u.role', 't.technology_name', 'u.designation', 'u.last_company', 'u.experience')
             ->where('u.role','user')
-            ->select('u.id', 'u.name', 'u.email', 'u.role', 'ut.technology_name', 'ut.designation', 'ut.current_company', 'ut.experience');
-
+            ->LeftJoin('usertechnologies as ut', 'ut.users_id', '=', 'u.id')
+            ->LeftJoin('technologies as t','t.id','=','ut.technology_id');
         return datatables($query)->make(true);
     }
     public function store(Request $request)

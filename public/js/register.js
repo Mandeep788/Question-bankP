@@ -34,7 +34,7 @@ $('#register').click(function(e){
 
             $('#invalid').html('');
                   $.each(xhr.responseJSON.errors, function(key,value) {
-                $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px; height:70px;">'+value+'</div');
+                $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+value+'</div');
             });
        }
 

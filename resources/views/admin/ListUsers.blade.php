@@ -85,21 +85,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group my-3 col ">
-
                                             <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
-                                            {{-- <select id="userTech" multiple="multiple">
-                                                <option value="php">PHP</option>
-                                                <option value="javascript">JavaScript</option>
-                                                <option value="java">Java</option>
-                                                <option value="sql">SQL</option>
-                                                <option value="jquery">Jquery</option>
-                                                <option value=".net">.Net</option>
-                                            </select> --}}
-                                            <select id="userTech" class="form-select p-2 border-0 mt-3" size="2"
-                                                multiple>
-                                                <option selected>Select Your Technologies</option>
+                                            <select id="userTech" class="form-control p-2 border-0 selectpicker" multiple data-live-search="true">
                                                 @foreach ($technologies as $technology)
-                                                    <option value="{{ $technology->technology_name }}">
+                                                    <option value="{{ $technology->technology_name}}">
                                                         {{ $technology->technology_name }}</option>
                                                 @endforeach
                                             </select>
@@ -158,8 +147,8 @@
                                     </div>
                                     <div class="form-group my-3">
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-success mt-3" name="updateAdmin"
-                                                id="updateAdmin">Update Profile</button>
+                                            <button type="submit" class="btn btn-success mt-3" name="add_user"
+                                                id="add_user">Add User</button>
                                         </div>
                                     </div>
 

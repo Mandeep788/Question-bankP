@@ -224,7 +224,7 @@
                                 {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
                                             id="back_btn"></i></span> Frameworks</h5> --}}
                                 <h6 class="page-title p-3 mt-2">
-                                    <nav aria-label="breadcrumb">
+                                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
                                             <li class="breadcrumb-item active bread_tech" aria-current="page"></li>
@@ -319,7 +319,7 @@
                                 {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
                                             id="back_btnn"></i></span> Experiences</h5> --}}
                                             <h6 class="page-title p-3 mt-2">
-                                                <nav aria-label="breadcrumb">
+                                                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                                     <ol class="breadcrumb">
                                                       <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
                                                       <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
@@ -490,7 +490,7 @@
                                 {{-- <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
                                             id="back_btnnn"></i></span> Q&A</h5> --}}
                                             <h6 class="page-title p-3 mt-2">
-                                                <nav aria-label="breadcrumb">
+                                                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                                     <ol class="breadcrumb">
                                                       <li class="breadcrumb-item"><a class="bread_home" href="">Technologies</a></li>
                                                       <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>

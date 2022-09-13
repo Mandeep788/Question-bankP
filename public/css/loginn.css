@@ -26,12 +26,6 @@ body{
     padding: 0 2rem;
 }
 
-.img{
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-}
-
 .login-content{
 	display: flex;
 	justify-content: flex-start;
@@ -39,8 +33,11 @@ body{
 	text-align: center;
 }
 
-.img img{
-	width: 500px;
+.bulb_image{
+	position: fixed;
+	width: 400px;
+	margin-left: 100px;
+	margin-top: 20px;
 }
 
 form{
@@ -54,7 +51,6 @@ form{
 .login-content h2{
 	margin: 15px 0;
 	color: #333;
-	text-transform: uppercase;
 	font-size: 2.9rem;
 }
 
@@ -62,7 +58,7 @@ form{
 	position: relative;
     display: grid;
     grid-template-columns: 7% 93%;
-    margin: 25px 0;
+    margin: 18px 0;
     padding: 5px 0;
     border-bottom: 2px solid #d9d9d9;
 }
@@ -156,37 +152,42 @@ a{
 	transition: .3s;
 }
 
-a:hover{
-	color: #38d39f;
+
+#profile_icons{
+	border-radius: 40px;
 }
 
-.btn{
+.btnn{
 	display: block;
 	width: 100%;
 	height: 50px;
-	border-radius: 25px;
 	outline: none;
+	border-radius: 25px;
 	border: none;
-	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-image: linear-gradient(to right, #00ffaa, #0eb980, #097954);
 	background-size: 200%;
 	font-size: 1.2rem;
 	color: #fff;
 	font-family: 'Poppins', sans-serif;
-	text-transform: uppercase;
-	margin: 1rem 0;
+	margin: 1.2rem 0;
 	cursor: pointer;
 	transition: .5s;
 }
-.btn:hover{
+.btnn:hover{
 	background-position: right;
 }
-.login_btn{
 
+.login_btn{
     color: #999;
+	text-decoration: none;
+	margin-bottom: 10px;
+
 }
 
 .signup_btn{
     color: #999;
+	text-decoration: none;
+	margin-bottom: 10px;
 }
 
 

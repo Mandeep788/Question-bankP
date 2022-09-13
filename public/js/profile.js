@@ -6,7 +6,6 @@ $(document).ready(function () {
     });
 
     function getProfile(){
-
         $.ajax({
             type: "get",
             url: "/admin/profile/user",
@@ -25,16 +24,23 @@ $(document).ready(function () {
                     $('#preview-image').append('<img id="user_img" src="' +value.image+ '" style="width: 250px;">');
                     $('.image_file').click(function () {
                         $('#user_img').hide();
-
                     });
-
-
                 });
             }
-
         });
     }
     getProfile();
+
+    $('#myform').submit(function (e) {
+        e.preventDefault();
+        let profile_form = new FormData(this);
+        console.log(profile_form[0]);
+
+    });
+    // $('#updateAdmin').click(function (e) {
+    //     e.preventDefault();
+
+    // });
 
     $('#image').change(function(){
 

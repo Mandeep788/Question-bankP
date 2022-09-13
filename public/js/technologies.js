@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $('#load_frameworks_data').hide();
+    $('#load_experience_data').hide();
+    $('#load_question_data').hide();
+    $('.pageloader_button').hide();
+    $('.spinner-grow').hide();
 
     $('.bread_home').click(function (e) {
         e.preventDefault();
@@ -6,7 +11,6 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').hide();
         $('#load_technologies_data').show();
-
     });
     $('.bread_technology').click(function (e) {
         e.preventDefault();
@@ -14,7 +18,6 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').hide();
         $('#load_technologies_data').hide();
-
     });
     $('.bread_framework').click(function (e) {
         e.preventDefault();
@@ -22,14 +25,7 @@ $(document).ready(function () {
         $('#load_experience_data').show();
         $('#load_question_data').hide();
         $('#load_technologies_data').hide();
-
     });
-   
-    $('#load_frameworks_data').hide();
-    $('#load_experience_data').hide();
-    $('#load_question_data').hide();
-    $('.pageloader_button').hide();
-    $('.spinner-grow').hide();
 
     $.ajaxSetup({
         headers: {
@@ -76,8 +72,8 @@ $(document).ready(function () {
             }
         });
     });
+    
     // Add Technologies
-
     $('#addTechnologyForm').submit(function (e) {
         e.preventDefault();
         // alert();
@@ -269,7 +265,7 @@ $(document).ready(function () {
                                     </div>`;
                         $('#store_technology_id').val(value.technology_id);
                         $('#store_technology_name').val(value.technology_name);
-                        $('.active').text(value.technology_name);
+                        $('.bread_tech').text(value.technology_name);
                     });
                     $frame_data += '</div>';
                     $('.spinner-grow').hide();
@@ -280,7 +276,7 @@ $(document).ready(function () {
                     $.each(response.technology, function (key, value) {
                         $('#store_technology_id').val(value.id);
                         $('#store_technology_name').val(value.technology_name);
-                        $('.active').text(value.technology_name);
+                        $('.bread_tech').text(value.technology_name);
                         $('.spinner-grow').hide();
                         $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="{{ asset('/css/login.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/loginn.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,18 +13,23 @@
 
 	<img class="wave" src="img/wave.png">
 	<div class="container">
-		<div class="img">
-			<img src="img/bg.svg">
+		<div>
+			<img class="bulb_image" src="img/person-removebg-preview.png">
 		</div>
 		<div class="login-content">
 			<form action="{{route('userlogin')}}" method="post">
 				@csrf
-				<img src="img/avatar.svg">
+				<div>
+					<img src="img/ccc.jpeg" alt="" height="30px">
+				</div>
+				<div>
+					<img id="profile_icons" src="img/user.jpg">
+				</div>
 				<h2 class="title">Welcome</h2>
                 <span id="invalid"></span>
            		<div class="input-div one">
            		   <div class="i">
-           		   		<i class="fas fa-user"></i>
+           		   		<i class="fas fa-at"></i>
            		   </div>
            		   <div class="div">
            		   		<h5>Email</h5>
@@ -40,8 +45,8 @@
            		    	<input type="password" name="password" id="password" class="input">
             	   </div>
             	</div>
-            	
-            	<input type="submit" class="btn" id="login" value="Login">
+            	{{-- <a href="#">Forgot Password?</a> --}}
+            	<input type="submit" class="btnn" id="login" value="Login">
                 <a class="signup_btn" href="{{ url('/register') }}">Don't have an account? SignUp</a>
             </form>
         </div>

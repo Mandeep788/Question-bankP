@@ -59,6 +59,8 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions',[QuizController::class, 'getquestions']);
+    Route::post('/admin/quiz/questions',[QuizController::class, 'savequestions']);
+
 
     Route::get('/admin/profile', [AuthController::class,'index']);
     Route::get('/admin/profile/user', [AuthController::class,'getProfileData']);

@@ -8,8 +8,6 @@
 .body{
     display: flex;
     overflow: hidden;
-
-
 }
 
 .sidebar{
@@ -18,7 +16,6 @@
     color: #313131;
     background: #fff;
     /* box-shadow: 0px 0px 10px 5px rgb(228, 227, 227); */
-
 }
 
 .hide-menu{
@@ -489,5 +486,12 @@ footer a{
 
 .icon_hover:hover{
     cursor: pointer;
-    
+
 }
+
+  .bootstrap-select .dropdown-toggle{
+    border-radius: 15px;
+    outline: none;
+
+  }
+

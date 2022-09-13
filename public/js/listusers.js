@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    $('#userTech').multiselect();
-    
+
     $('#new_user_registration').hide();
     $('#add_user').click(function (e) {
         e.preventDefault();
@@ -19,7 +18,7 @@ $(document).ready(function () {
             { "data": "role" },
             { "data": "technology_name" },
             { "data": "designation" },
-            { "data": "current_company" },
+            { "data": "last_company" },
             { "data": "experience" }
         ]
     });
@@ -90,11 +89,12 @@ $(document).ready(function () {
                     $('#add_new_user').text('Add User');
                     $('#addUserForm')[0].reset();
                     $('#addUserModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'User Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                        title: 'Added',
+                        text: 'User Added Successfully',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
                         location.reload();
                     });
                 }
