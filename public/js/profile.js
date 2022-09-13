@@ -35,6 +35,17 @@ $(document).ready(function () {
     }
     getProfile();
 
+    $('#myform').submit(function (e) {
+        e.preventDefault();
+        let profile_form = new FormData(this);
+        console.log(profile_form[0]);
+
+    });
+    // $('#updateAdmin').click(function (e) {
+    //     e.preventDefault();
+
+    // });
+
     $('#image').change(function(){
         $('#preview-image').html('<img src="" class="preview-image" style="width: 250px;">');
         let reader = new FileReader();

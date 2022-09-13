@@ -56,7 +56,7 @@ $(document).ready(function () {
                         icon:'success',
                         timer: 1000
                      }).then(function () {
-                        window.location = '/admin/dashboard';
+                        window.location.href= '/admin/dashboard';
                     });
                 }
                 if (result =='user') {
@@ -67,7 +67,7 @@ $(document).ready(function () {
                         icon:'success',
                         timer: 1000
                      }).then(function () {
-                        window.location = "/dashboard";
+                        window.location.href = "/dashboard";
                     });
                 }
                 //error code area-

@@ -517,6 +517,7 @@ footer a{
 .icon_hover:hover{
     cursor: pointer;
 
+<<<<<<< HEAD
 }
 
   .bootstrap-select .dropdown-toggle{
@@ -624,4 +625,13 @@ footer a{
     color: black;
 
 }
+=======
+}
+
+  .bootstrap-select .dropdown-toggle{
+    border-radius: 15px;
+    outline: none;
+
+  }
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
 

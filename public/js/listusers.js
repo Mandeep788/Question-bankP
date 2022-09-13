@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('#user_datatable').hide();
 
     });
+<<<<<<< HEAD
     $('.yajra-datatable').DataTable();
     // $('.yajra-datatable').DataTable({
     //     // "processing": true,
@@ -23,6 +24,23 @@ $(document).ready(function () {
     //     //     { "data": "experience" }
     //     // ]
     // });
+=======
+    $('.yajra-datatable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": "/admin/users/list",
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "email" },
+            { "data": "role" },
+            { "data": "technology_name" },
+            { "data": "designation" },
+            { "data": "last_company" },
+            { "data": "experience" }
+        ]
+    });
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

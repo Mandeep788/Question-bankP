@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('#load_frameworks_quiz').hide();
     $('#load_question_quiz').hide();
 
+<<<<<<< HEAD
     $('.bread_home').click(function (e) {
         e.preventDefault();
         $('#load_frameworks_quiz').hide();
@@ -15,12 +16,18 @@ $(document).ready(function () {
         $('#load_technologies_quiz').hide();
     });
 
+=======
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
     var quiz_count = 0;
     $(document).on('click', '#clickable_quiz', function (e) {
         e.preventDefault();
@@ -65,6 +72,7 @@ $(document).ready(function () {
                         $('.bread_tech').text(value.technology_name);
 
                         $('.spinner-grow').hide();
+<<<<<<< HEAD
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -72,6 +80,9 @@ $(document).ready(function () {
                         }).then(function () {
                             location.reload(true);
                         });
+=======
+                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
 
                     });
                 }
@@ -123,11 +134,14 @@ $(document).ready(function () {
                     if (response.status == 404) {
                         $('#pageloader_quiz_button').hide();
                         $("#test_table > tbody").empty();
+<<<<<<< HEAD
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'No record Found!',
                         })
+=======
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
                         // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
 
                     }
@@ -140,7 +154,10 @@ $(document).ready(function () {
         $('#load_question_quiz').show();
         let tech_id = $('#quiz_technology_id').val();
         let id = $(this).data('id');
+<<<<<<< HEAD
         let name = $(this).data('name');
+=======
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
         let exp_id = 0;
         let limit = $('#quiz_page_limit').find(":selected").text();
         $('#quiz_framework_id').val(id);
@@ -153,7 +170,11 @@ $(document).ready(function () {
 
     });
 
+<<<<<<< HEAD
     $(document).on('click','#select-all',function (event) {
+=======
+    $('#select-all').click(function (event) {
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
         var $that = $(this);
         $(':checkbox').each(function () {
             this.checked = $that.is(':checked');
@@ -261,11 +282,15 @@ $(document).ready(function () {
             },
             dataType: "dataType",
             success: function (response) {
+<<<<<<< HEAD
                 if(response.status==200){
                     $(':checkbox').each(function () {
                         $(this).is(":checked")
                     });
                 }
+=======
+
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
             }
         });
     });

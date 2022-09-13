@@ -72,7 +72,11 @@ $(document).ready(function () {
             }
         });
     });
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
     // Add Technologies
     $('#addTechnologyForm').submit(function (e) {
         e.preventDefault();

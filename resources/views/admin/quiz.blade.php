@@ -3,7 +3,11 @@
     <input type="text" name="quiz_technology_id" id="quiz_technology_id" hidden>
     <input type="text" name="quiz_technology_name" id="quiz_technology_name" hidden>
     <input type="text" name="quiz_framework_id" id="quiz_framework_id" hidden>
+<<<<<<< HEAD
     <input type="text" name="quiz_framework_name" id="quiz_framework_name" hidden>
+=======
+    <input type="text" name="quiz_framework_name" id="quiz_technology_name" hidden>
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
 
     <div id='load_technologies_quiz'>
 
@@ -56,6 +60,7 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
+<<<<<<< HEAD
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
@@ -64,6 +69,12 @@
                                         </ol>
                                     </nav>
                                 </h6>
+=======
+                                <h5 class="page-title p-3 mt-2">
+                                    {{-- <span><i class="fa-regular fa-circle-left"
+                                            id="back_btn"></i></span> --}}
+                                             Frameworks</h5>
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
                             </div>
                         </div>
                     </div>
@@ -88,6 +99,7 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
+<<<<<<< HEAD
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
@@ -97,6 +109,12 @@
                                         </ol>
                                       </nav>
                                 </h6>
+=======
+                                <h5 class="page-title p-3 mt-2">
+                                    {{-- <span><i class="fa-regular fa-circle-left"
+                                            id="back_btnnn"></i></span> --}}
+                                             Quiz</h5>
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
                             </div>
                             <div class="d-flex">
                                 <div>
@@ -143,10 +161,16 @@
                                     </td>
                                     <td>
                                         <form>
+<<<<<<< HEAD
                                             <label for="test_description">Description</label>
                                             <input type="text" name="test_description" id="test_description"
                                                 class="test_description" required>
                                             <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+=======
+                                        <label for="test_description">Description</label>
+                                        <input type="text" name="test_description" id="test_description" class="test_description" required>
+                                        <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+>>>>>>> 28c282786c895ef8ade53c83376127a14757e9de
                                         </form>
                                     </td>
                                 </tr>
