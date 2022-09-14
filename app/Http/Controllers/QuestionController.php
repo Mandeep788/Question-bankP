@@ -134,21 +134,6 @@ class QuestionController extends Controller
     }
 
 
-    // Get all Questions
-    // public function index()
-    // {
-    //     return view('admin.allquestions');
-    // }
 
-    // public function getallquestions(Request $request)
-    // {
-    //     $quesAns = DB::table('technologies as t')
-    //                     ->select('technology_name');
-
-    //     if(count($quesAns) > 0){
-    //         return response()->json($quesAns);
-
-    //     }
-    // }
 
 }
