@@ -9,11 +9,13 @@ class UserUpdateController extends Controller
 {
     public function index(){
         $id =Auth::user()->id;
+       
         $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
         $users = DB::table('users')->where ('id',$id)->get();
         return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
     }
     public function update(Request $request){
+        
         $id =Auth::user()->id;
         $name = $request->input('name');
         $email = $request->input('email');
@@ -40,7 +42,6 @@ class UserUpdateController extends Controller
             }
             $image= "/img/".$unique_image;
         }
-        
              DB::table('users')
               ->where('id','=',$id)
               ->update(['name' =>$name,
@@ -56,4 +57,4 @@ class UserUpdateController extends Controller
                        ]);   
                        return redirect('/user_edit');        
                     }
-                }
+}

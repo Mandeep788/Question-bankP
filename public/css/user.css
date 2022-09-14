@@ -76,3 +76,9 @@ background-color: rgb(0, 183, 255);
 border: none;
 outline: none;
 }
+.error{
+  color:red;
+  width:100%;
+  margin-top:10px;
+  
+}

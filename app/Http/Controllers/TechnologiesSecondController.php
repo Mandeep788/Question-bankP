@@ -105,20 +105,34 @@ class TechnologiesSecondController extends Controller
             ->join('questions','frameworks.id','=','questions.framework_id')
             ->join('answers','questions.id','=','answers.question_id')
             ->where('frameworks.id',$id);
-        }else{
+            // ->select('frameworks.framework_name','questions.question','answers.answer')->get();
+        }else if ($exp==1){
             $framework = DB::table('frameworks')
             ->join('questions','frameworks.id','=','questions.framework_id')
             ->join('answers','questions.id','=','answers.question_id')
-            ->where('frameworks.id',$id)
-            ->select('questions.question','answers.answer')->get();
-            $ans_id = DB::table('answers')->get();
-            $technologies = DB::table('technologies')->get();
-        }
+            ->where('frameworks.id',$id);
+            // ->select('questions.question','answers.answer')->get();
+        }else if($exp==2){
+            $framework = DB::table('frameworks')
+            ->join('questions','frameworks.id','=','questions.framework_id')
+            ->join('answers','questions.id','=','answers.question_id')
+            ->where('frameworks.id',$id);
+            // ->select('questions.question','answers.answer')->get();
+         }else if ($exp==3){
+             $framework = DB::table('frameworks')
+            ->join('questions','frameworks.id','=','questions.framework_id')
+            ->join('answers','questions.id','=','answers.question_id')
+            ->where('frameworks.id',$id);
+            // ->select('questions.question','answers.answer')->get();
+            // $ans_id = DB::table('answers')->get();
+            // $technologies = DB::table('technologies')->get();
+        }else{}
             $framework=  $framework->select('frameworks.id','questions.question','answers.answer')->paginate(5);
-        if($framework){
-            $framework = DB::table('technologies')->get();
-            return view('technologies_second',['technologies'=>$technologies,'framework'=>$framework,'answers'=>$ans_id]);    
-        }
+        // if($framework){
+            // $framework = DB::table('technologies')->get();
+            dd($framework);
+            return view('technologies_second',['framework'=>$framework]);    
+        // }
 
     }
 }
