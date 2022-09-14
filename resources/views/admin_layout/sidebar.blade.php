@@ -31,7 +31,7 @@
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/quiz') }}" aria-expanded="false">
                     <i class="bi bi-patch-question-fill"></i>
-                    <span class="hide-menu">Quizes</span>
+                    <span class="hide-menu">Quizzes</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="text-white font-medium">{{ Auth::user()->name }}</div>
                 <form action="" method="">
-                    <div class="dropdown-content">
+                    <div class="dropdown-menu">
                         <a href="{{ url('admin/profile') }}">
                             <button type="button" class="profile_details">Update Profile</button>
                         </a>

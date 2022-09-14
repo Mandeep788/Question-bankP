@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
-use Carbon\Carbon;
-// use Illuminate\Http\File;
+use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\navbarTechnologyController;
+
 
 
 class AuthController extends Controller

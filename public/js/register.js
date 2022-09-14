@@ -46,7 +46,6 @@ $(document).ready(function(){
     let email= $('#email').val();
     let password= $('#password').val();
     let password_confirmation= $('#password_confirmation').val();
-
     $.ajax({
         url:'/register',
         type:"POST",

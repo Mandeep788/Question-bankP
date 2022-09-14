@@ -492,11 +492,6 @@ $(document).ready(function () {
                         icon: 'error',
                         title: 'Oops...',
                         text: 'No record Found!',
-                    }).then(function () {
-                        $('#load_frameworks_data').show();
-                        $('#load_experience_data').hide();
-                        $('#load_question_data').hide();
-                        $('#load_technologies_data').hide();
                     });
                 }
             }
@@ -540,11 +535,6 @@ $(document).ready(function () {
                         icon: 'error',
                         title: 'Oops...',
                         text: 'No record Found!',
-                    }).then(function () {
-                        $('#load_frameworks_data').show();
-                        $('#load_experience_data').hide();
-                        $('#load_question_data').hide();
-                        $('#load_technologies_data').hide();
                     });
                 }
             }

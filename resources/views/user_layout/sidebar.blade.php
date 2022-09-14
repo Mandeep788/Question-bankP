@@ -60,7 +60,6 @@
 
                 <!-- Modal body -->
                 <div class="modal-body " id="notification" style="font-size:15px;">
-
                 </div>
 
 
@@ -68,6 +67,31 @@
             </div>
         </div>
     </div>
+    {{-- check status result modal------------------------------------ --}}
+    <div class="modal fade" id="check_details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Results</h5>
+            </div>
+                <form>
+                    <div class="m-3">
+                      <label for="exampleInputMarks1" class="form-label">Marks</label>
+                      <input type="text" name="" class="form-control" id="aggregate" val="" aria-describedby="marksHelp" readonly>
+                    </div>
+                    <div class="m-3">
+                        <label for="exampleInputMarks1" class="form-label">Feedback</label>
+                        <textarea class="form-control"  id="feedback" cols="10" rows="4" readonly></textarea>
+                      </div>
+
+                    
+                  </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"  id="close" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!--------------------- menu bar section--------------------------- -->
     <div class="container-fluid p-0  justify-content-center  ">

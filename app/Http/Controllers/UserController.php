@@ -156,4 +156,24 @@ class UserController extends Controller
 
         }
      }
+
+     public function feedbackBlock(Request $request){
+        $QuizId=$request->QuizId;
+        $Aggergate=$request->Aggergate;
+        $Feedback=$request->Feedback;
+
+        $data=[
+            'block_aggregate'=>$Aggergate,
+            'feedback'=>$Feedback,
+            'status'=>'Checked',
+        ];
+
+        $query=DB::table('userquizzes')->where('id',$QuizId)->update($data);
+        if($query){
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status'=>404]);
+        }
+
+     }
 }

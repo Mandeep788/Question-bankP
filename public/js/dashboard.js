@@ -41,7 +41,7 @@ $(document).ready(function () {
                     }
                     var notifications_desc = "";
                     $.each(response.notifications, function (key, value) {
-                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p>` + value.name + ` submitted ` + value.block_name + `</p></a><hr>`;
+                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
                     });
                     $('#notifications_desc').append(notifications_desc);
                 } else if (response.status == 404) {
@@ -70,17 +70,17 @@ $(document).ready(function () {
                 if (response.status == 200) {
                     let i = 1;
                     var submitted_data = '<div class="row justify-content-center">';
-                    var store_quiz_id="";
+                    var store_quiz_id = "";
                     $.each(response.submitted_data, function (key, value) {
                         submitted_data += `<div class="col-lg-12 col-md-12">
                                     <div id="white_boxes">
-                                        <h4 data-id="`+value.question_id+`"><span>Q`+ i + `.</span>` + value.question + `</h4>
+                                        <h4 data-id="`+ value.question_id + `"><span>Q` + i + `.</span>` + value.question + `</h4>
                                         <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
                                         <input type="text" id="assess_user" value="`+ value.users_id + `" hidden>
                                         <div class="d-flex">
                                             <div class="marks_on_each">
                                                 <select class="form-select individual_marks assign_marks_btn">
-                                                <option value="" selected disabled>Assign Marks</option>
+                                                <option value="0" selected disabled>Assign Marks</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -94,13 +94,13 @@ $(document).ready(function () {
                                                 </select>
                                             </div>
                                             <div class="tick">
-                                            <i class="bi bi-check-circle check_tick" data-id="`+value.id+`" data-quesid="`+value.question_id+`"> Uncheck</i>
+                                            <i class="bi bi-check-circle check_tick" data-id="`+ value.id + `" data-quesid="` + value.question_id + `"> Uncheck</i>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div> `;
-                                store_quiz_id=value.id;
+                        store_quiz_id = value.id;
 
                         i++;
                     });
@@ -117,62 +117,113 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click','.check_tick', function () {
+    $(document).on('click', '.check_tick', function () {
+        $('.CheckUncheck').html('');
 
-        let single_mark= $(this).parent().parent().find('.individual_marks').find(":selected").val();
-        if(single_mark!=""){
-           let quiz_id=$(this).data('id');
-           let ques_id=$(this).data('quesid');
+        let single_mark = $(this).parent().parent().find('.individual_marks').find(":selected").val();
+        if (single_mark != "") {
+            let quiz_id = $(this).data('id');
+            let ques_id = $(this).data('quesid');
 
-        //    console.log(quiz_id);
-        //    console.log(ques_id);
-           $.ajax({
-               type: "post",
-               url: "/admin/userassessment",
-               data: {
-                   quiz_id:quiz_id,
-                   ques_id:ques_id,
-                   single_mark:single_mark
-               },
-               dataType: "json",
-               success: function (response) {
-               }
-           });
-           $(this).addClass('green');
-           $(this).html('  Checked');
+            //    console.log(quiz_id);
+            //    console.log(ques_id);
+            $.ajax({
+                type: "post",
+                url: "/admin/userassessment",
+                data: {
+                    quiz_id: quiz_id,
+                    ques_id: ques_id,
+                    single_mark: single_mark
+                },
+                dataType: "json",
+                success: function (response) {
+                }
+            });
+            $(this).addClass('green');
+            $(this).html('  Checked');
         }
 
     });
 
-    $(document).on('change','.individual_marks', function () {
-        // $(this).parent().find('.check_tick');
-        // $(this).closest().find('.check_tick');
+    $(document).on('change', '.individual_marks', function () {
+
         $(this).parent().parent().find('.check_tick').removeClass('green');
         $(this).parent().parent().find('.check_tick').html('  Uncheck');
 
-    //    console.log(check);
+        //    console.log(check);
 
     });
 
     $('.test_marks_btn').click(function (e) {
-            e.preventDefault();
-            var marks='';
-            var total=0;
-            var i=0;
+        e.preventDefault();
+        var TickElement = $(this).parents().find('.check_tick').text();
+        var str2 = "Uncheck";
+        if (TickElement.indexOf(str2) != -1) {
+            $('.CheckUncheck').html('Please Check First');
+            // $('#dynamic_submitted_block').html('<img id="loadingimage" src="/img/loading.gif" alt="logo" width="100px" height="100px">').(3000);
+        } else {
+            var marks = '';
+            var total = 0;
+            var i = 0;
             $('.individual_marks').each(function () {
-                marks = parseInt($(this).find(":selected").text());
-                total = total + marks ;
+                marks = parseInt($(this).find(":selected").val());
+                total = total + marks;
                 i++;
             });
-            let aggergate=parseFloat(total/i);
-            aggergate=aggergate.toFixed(2);
-            // console.log(aggergate);
+            let aggergate = "";
+            if (total == 0) {
+                aggergate = 0;
+            } else {
+                aggergate = parseFloat(total / i);
+                aggergate = aggergate.toFixed(2);
+            }
+
             $('#store_aggregate').val(aggergate);
-            let quiz_id=$('#store_quiz_id').val();
-            console.log(quiz_id);
-            console.log(aggergate);
-           
+            $('.individual_marks').prop('disabled', true);
+            $('#FeedbackModal').modal('show');
+            $('#AggergateMarks').val(aggergate);
+            // console.log(quiz_id);
+            // console.log(aggergate);
+
+        }
+    });
+
+    $('#FeedbackBtn').click(function (e) {
+        e.preventDefault();
+        let QuizId = $('#store_quiz_id').val();
+        let Aggergate = $('#AggergateMarks').val();
+        let Feedback = $('#Feedback').val();
+        // console.log(QuizId,Aggergate,Feedback);
+        $.ajax({
+            type: "POST",
+            url: "/admin/assessmentfeedback",
+            data: {
+                QuizId: QuizId,
+                Aggergate: Aggergate,
+                Feedback: Feedback
+            },
+            dataType: "JSON",
+            success: function (response) {
+                // console.log(response);
+
+                if (response.status == 200) {
+                    $('#FeedbackModal').modal('hide');
+                    swal.fire({
+                        title: 'Success!!',
+                        text: 'Feedback Sent Sucessfully',
+                        icon: 'success',
+                        timer: 1000
+                    }).then(function () {
+                        window.location.href='/admin/dashboard';
+                    });
+                }
+
+            }
         });
+
+
 
     });
 
+});
+// });

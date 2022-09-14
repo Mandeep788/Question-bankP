@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     $('.update').hide();
     $('.edit').hide();
+    $('#msg').hide();
 
 
         // **********************************for okk to start quiz code area****************
@@ -19,6 +20,27 @@ $(document).ready(function () {
                 // get_question(block_id);
                 window.location = "/quiz/" + block_id + "/" + u_id;
             })
+
+        });
+        $(document).on('click',"#checked_quiz",function(e){
+
+            e.preventDefault();
+            var checked= $(this).data("aggregate");
+            var feedback= $(this).data("feedback");
+
+            // console.log(checked);
+            // console.log(feedback);
+            $('#check_details').modal('show');
+            $('#myModal').hide();
+
+            $('#aggregate').val(checked);
+            $('#feedback').val(feedback);
+            $(document).on('click',"#close" ,function(){
+                window.location="/dashboard";
+
+            });
+
+
 
         });
         // ***********************************end area ******************************************
@@ -117,5 +139,36 @@ $(document).ready(function () {
 
         });
 
+    // update status of block to done;
+  
+    $(document).on('click','#submit',function(){
+        // alert("hello");
+        $('#msg').show();
+  let block_id = $(this).parent().find('#block_id').val();
+  console.log(block_id);
+        $.ajax({
+
+            type:"put",
+            url:"/upatestatus",
+            data:{
+                block_id:block_id
+            },
+            dataType:"json",
+            success:function(response)
+            {
+                // console.log(response);
+                $('#msg').empty();
+                var msg=response.message;
+                $("#msg").append(msg).fadeOut(9000);
+               
+                // console.log(msg);
+              
+            }
+        });
+    });
+
+
         // ********************end code area**************************************
+
+
     });

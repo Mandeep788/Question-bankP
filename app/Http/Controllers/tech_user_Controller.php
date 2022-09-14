@@ -13,7 +13,7 @@ class tech_user_Controller extends Controller
     {
       $tech=DB::table('technologies')->where('id',$id)->get();
       return response()->json($tech);
-
+        
     }
     public function show($id){
 
@@ -21,20 +21,26 @@ class tech_user_Controller extends Controller
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
         //  dd($frame1);
-
-
+       
+       
         return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1]);
     }
 
     // fetching query of question and answer fetching**********************************************
-
+    
     public function get_question(Request $request)
     {
-
+        
           $fid=$request->fid;
-
           $techid=$request->tech_id;
           $exp_id=$request->experience_id;
+          $limit= $request->limit;
+          $count= $request->count;
+          if ($count == 0) {
+              $offset = 0;
+        } else {
+            $offset = $count * $limit;
+        }
             if($exp_id==0)
             {
               // dd($exp_id);
@@ -59,7 +65,9 @@ class tech_user_Controller extends Controller
               ]);
               // dd($d);
             }
-             $d=$d->select('q.question','a.question_id','a.answer')->get();
+             $d=$d->select('q.question','a.question_id','a.answer') ->offset($offset)->limit($limit)
+             ->get();
+
               //  dd($d);
               if(count($d)>0){
                 return response()->json([
@@ -69,16 +77,16 @@ class tech_user_Controller extends Controller
               }
               else{
                 return response()->json([
-
+               
                   'status'=>404
                 ]);
 
-
-
+             
+             
             }
-
-
+          
+                       
     }
 // end that code************************************
-
+         
 }

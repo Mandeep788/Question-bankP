@@ -10,26 +10,23 @@
             <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
         </div>
-
         <!-- The slideshow/carousel -->
         <div class="carousel-inner p-0">
             <div class="carousel-item active">
-                <img src="{{ asset('user_img/img/one1.jpeg') }}" alt="Los Angeles" class="d-block"
-                    style="width:100%; height:490px; padding:0px;">
+                <img src="{{ asset('user_img/img/one1.jpeg') }}" alt="Los Angeles" class="d-block">
                 <div class="carousel-caption">
 
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('user_img/img/login.png') }}" alt="Chicago" class="d-block"
-                    style="width:100%; height:490px;">
+                <img src="{{ asset('user_img/img/login.png') }}" alt="Chicago" class="d-block">
                 <div class="carousel-caption">
 
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="https://www.glassdoor.com/employers/app/uploads/sites/2/2021/02/GoogleDrive_640X469_8-Key-Interview-Questions-to-Ask-in-the-Age-of-COVID-02-768x595.png"
-                    alt="New York" class="d-block" style="width:100%; height:490px;">
+                alt="New York" class="d-block">
                 <div class="carousel-caption text-black justify-content-left">
                     <h1 class="justify-content-left">The New Way To Learn properly In With Us...<h1>
                 </div>
@@ -64,11 +61,10 @@
                         <div class="card-body" >
 
                             <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
-                         <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:25px;">
+                            <h5 class="card-title" style="">
                                 {{ $items->technology_name }}
                             </h5>
-
-                            <p class="card-text"style="margin-top:20px; font-size:12px;">
+                            <p class="card-text">
                                 {{ $items->technology_description }}
                             </p>
 
@@ -88,7 +84,7 @@
 
                     @foreach ($technologies3 as $items)
                         <div class="gallery-cell cell_one">
-                            <h4 style="margin-top:20%">
+                            <h4 class="tech_name">
                                 {{ $items->technology_name }}
                             </h4>
                             <a href="#" class="btn btn-primary" style="margin-top:2%">Learn More..</a>
