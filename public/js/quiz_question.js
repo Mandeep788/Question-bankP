@@ -1,11 +1,13 @@
 $(document).ready(function () {
-
-    $('.update').hide();
-    $('.edit').hide();
+   
+    $('.edit').show();
+    $('.enter').hide();
     $('#msg').hide();
+    $('.update').hide();
+    
 
 
-        // **********************************for okk to start quiz code area****************
+  // **********************************for okk to start quiz code area****************
         $(document).on('click', "#start_quiz", function (e) {
             e.preventDefault();
             let u_id = $('#user_id').val();
@@ -46,7 +48,7 @@ $(document).ready(function () {
         // ***********************************end area ******************************************
 
 
-        // insert and getb  value of txt area and question id******************
+        // insert and get  value of txt area and question id******************
 
         $.ajaxSetup({
             headers: {
@@ -63,16 +65,14 @@ $(document).ready(function () {
             let block_id = $(this).parent().find('#block_id').val();
             let quiz_id = $(this).parent().find('#quiz_id').val();
             $(this).hide();
-            $(this).parent().find('.edit').show();
+            $(this).parent().find('.update').show();
+            // $('.update').show();
+            // console.log(answer);
 
-
-
-            console.log(answer);
-
-            console.log(question_id);
-            console.log(block_id);
-            console.log(quiz_id);
-            var last_id = $(this).parent().find('.last_id');
+            // console.log(question_id);
+            // console.log(block_id);
+            // console.log(quiz_id);
+          
     // console.log(last_id);
 
 
@@ -88,9 +88,9 @@ $(document).ready(function () {
                 dataType: "json",
                 success:function(response)
                 {
-                    console.log(response);
-
-                    $(last_id).val(response.id);
+                     console.log(response);
+                    //  $(last).val(response.id);
+                    
                 }
             });
 
@@ -102,8 +102,13 @@ $(document).ready(function () {
             let parent = $(this).parent().find('.text-info');
             $(parent).attr("disabled", false) ;
             $(this).parent().find('.update').show();
-            // $().show();
+            var last_id = $(this).parent().find('.last_id');
             $(this).hide();
+            // console.log(last_id);
+            $(this).parent().find('.enter').show();
+            //  $('.update').show();
+              $(this).parent().find('.update').hide();
+
 
         });
 
@@ -116,12 +121,13 @@ $(document).ready(function () {
             $(parent).attr("disabled", true) ;
             $(this).parent().find('.edit').show();
             $(this).hide();
+            $('.enter').hide();
 
             $.ajax({
                 type:"put",
                 url:"/updateanswer",
                 data:{
-                    last_id:last,
+                    last:last,
                     answer:answer,
                     // question_id:question_id,
                     // block_id:block_id,

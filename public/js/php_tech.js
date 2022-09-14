@@ -101,7 +101,7 @@ $(document).ready(function () {
 
 
     });
-
+// Page loader*********************************************************************
 
     $('#page_loader_image').hide();
     $('#pageloader_button').click(function() { 
@@ -112,6 +112,7 @@ $(document).ready(function () {
 
         var tech_id = $('#tech_id').val();
         var fid = $('#frame_id').val();
+        count=0;
         count++;
         
         $.ajax({

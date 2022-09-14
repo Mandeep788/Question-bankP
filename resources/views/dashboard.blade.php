@@ -2,7 +2,7 @@
 @section('main-content')
     <!-- crousel code area start----------------------------------------- -->
 
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+    {{-- <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
         <!-- Indicators/dots -->
         <div class="carousel-indicators">
@@ -31,7 +31,7 @@
                     <h1 class="justify-content-left">The New Way To Learn properly In With Us...<h1>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Left and right controls/icons -->
         <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
@@ -78,7 +78,7 @@
             {{-- technology with small and multiple div ------------------------- --}}
 
 
-            <div class="section">
+            <div class="slider">
                 <h2 class="text">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
 

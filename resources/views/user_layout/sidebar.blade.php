@@ -27,10 +27,11 @@
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
                     <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" id="notification_value" data-bs-target="#myModal"></i>
-                    <span class="count  mt-1"  style="text-align:center; padding-top:3px;width:10%;background-color: red; color:white; border-radius:40%; height:25px; font-size:12px;"></span>
+                    <span class="count mt-1"></span>
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
+                        
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
@@ -39,6 +40,7 @@
                         </ul>
                     </div>
                     <p>{{Auth::user()->name}}</p>
+
                 </div>
             </div>
 

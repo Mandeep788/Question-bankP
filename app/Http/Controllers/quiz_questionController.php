@@ -18,12 +18,39 @@ class quiz_questionController extends Controller
     {
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
-        $quiz_question_data=DB::table('userquizzes')
+        $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
         ->where('userquizzes.block_id',$block_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->paginate(3);
-         return view("user.quiz_question",['quiz_question'=>$quiz_question_data,'technologies'=>$technologies]);
+        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
+        
+        $quizQuestionData = array();
+        foreach($query as $key=> $userTech)
+        {
+            $array['u'] = $userTech->u;
+            $array['block_id'] = $userTech->block_id;
+            $array['id'] = $userTech->id;
+            $array['question'] = $userTech->question;
+            $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
+            
+            $quizQuestionData[] = $array;
+        }
+        // print '<pre>';
+        // print_r($quizQuestionData);
+        // exit;
+         return view("user.quiz_question",['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
+    }
+
+    public function getAnswer($quiz_id,$ques_id)
+    {
+        $query = DB::table('user_assessments as ua')
+        ->select('ua.answer')
+        ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('answer');
+        // ->where('u.role', 'user')
+    //    $answer=$query[0];
+
+        return $query;
+
     }
     public function insert_answer(Request $request)
     {
@@ -47,12 +74,13 @@ class quiz_questionController extends Controller
 
     }
     public function update_answer(Request $request){
-        $last_id=$request->last_id;
+        $last_id=$request->last;
+        // dd($last_id);
         $data=[
-                        'answer' => $request->answer,
+                'answer' => $request->answer,
         ];
 
-        $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
+        $query=DB::table('user_assessments')->where('block_question_id',$last_id)->update($data);
         if($query){
             return response()->json(['status'=>200]);
         }
