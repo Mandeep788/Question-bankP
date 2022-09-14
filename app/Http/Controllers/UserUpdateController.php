@@ -9,15 +9,10 @@ class UserUpdateController extends Controller
 {
     public function index(){
         $id =Auth::user()->id;
-        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+        $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
         $users = DB::table('users')->where ('id',$id)->get();
-        //dd($users);
-        //$user = App\User::where('id',$id)->first();
-
-        
         return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
     }
-    
     public function update(Request $request){
         $id =Auth::user()->id;
         $name = $request->input('name');
@@ -27,6 +22,7 @@ class UserUpdateController extends Controller
         $phone_number = $request->input('phone_number');
         $last_company=$request->input('last_company');
         $current_company=$request->input('current_company');
+        $designation=$request->input('designation');
         $experience=$request->input('experience');
         $image=$request->input('image');
 
@@ -54,6 +50,7 @@ class UserUpdateController extends Controller
                         'phone_number'=>$phone_number,
                         'last_company'=>$last_company,
                         'current_company'=>$current_company,
+                        'designation'=>$designation,
                         'experience'=>$experience,
                         'image'=>$image,
                        ]);   

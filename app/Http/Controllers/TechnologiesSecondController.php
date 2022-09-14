@@ -49,28 +49,20 @@ class TechnologiesSecondController extends Controller
     //     return view('user.index', [
     //         'users' => DB::table('users')->paginate(15)
     //     ]);
-    // }
-    public function show(Request $request)
+    // }$division_id = $mytopic->division_id;
+    public function show($id)
     {
-        $FrameworkId=$request->FrameworkId;
-        // $ExperienceId=$request->ExperienceId;
-
-        $frameworks = DB::table('frameworks')
+        //  dd($framework);
+        $framework = DB::table('frameworks')
             ->join('questions','frameworks.id','=','questions.framework_id')
             ->join('answers','questions.id','=','answers.question_id')
-
-        
-        //   $frameworks=  $frameworks->where('frameworks.id',$FrameworkId);
-       
-        
-            ->select('frameworks.id','questions.question','answers.answer')->paginate(10);
-         
+            ->where('frameworks.id','=',$id)
+            ->select('frameworks.id','questions.question','answers.answer')
+            ->paginate(5);
             $ans_id = DB::table('answers')->get();
             $technologies = DB::table('technologies')->get();
-            return view('technologies_second',['technologies'=>$technologies, 'frameworks'=>$frameworks, 'answers'=>$ans_id]);      
+            return view('technologies_second',['technologies'=>$technologies, 'framework'=>$framework, 'answers'=>$ans_id]);      
     }
-
- 
     /**
      * Show the form for editing the specified resource.
      *
@@ -106,22 +98,26 @@ class TechnologiesSecondController extends Controller
     }
 
     public function GetQuestionsByExperience($id,$exp){
-        $frameworks = DB::table('frameworks')
-            ->join('questions','frameworks.id','=','questions.framework_id')
-            ->join('answers','questions.id','=','answers.question_id');
-
+        // dd($exp);
+       
         if($exp==0){
-          $frameworks=  $frameworks->where('frameworks.id',$id);
+            $framework = DB::table('frameworks')
+            ->join('questions','frameworks.id','=','questions.framework_id')
+            ->join('answers','questions.id','=','answers.question_id')
+            ->where('frameworks.id',$id);
         }else{
-          $frameworks=  $frameworks->where([
-            ['frameworks.id',$id],
-            ['experience_id',$exp]
-        ]);
-        }
-         $frameworks=   $frameworks->select('frameworks.id','questions.question','answers.answer')->paginate(10);
-        if($frameworks){
+            $framework = DB::table('frameworks')
+            ->join('questions','frameworks.id','=','questions.framework_id')
+            ->join('answers','questions.id','=','answers.question_id')
+            ->where('frameworks.id',$id)
+            ->select('questions.question','answers.answer')->get();
+            $ans_id = DB::table('answers')->get();
             $technologies = DB::table('technologies')->get();
-            return view('technologies_second',['technologies'=>$technologies, 'frameworks'=>$frameworks]);    
+        }
+            $framework=  $framework->select('frameworks.id','questions.question','answers.answer')->paginate(5);
+        if($framework){
+            $framework = DB::table('technologies')->get();
+            return view('technologies_second',['technologies'=>$technologies,'framework'=>$framework,'answers'=>$ans_id]);    
         }
 
     }

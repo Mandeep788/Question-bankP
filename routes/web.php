@@ -36,7 +36,7 @@ Route::group(['middleware'=>['web','checkuser']],function(){
     Route::get('/user_edit',[UserUpdateController::class,'index']);
     Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
     //Route::get('/technologies_second',[TechnologiesSecondController::class,'index'])->name('technologies_second.index');
-    Route::get('/technologies_second',[TechnologiesSecondController::class,'show']);
+    Route::get('/technologies_second/{id}',[TechnologiesSecondController::class,'show']);
     Route::get('/questionbyexperience/{id}/{exp}',[TechnologiesSecondController::class,'GetQuestionsByExperience']);
 
 });

@@ -4,7 +4,7 @@
         <form id="form">
             <nav class="navbar bg-dark abc">
                 <div class="container">
-                    <a class="navbar-brand text-light p-3" href="#">LARAVEL Interview Questions</a>
+                    <a class="navbar-brand text-light p-3" href="#">HTML Interview Questions</a>
                 </div>
             </nav>
             <div class="container">
@@ -16,7 +16,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Experience
                     </button>
-                    @foreach ($frameworks as $frame)
+                    @foreach ($framework as $frame)
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" id="all" href="/questionbyexperience/{{$frame->id}}/0">All</a></li>
                         <li><a class="dropdown-item" id="fresher"  href="/questionbyexperience/{{$frame->id}}/1">Fresher</a></li>
@@ -27,12 +27,12 @@
                 <br>
                 <div class="body">
                     
-                    <input type="hidden" id="frameworks" value="">
+                    <input type="hidden" id="technologies2" value="">
                
                         <div class="qa_box">
                             <div class="d-flex question p-2">
                                 <div class="Q.No.">
-                                    <h4>Q{{ $frameworks->firstItem() + $loop->index }}.</h4>
+                                    <h4>Q{{ $framework->firstItem() + $loop->index }}.</h4>
                                 </div>&nbsp; &nbsp;
                                 <div class="aa">
                                     <h4>{{ $frame->question }}</h4>
@@ -44,7 +44,7 @@
                         </div>
                         <br>
                     @endforeach
-                    {{ $frameworks->links() }}
+                    {{ $framework->links() }}
                     <div id="dynamic_questions" class="container-fluid">
 
                     </div>

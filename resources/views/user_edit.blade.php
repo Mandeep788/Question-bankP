@@ -100,6 +100,16 @@
                             <path
                                 d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11Zm4.326 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
                         </svg>
+                        <input type="text" class="form-control second" id="designation_id" placeholder="Designation"
+                            name="designation" value="{{ $std->designation }}">
+                    </div>
+                    <div class="mb-3 d-flex">
+                        <svg style="margin-right:-40px;margin-left:50px;margin-top:10px;"
+                            xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11Zm4.326 10.88H10.5V12h-5V4.002h5v1.12H6.826V7.4h3.457v1.073H6.826v2.408Z" />
+                        </svg>
                         <input type="text" class="form-control second" id="experience_id" placeholder="Experience"
                             name="experience" value="{{ $std->experience }}">
                     </div>

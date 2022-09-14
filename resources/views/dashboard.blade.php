@@ -57,16 +57,16 @@
     <div class="container-fluid con">
         <div class="row">
             <h2 class="text">Lets Browes All Technologies</h2>
-            @foreach ($frameworks as $frame)
+            @foreach ($technologies2 as $frame)
                 <div class="col-md-3 col-sm-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body" >
                                 <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
                                 <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:30px;">
-                                {{ $frame->framework_name }} </h5>
+                                {{ $frame->technology_name }} </h5>
                                 <p class="card-text"style="margin-top:30px;">
-                                {{ $frame->framework_description }}</p>
-                                <a href="{{url('technologies_second')}}" data-id="{{$frame->id}}" 
+                                {{ $frame->technology_description }}</p>
+                                <a href="{{url('technologies_second')}}/{{$frame->id}}" data-id="" 
                                 class="btn btn-default mt-5"style="border:1px solid green;" >Learn More..</a>
                         </div>
                     </div>
