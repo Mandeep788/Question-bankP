@@ -1,10 +1,53 @@
 $(document).ready(function () {
+    $('#myform').validate({
+        rules: {
+            profile_name: {
+                required: true,
+                
+            },
+            profile_experience: {
+                required: true,
+                digits: true
+
+            },
+            profile_designation: {
+                required: true,
+
+            },
+            profile_last_company: {
+                required: true,
+            },
+            profile_address: {
+                required: true,
+            },
+        },
+        messages: {
+            profile_name: {
+                required: "Please enter your name",
+            },
+            profile_experience:{
+                required: "Please enter your experience",
+            },
+            profile_designation:{
+                required: "Please enter your designation",
+            },
+            profile_last_company:{
+                required: "Please enter your last company",
+            },
+            profile_address:{
+                required: "Please enter your address",
+            }
+        
+        }
+
+    });
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
+   
+    
     function getProfile(){
         $.ajax({
             type: "get",
@@ -44,15 +87,15 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
 
        });
-$(document).on('click',".updateAdmin",function(){
+    $(document).on('click',".updateAdmin",function(){
     //    document.querySelector(".updateAdmin").addEventListener('click', function(){
-        Swal.fire({
-            title: 'Success!',
-            text: 'Profile updated Successfully.',
-            type: 'success',
-            icon:'success',
-            timer: 1000
-         });
+        // Swal.fire({
+        //     title: 'Success!',
+        //     text: 'Profile updated Successfully.',
+        //     type: 'success',
+        //     icon:'success',
+        //     timer: 1000
+        //  });
       });
 
 });

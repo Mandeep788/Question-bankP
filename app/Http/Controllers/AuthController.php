@@ -83,6 +83,7 @@ class AuthController extends Controller
 
     public function getProfileData()
     {
+
         $user_id = Auth::user()->id;
         $query=DB::table('usertechnologies')->where('users_id','=',$user_id)->get();
         $query=count($query);
@@ -105,6 +106,7 @@ class AuthController extends Controller
 
     public function update(Request $request)
     {
+
         $id = Auth::user()->id;
         $data = [
             "name" => $request->profile_name,
