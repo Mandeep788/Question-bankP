@@ -1,19 +1,22 @@
 $(document).ready(function(){
 
-        $('#myform').validate({
+    $('#myform').validate({
+        
         rules: {
-            name: "required",
-            phone_number: {required:true,
-                minlength:10},
+                    name: "required",
+                    phone_number: {required:true,
+                        minlength:10},
 
-            gender: "required",
-            address: "required",
-            last_company: "required",
-            current_company: "required",
-            designation: "required",
-            experience: "required",
-            image: "required",
-            },messages:{
+                    gender: "required",
+                    address: "required",
+                    last_company: "required",
+                    current_company: "required",
+                    designation: "required",
+                    experience: "required",
+                    image: "required",
+                },
+
+      messages: {
                     name:"Please enter your name.",
                     phone_number:"Please enter your mobile number.",
                     minlength:"Mobile number must be 10 char long.",
@@ -25,13 +28,19 @@ $(document).ready(function(){
                     experience:"Enter your experience",
                     image:"Upload image",
                 },
-                submitHandler:function(form){
-                    
-                    // $('#success_message').fadeIn().html(form);
-                    // setTimeout(function() {
-                    //     $('#success_message').fadeOut("slow");
-                    // },5000 );
+
+                submitHandler:function(form)
+                {
+            
+                    swal({
+                        title: "Good !",
+                        text: "Record is Updated!",
+                        icon: "success",
+                        button: "Aww yiss!",
+                      });
+             
                     form.submit();
                 }
+
     });
 });
