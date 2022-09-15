@@ -119,12 +119,13 @@ body {
     50%  { transform: translateY(10px); }
     100% { transform: translateY(0); }
   }
-  .text{
+  /* .text{
     font-size: 49px;
     font-weight: 600;
     color: #030431;
     margin-top: 5%;
   }
+   */
   .card{
     margin-left:10px !important;
    text-align: left;
@@ -249,7 +250,9 @@ body {
   }
   /* footer designnnnn****************************************************** */
 
-
+  .error{
+    color:red;
+   }
 
   .typefoot{
     width:100%;

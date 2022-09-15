@@ -1,61 +1,46 @@
 $(document).ready(function () {
     $('#userEditForm').validate({
+        
         rules: {
-            name: {
-                required: true,
+            name: "required",
+            phone_number: {required:true,
+                minlength:10},
 
-            },
-            phone_number:{
-                required :true,
-                digits:true
-            },
-            experience: {
-                required: true,
-                digits: true
-
-            },
-            designation: {
-                required: true,
-
-            },
-            last_company: {
-                required: true,
-            },
-            address: {
-                required: true,
-            },
+            gender: "required",
+            address: "required",
+            last_company: "required",
+            current_company: "required",
+            designation: "required",
+            experience: "required",
+            userTechnology: {required:true,
+                    minlength:1},
         },
-        messages: {
-            name: {
-                required: "Please enter your name",
-            },
-            phone_number:{
-                required :"Please enter your Mobile Number",
-                digits:"Mobile Number must be in digits"
-            },
-            experience:{
-                required: "Please enter your experience",
-            },
-            designation:{
-                required: "Please enter your designation",
-            },
-            last_company:{
-                required: "Please enter your last company",
-            },
-            address:{
-                required: "Please enter your address",
-            }
 
+messages: {
+            name:"Please enter your name.",
+            phone_number:"Please enter your mobile number.",
+            minlength:"Mobile number must be 10 char long.",
+            gender:"Select Your Gender",
+            address:"Please enter your address",
+            last_company:"Enter Your last company name",
+            current_company:"Enter your current company name",
+            designation:"Enter your designation",
+            experience:"Enter your experience",
+            userTechnology:"Enter your technology",
         },
-        success: function() {
-            Swal.fire({
-                    title: 'Success!',
-                    text: 'Profile updated Successfully.',
-                    type: 'success',
-                    icon:'success',
-                    timer: 1000
-                 });
+
+        submitHandler:function(form)
+        {
+    
+            swal.fire({
+                title: "Good job!",
+                text: "Record is Updated!",
+                icon: "success",
+                button: "Aww yiss!",
+              });
+     
+            form.submit();
         }
 
-    });
+});
 });
