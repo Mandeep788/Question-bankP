@@ -114,7 +114,7 @@
         </nav>
     </div>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $(".btn").click(function() {
                 var val = parseInt($('#group').find('.badge').text());
@@ -143,4 +143,4 @@
                 header.classList.remove("sticky");
             }
         }
-    </script>
+    </script> --}}

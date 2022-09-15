@@ -120,19 +120,16 @@
 <script type="text/javascript" src="{{ asset('/js/Notification.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/quiz_question.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/logout.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/logout.js') }}"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
-
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="jquery.toaster.js"></script>
-
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
