@@ -90,7 +90,10 @@ return [
         'numeric' => 'The :attribute must not be greater than :max.',
         'string' => 'The :attribute must not be greater than :max characters.',
     ],
+<<<<<<< HEAD
     'max_digits' => 'The :attribute must not have more than :max digits.',
+=======
+>>>>>>> 9989a496f1dd5c140f4fd5f06aa63772036475a3
     'mimes' => 'The :attribute must be a file of type: :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
@@ -99,7 +102,10 @@ return [
         'numeric' => 'The :attribute must be at least :min.',
         'string' => 'The :attribute must be at least :min characters.',
     ],
+<<<<<<< HEAD
     'min_digits' => 'The :attribute must have at least :min digits.',
+=======
+>>>>>>> 9989a496f1dd5c140f4fd5f06aa63772036475a3
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',

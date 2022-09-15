@@ -9,7 +9,13 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+<<<<<<< HEAD
         "laravel/tinker": "^2.7"
+=======
+        "laravel/tinker": "^2.7",
+        "yajra/laravel-datatables": "^9.0",
+        "yajra/laravel-datatables-oracle": "^10.1"
+>>>>>>> 9989a496f1dd5c140f4fd5f06aa63772036475a3
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

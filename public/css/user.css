@@ -1,0 +1,75 @@
+
+    .first{
+        border: none;
+        border-bottom: 2px solid black;
+          width: 400px;
+          margin-left:50px;
+      }
+      .second{
+          margin-left:50px;
+          width: 400px;
+          border: none;
+        border-bottom: 2px solid black;
+        margin-top: 10px;
+      }
+      .form1{
+          background-color:white;
+          margin-top:100px;
+          margin-left:200px;
+          border-radius:20px;
+
+      }
+      h2{
+          margin-left: 100px;
+
+      }
+
+      .butn{
+         width:150px;
+        margin-left:100px;
+        margin-bottom:40px;
+       }
+     .profile{
+        margin-top:49;
+        width:50px;
+     }
+
+
+/*
+     .ques{
+      border: none;
+     }
+
+     .ans{
+      border: none;
+     } */
+
+     .qa_box{
+      border-bottom: 2px solid rgb(182, 178, 178);
+      margin-bottom: 20px;
+     }
+
+     .dropdown_exp{
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+     }
+
+/*
+  .page_loader{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  }
+
+  .pageloader_button{
+  padding: 7px 20px;
+  border-radius: 15px;
+  color: #fff;
+  background-color: rgb(0, 183, 255);
+  border: none;
+  outline: none;
+  } */
