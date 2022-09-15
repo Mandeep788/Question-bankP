@@ -4,6 +4,7 @@
 <input type="text" id="frame_id" value="" hidden>
 <input type="text" id="experiance_id" value="" hidden>
 <div class="container div2" >
+<div class="sidebar" id="app">
     <div class="row">
         @foreach ($frame1 as $f)
         <div class="col-md-6  div1">

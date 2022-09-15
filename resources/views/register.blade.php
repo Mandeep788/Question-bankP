@@ -10,7 +10,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-<body>
+<body id="app">
+@vite('resources/css/app.css')
+
 	@if($errors->any())
   @foreach($errors->all() as $error)
   <p style="color:red;">{{$error}}</p>

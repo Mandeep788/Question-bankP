@@ -7,7 +7,7 @@
     <input type="text" name="store_experience_id" id="store_experience_id" hidden>
     <input type="text" name="store_experience_name" id="store_experience_name" hidden>
 
-    <div id='load_technologies_data'>
+    <div id='load_technologies_data' id="app">
         <!--Add Technology Modal -->
         <div class="modal fade" id="addTechnologyModal" tabindex="-1" aria-labelledby="addTechnologyModalLabel"
             aria-hidden="true">

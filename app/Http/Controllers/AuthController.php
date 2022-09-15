@@ -154,7 +154,6 @@ class AuthController extends Controller
         }
         return response()->json($data);
     }
-
     public function update(Request $request)
     {
         $id = Auth::user()->id;
@@ -181,29 +180,8 @@ class AuthController extends Controller
             }
             $data['image']= "/uploads/".$unique_image;
         }
-
-        // $data1 = [
-        //     "users_id" =>$id,
-
-        // ];
-        // $data2 = [
-        //     "experience" => $request->profile_experience,
-        //     "designation" => $request->profile_designation,
-        //     "last_company" => $request->profile_last_company,
-        // ];
-
         DB::table('users')->where('id','=',$id)->update($data);
-        // $query=DB::table('usertechnology')->where('users_id','=',$id)->get();
-        // $query=count($query);
-        // if($query==0){
-        // DB::table('usertechnology')->where('users_id','=',$id)->insert($data1);
-        // }else{
-        // DB::table('usertechnology')->where('users_id','=',$id)->update($data2);
-        // }
-
-
         return redirect()->back()->with('status','Profile Update Successfully');
-
     }
     public function dashboardData(){
         $technology=DB::table('technologies')->get();

@@ -5,7 +5,7 @@
     <input type="text" name="quiz_framework_id" id="quiz_framework_id" hidden>
     <input type="text" name="quiz_framework_name" id="quiz_framework_name" hidden>
 
-    <div id='load_technologies_quiz'>
+    <div id='load_technologies_quiz'id="app">
 
         <div class="tech_content" id="add_tech_content">
             <div class="first_section">

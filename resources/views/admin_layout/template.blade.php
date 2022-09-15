@@ -18,7 +18,7 @@
     <title>Admin Panel</title>
 </head>
 <body>
-    <div class="body">
+    <div class="body" id="app">
 @include('admin_layout.sidebar')
 
 @yield('main-content')

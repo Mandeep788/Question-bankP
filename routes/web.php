@@ -13,6 +13,9 @@ use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 
+Route::get('/', function () {
+    return view('dashboard');
+});
 
 
 Route::get('/register', [AuthController::class, 'loadRegister']);

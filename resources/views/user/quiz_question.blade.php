@@ -2,7 +2,8 @@
 @section('main-content')
 
 
-<div class="container-fluid p-0">
+<div class="sidebar" id="app">
+<div class="container-fluid p-0" >
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
     <div class="section">
         <form  action="" method="post">

@@ -1,6 +1,7 @@
+@vite('resources/css/app.css')
 @extends('admin_layout.template')
 @section('main-content')
-<div class="ques_ans_content">
+<div class="ques_ans_content" id="app">
     <div class="first_section">
         <div class="bg-white">
             <div class="row align-items-center">
