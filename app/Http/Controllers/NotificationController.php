@@ -14,8 +14,10 @@ class NotificationController extends Controller
         $notificaton=DB::table('userquizzes')
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->where([
-            ['users_id',$u_id],['status','=','pending']
-        ])->Select('blocks.id','blocks.block_name','userquizzes.status')->get();
+            ['users_id',$u_id],['status','=','P']
+        ])
+        ->orWhere([['users_id',$u_id],['status','C']])
+        ->Select('blocks.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
         // dd($notificaton);
         // $count=count($notificaton);
         return response()->json([
@@ -26,12 +28,12 @@ class NotificationController extends Controller
         // $get_count=DB::table('userquizzes')->where('users_id',$u_id)->get();
         // $count=count($get_count);
         // return response()->json($count);
-
     }
     public function get_COUNT(Request $request)
 {
         $u_id=$request->u_id;
-        $get_count=DB::table('userquizzes')->where([['users_id',$u_id],['status','pending']])->get();
+        $get_count=DB::table('userquizzes')->where([['users_id',$u_id],['status','P']])
+        ->orWhere([['users_id',$u_id],['status','C']])->get();
         $count=count($get_count);
         return response()->json($count);
     }

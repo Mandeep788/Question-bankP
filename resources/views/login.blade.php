@@ -10,6 +10,19 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
+    @php
+    if(isset($_COOKIE['login_email']) && isset($_COOKIE['login_pass']))
+                   {
+                      $login_email = $_COOKIE['login_email'];
+                      $login_pass  = $_COOKIE['login_pass'];
+                      $is_remember = "checked='checked'";
+                   }else{
+                      $login_email ='';
+                      $login_pass = '';
+                      $is_remember = "";
+                    }
+                    echo $login_email ;
+                   @endphp
 
 	<img class="wave" src="img/wave.png">
 	<div class="container">
@@ -33,7 +46,7 @@
            		   </div>
            		   <div class="div">
            		   		<h5>Email</h5>
-           		   		<input type="text" name="email" id="email" class="input">
+           		   		<input type="text" name="email" id="email" class="input" value="{{$login_email}}">
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -42,9 +55,17 @@
            		   </div>
            		   <div class="div">
            		    	<h5>Password</h5>
-           		    	<input type="password" name="password" id="password" class="input">
+           		    	<input type="password" name="password" id="password" class="input" value="{{$login_pass}}">
             	   </div>
             	</div>
+                <div class="col-5 mt-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rememberme" {{$is_remember}}>
+                      <label class="form-check-label" for="rememberme">
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
             	{{-- <a href="#">Forgot Password?</a> --}}
             	<input type="submit" class="btnn" id="login" value="Login">
                 <a class="signup_btn" href="{{ url('/register') }}">Don't have an account? SignUp</a>

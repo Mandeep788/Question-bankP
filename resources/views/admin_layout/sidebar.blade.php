@@ -31,7 +31,7 @@
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/quiz') }}" aria-expanded="false">
                     <i class="bi bi-patch-question-fill"></i>
-                    <span class="hide-menu">Quizes</span>
+                    <span class="hide-menu">Quizzes</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
@@ -81,7 +81,7 @@
                         <a href="{{ url('admin/profile') }}">
                             <button type="button" class="profile_details">Update Profile</button>
                         </a>
-                        <a id="logout" style="text-decoration: none;" href="{{ route('logout') }}"><button
+                        <a id="logout" style="text-decoration: none;" ><button
                                 type="button" class="logout" name="logout">Logout
                             </button>
                         </a>

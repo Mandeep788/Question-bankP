@@ -30,6 +30,15 @@ body {
     margin-left: 20px;
     border-radius: 50%;
   }
+  .count{
+    text-align:center;
+     padding-top:3px;
+     width:10%;
+     background-color: red;
+     color:white;
+     border-radius:40%;
+     height:25px; font-size:12px;
+  }
   .img2 {
     width: 70px;
     margin-top: 2px;
@@ -146,8 +155,8 @@ body {
   #demo{
     padding: 0px;
   }
-  .section{
-    width:100%;
+  .slider{
+    width: 100% !important;
     margin-top: 40px;
     height:600px !important;
 
@@ -190,7 +199,8 @@ body {
   }
   .cell_one{
     width:30%;
-    background-color:aquamarine;
+    background-color:#2D3092;
+    color:whitesmoke;
   }
   /* cell number */
   /* .gallery-cell:before {
@@ -203,9 +213,9 @@ body {
   } */
   .flickity-prev-next-button.next {
 
-    margin-left: 100px !important;
+    /* margin-left: 100px !important;
     background-color:#8C8;;
-    border:none;
+    border:none; */
     display: none;
   }
   .flickity-prev-next-button.previous {
@@ -225,6 +235,12 @@ body {
     margin-bottom: 80px;
     padding:0px;
 
+  }
+
+  #myModal{
+    top:5%;
+    width:30%;
+    left:65%;
   }
   /* footer designnnnn****************************************************** */
 
@@ -293,6 +309,11 @@ body {
 
   /* quiz -question design code */
 
+  .alert{
+    width:40%;
+    left:30%;
+    height: 50px;
+  }
   .section{
     position:relative;
     width:80%;
@@ -346,4 +367,19 @@ body {
     margin-left:10%;
   }
 
+  .page_loader{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
 
+}
+
+.pageloader_button{
+    padding: 7px 20px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: rgb(0, 183, 255);
+    border: none;
+    outline: none;
+}

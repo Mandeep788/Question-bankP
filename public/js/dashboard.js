@@ -34,14 +34,23 @@ $(document).ready(function () {
                 // console.log(response.count_notifications);
                 if (response.status == 200) {
                     $('.red_circle').show();
-                    if (parseInt(response.count_notifications) < 10) {
-                        $('.red_circle').text(response.count_notifications);
+                    var countNotification=parseInt(response.count_notifications);
+                    if (countNotification < 10) {
+                        if(countNotification==0){
+                            $('.red_circle').hide();
+                        }else{
+                            $('.red_circle').text(response.count_notifications);
+                        }
                     } else {
                         $('.red_circle').text('9+');
                     }
                     var notifications_desc = "";
                     $.each(response.notifications, function (key, value) {
+                        if(value.status=='S'){
                         notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
+                        }else if(value.status=='U'){
+                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr>`;
+                        }
                     });
                     $('#notifications_desc').append(notifications_desc);
                 } else if (response.status == 404) {
@@ -159,7 +168,16 @@ $(document).ready(function () {
         var TickElement = $(this).parents().find('.check_tick').text();
         var str2 = "Uncheck";
         if (TickElement.indexOf(str2) != -1) {
-            $('.CheckUncheck').html('Please Check First');
+            $.toast({
+                heading: 'Error',
+                text: 'Please Assign Marks!!',
+                showHideTransition: 'fade',
+                position: {
+                    right: 60,
+                    bottom: 80
+                },
+                icon: 'error'
+            })
 
         } else {
             var marks = '';
@@ -177,12 +195,11 @@ $(document).ready(function () {
                 aggergate = parseFloat(total / i);
                 aggergate = aggergate.toFixed(2);
             }
+
             $('#store_aggregate').val(aggergate);
             $('.individual_marks').prop('disabled', true);
             $('#FeedbackModal').modal('show');
             $('#AggergateMarks').val(aggergate);
-            // console.log(quiz_id);
-            // console.log(aggergate);
 
         }
     });

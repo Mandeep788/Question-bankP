@@ -10,7 +10,6 @@
             <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
         </div>
-
         <!-- The slideshow/carousel -->
         <div class="carousel-inner p-0">
             <div class="carousel-item active">

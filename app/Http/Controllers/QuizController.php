@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 date_default_timezone_set("Asia/Calcutta");
@@ -51,7 +52,45 @@ class QuizController extends Controller
         }
     }
 
+<<<<<<< HEAD
     
+=======
+    public function savequestions(Request $request)
+    {
+        $admin_id=Auth::user()->id;
+        $block_name = $request->block_name;
+        $insert_data = $request->insert;
+        $questions = explode(",", $insert_data);
+
+        $query = DB::table('blocks')->insert(['block_name' => $block_name,'admin_id'=>$admin_id, 'created_at' => date('Y:m:d H:i:s')]);
+        if ($query) {
+            $block_id = DB::table('blocks')->select('id')->where('block_name', $block_name)->value('id');
+            $data = array();
+            foreach ($questions as $question) {
+                if ($question != "") {
+                    $data[] = array(
+                        'block_id' => $block_id,
+                        'question_id' => $question
+                    );
+                }
+            }
+            $block_ques = DB::table('block_questions')->insert($data);
+            if ($block_ques) {
+                return response()->json([
+                    'status' => 200
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 404
+            ]);
+        }
+    }
+>>>>>>> d9d118b332f55b6836dad5ed18fdc794c149b554
 
     public function fetch_all_blocks(Request $request)
     {

@@ -11,7 +11,6 @@ $('#register').click(function(e){
     let email= $('#email').val();
     let password= $('#password').val();
     let password_confirmation= $('#password_confirmation').val();
-
     $.ajax({
         url:'/register',
         type:"POST",
@@ -24,11 +23,21 @@ $('#register').click(function(e){
         // dataType:"JSON",
         success:function(response){
             $('#invalid').html('');
-            //console.log(response);
-            var success=response.success;
-            //console.log(success);
-				$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
-                window.location.href="/login";
+            console.log(response);
+            // var success=response.success;
+            if(response.status==200){
+				// $('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
+                // window.location="";
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Registration Successfully.',
+                    type: 'success',
+                    icon:'success',
+                    timer: 1000
+                 }).then(function () {
+                    window.location = '/login';
+                });
+            }
         },
         error:function(xhr){
 

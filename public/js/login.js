@@ -30,18 +30,24 @@ $(document).ready(function () {
         e.preventDefault();
         var email = $("#email").val();
         var password = $("#password").val();
+        var rememberme='';
         setInterval(function() {
 			$('#slide_in').fadeOut('linear',function(){
 					$(this).empty();
 			});
 		}, 2000);
+        if ($('#rememberme').is(":checked"))
+        {
+            rememberme=rememberme;
+        }
 
         $.ajax({
             type: "POST",
             url: "/login",
             data: {
                 email: email,
-                password: password
+                password: password,
+                rememberme:rememberme
             },
 
             success: function (response) {

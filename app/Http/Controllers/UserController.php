@@ -13,7 +13,7 @@ class UserController extends Controller
         $query = DB::table('users as u')
         ->select('u.id', 'u.name', 'u.email', 'u.designation', 'u.last_company', 'u.experience')
         ->where('u.role', 'user')
-            ->get();
+        ->get();
 
         $users = array();
         foreach($query as $key=> $userTech)
@@ -40,12 +40,15 @@ class UserController extends Controller
         // ->where('u.role', 'user')
         ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
         $i=0;
-        foreach($query as $key=> $userTech){
-            $std[$i]=$userTech->technology_name;
-            $i++;
+        if(count($query)>0){
+            foreach($query as $key=> $userTech){
+                $std[$i]=$userTech->technology_name;
+                $i++;
+            }
+            $technologies=implode(',',$std);
+        }else{
+            $technologies='';
         }
-        $technologies=implode(',',$std);
-
         return $technologies;
 
     }
@@ -105,11 +108,17 @@ class UserController extends Controller
 
     public function assessmentIndex($id)
     {
+
+        DB::table('userquizzes')->where('status','S')->update(['status'=>'U']);
         $submittedblock = DB::table('userquizzes as uq')
             ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->join('blocks as b', 'b.id', '=', 'uq.block_id')
             ->where([
-                ['uq.status', 'Submitted'],
+                ['uq.status', 'S'],
+                ['uq.id', $id],
+            ])
+            ->orWhere([
+                ['uq.status', 'U'],
                 ['uq.id', $id],
             ])
             ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
@@ -165,7 +174,7 @@ class UserController extends Controller
         $data=[
             'block_aggregate'=>$Aggergate,
             'feedback'=>$Feedback,
-            'status'=>'Checked',
+            'status'=>'C',
         ];
 
         $query=DB::table('userquizzes')->where('id',$QuizId)->update($data);

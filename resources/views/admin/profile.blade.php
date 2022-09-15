@@ -39,7 +39,7 @@
                          <div class="form-group mb-4">
                              <label for="profile_email" class="col-md-12 p-0">Email</label>
                              <div class="col-md-12 border-bottom p-0">
-                                 <input type="email" class="form-control p-2 border-0 mt-3" name="profile_email" id="profile_email" value="">
+                                 <input type="email" class="form-control p-2 border-0 mt-3" name="profile_email" id="profile_email" value="" readonly>
                              </div>
                          </div>
                          <div class="form-group mb-4">
