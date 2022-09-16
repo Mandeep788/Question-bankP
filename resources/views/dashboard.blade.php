@@ -78,7 +78,7 @@
             {{-- technology with small and multiple div ------------------------- --}}
 
 
-            <div class="section">
+            <div class="slider">
                 <h2 class="text">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
 

@@ -10,7 +10,7 @@
 
 
                 <h4>{{ $block->name }}</h4>
-            
+
                 {{ $block->block_name }}
                 <br>
                 {{ $block->submitted_at }}
@@ -35,7 +35,7 @@
 
         </div>
         <!-- Modal -->
-<div class="modal fade" id="FeedbackModal" tabindex="-1" aria-labelledby="FeedbackModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="FeedbackModal" tabindex="-1" aria-labelledby="FeedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -58,7 +58,8 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
+  
         <div id="" class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-md-12">

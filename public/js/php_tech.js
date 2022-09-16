@@ -55,6 +55,17 @@ $(document).ready(function () {
                 }else if(response.status==404){
                     $('#pageloader_button').hide();
                     $('#page_loader_image').hide();
+                    var url = '/user_img/img/empty-concept-illustration_114360-1233.jpg';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'No record Found!',
+                        timer:1000
+                    })
+
+                    $('#ques').append('<img src="'+url+'" style="width:360px; height:300px;">');
+                    
+                
                 }
 
             }

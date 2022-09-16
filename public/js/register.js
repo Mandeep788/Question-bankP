@@ -58,11 +58,20 @@ $(document).ready(function(){
         // dataType:"JSON",
         success:function(response){
             $('#invalid').html('');
-            //console.log(response);
-            var success=response.success;
-            //console.log(success);
-				$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
-                window.location.href="/login";
+            console.log(response);
+            // var success=response.success;
+            if(response.status==200){
+				// $('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
+                // window.location="";
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Registration Successfully.',
+                    icon:'success',
+                    timer: 1000
+                 }).then(function () {
+                    window.location = '/login';
+                });
+            }
         },
         error:function(xhr){
 

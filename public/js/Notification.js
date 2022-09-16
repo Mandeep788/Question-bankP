@@ -25,8 +25,7 @@ $(document).ready(function(){
     }
     $('#notification_value').click(function(){
       let u_id=$('#user_id').val();
-    //   console.log(u_id);
-    // $('#block_id').val(block_id);
+   
 
 
 
@@ -37,22 +36,28 @@ $(document).ready(function(){
         success: function (response) {
 
             console.log(response);
-            
-            $notification_data="<span> ";
+            var notification_data="<span> ";
+            if((response.notification.length)==0){
+            }else{
+                $('#myModal').modal('show');
             $.each(response.notification,function(key,value){
-                if(value.status=='Pending'){
-                $notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">'+value.status+' ' + value.block_name + '</a></p>';
+                if(value.status=='P'){
+                notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">Pending ' + value.block_name + '</a></p>';
 
-                }else if(value.status=='Checked'){
-                    $notification_data+= '<p><a data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">'+value.status+' ' + value.block_name + '</a></p>';
-    
-                    }
+                }else if(value.status=='C'){
+                    notification_data+= '<p><a data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">Reviwed ' + value.block_name + '</a></p>';
+
+                }
+                else if(value.status=='I')
+                {
+                    notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">Initiated ' + value.block_name + '</a></p>';
+                }
 
             });
-            $notification_data += '</span>';
-            $('#notification').append($notification_data);
+            notification_data += '</span>';
+            $('#notification').append(notification_data);
 
-
+        }
 
         }
       });

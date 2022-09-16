@@ -39,7 +39,7 @@
     </div>
     <div class="question_display " id="question">
         <div class="row justify-content-center p-5" id="ques">
-
+           
         </div>
 
     </div>

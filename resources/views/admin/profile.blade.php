@@ -111,10 +111,12 @@
                                  <button type="submit" class="btn btn-success mt-3 updateAdmin" name="updateAdmin" id="updateAdmin">Update Profile</button>
                              </div>
                          </div>
-
                      </form>
                      
                  </div>
+             </div>
+         <div id="loaderr">
+            <img src="" alt="">
              </div>
          </div>
      </div>

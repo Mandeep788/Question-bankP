@@ -14,18 +14,57 @@ date_default_timezone_set("Asia/Calcutta");
 class quiz_questionController extends Controller
 {
     //
-    public function quiz_question($block_id,$u_id)
+    public function quizQuestion($quiz_id,$u_id)
     {
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
-        $quiz_question_data=DB::table('userquizzes')
+        $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
-        ->where('userquizzes.block_id',$block_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->paginate(3);
-         return view("user.quiz_question",['quiz_question'=>$quiz_question_data,'technologies'=>$technologies]);
+        ->where('userquizzes.id',$quiz_id)
+        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
+
+        $quizQuestionData = array();
+        foreach($query as $key=> $userTech)
+        {
+            $array['u'] = $userTech->u;
+            $array['block_id'] = $userTech->block_id;
+            $array['id'] = $userTech->id;
+            $array['question'] = $userTech->question;
+            $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
+            $array['answerid']=$this->getAnswerId($userTech->u,$userTech->id);
+
+            $quizQuestionData[] = $array;
+        }
+        // print '<pre>';
+        // print_r($quizQuestionData);
+        // exit;
+         return view("user.quiz_question",['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
     }
-    public function insert_answer(Request $request)
+
+    public function getAnswerId($quiz_id,$ques_id)
+    {
+        $query = DB::table('user_assessments as ua')
+        ->select('ua.id')
+        ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('id');
+        // ->where('u.role', 'user')
+    //    $answer=$query[0];
+
+        return $query;
+
+    }
+    public function getAnswer($quiz_id,$ques_id)
+    {
+        $query = DB::table('user_assessments as ua')
+        ->select('ua.answer')
+        ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('answer');
+        // ->where('u.role', 'user')
+    //    $answer=$query[0];
+
+        return $query;
+
+    }
+    public function insertAnswer(Request $request)
     {
 
         $user_id=Auth::user()->id;
@@ -46,18 +85,20 @@ class quiz_questionController extends Controller
         );
 
     }
-    public function update_answer(Request $request){
-        $last_id=$request->last_id;
+    public function updateAnswer(Request $request){
+        $last_id=$request->last;
+        // dd($last_id);
         $data=[
-                        'answer' => $request->answer,
+                'answer' => $request->answer,
         ];
-
-        $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
-        if($query){
-            return response()->json(['status'=>200]);
-        }
+      
+            $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
+            if($query){
+                return response()->json(['status'=>200]);
+            }
+        
     }
-    public function upatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $user_id=Auth::user()->id;
        $date= date('Y:m:d H:i:s');
@@ -65,16 +106,31 @@ class quiz_questionController extends Controller
         $block_id=$request->block_id;
         $update_status=
         [
-            'status'=>'Submitted',
+            'status'=>'S',
             'submitted_at'=>$date,
         ];
-        $query=DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->update($update_status);
+        $query = DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->update($update_status);
         if($query)
         {
             return response()->json(['status'=>200,
                 'message'=>"you have successfully submit your quiz"
         ]);
         }
+
+    }
+    public function statusInitiate()
+    {
+        $user_id=Auth::user()->id;
+        
+        $statusInitiate = [
+            'status'=>'I'
+        ];
+        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
+       
+            return response()->json(['status'=>200,
+            'message'=>"status update to initiate"
+    ]);
+        
 
     }
 

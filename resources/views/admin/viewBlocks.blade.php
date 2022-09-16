@@ -81,7 +81,7 @@
                             </div>
                             <div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                     <div class="bg-white">
                         <table id="users_detail_table" class="table table-hover">
                             <thead class="table-dark">
-                                <th>#</th>
+                                <th><input type="checkbox" id="select-all"></th>
                                 <th>S.N.</th>
                                 <th>User Name</th>
                                 <th>Email</th>

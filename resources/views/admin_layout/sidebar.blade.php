@@ -81,7 +81,7 @@
                         <a href="{{ url('admin/profile') }}">
                             <button type="button" class="profile_details">Update Profile</button>
                         </a>
-                        <a id="logout" style="text-decoration: none;" href="{{ route('logout') }}"><button
+                        <a id="logout" style="text-decoration: none;" ><button
                                 type="button" class="logout" name="logout">Logout
                             </button>
                         </a>

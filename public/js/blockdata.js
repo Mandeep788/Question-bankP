@@ -99,7 +99,7 @@ $(document).ready(function () {
                     $('#users_detail_table').append(users_data);
                     $("#users_detail_table > tfoot").html(`<tr>
                     <td colspan="2">
-                        <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select All</span>
+                        
                     </td>
                     <td colspan="2">
                         <form>

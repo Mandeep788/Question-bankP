@@ -625,3 +625,16 @@ footer a{
 
 }
 
+#errorspan{
+    margin-left: 100px;
+}
+
+.noDataFound{
+    margin: 0px auto;
+}
+
+.addQuesForQues{
+    display: flex;
+    justify-content: flex-end;
+
+}

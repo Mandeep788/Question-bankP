@@ -3,7 +3,6 @@ $(document).ready(function () {
         rules: {
             profile_name: {
                 required: true,
-                
             },
             profile_experience: {
                 required: true,
@@ -37,7 +36,34 @@ $(document).ready(function () {
             profile_address:{
                 required: "Please enter your address",
             }
-        
+
+        },
+      
+        submitHandler:function(form)
+        {
+            $("#updateAdmin").on("click", function() {
+                // $(".result").text("");
+                $(".loading-icon").removeClass("hide");
+                $(".btn").attr("disabled", true);
+                $(".btn-txt").text("Processing ...");
+       
+      setTimeout(function(){
+      
+                  $(".loading-icon").addClass("hide");
+                $(".button").attr("disabled", false);
+                $(".btn-txt").text("Registered");
+                }, 5000);
+                });
+
+
+            swal({
+                title: 'Success!',
+                text: 'Profile updated Successfully.',
+                type: 'success',
+                icon:'success',
+                timer: 1000
+            });
+            form.submit();
         }
 
     });
@@ -87,15 +113,5 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
 
        });
-    $(document).on('click',".updateAdmin",function(){
-    //    document.querySelector(".updateAdmin").addEventListener('click', function(){
-        // Swal.fire({
-        //     title: 'Success!',
-        //     text: 'Profile updated Successfully.',
-        //     type: 'success',
-        //     icon:'success',
-        //     timer: 1000
-        //  });
-      });
 
 });

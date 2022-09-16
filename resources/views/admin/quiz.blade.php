@@ -127,10 +127,40 @@
             <div id="dynamic_question_quiz" class="container-fluid">
                 <div class="first_section">
                     <div class="bg-white">
-                       <div id="test_table"></div>
+                        <table id="test_table" class="table table-hover">
+                            <thead class="table-dark">
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>S.N.</th>
+                                <th>Quiz Questions</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">
+                                        <form id="testDescriptionForm" method="POST">
+                                            <label for="test_description"><strong>Description</strong></label>
+                                            <input type="text" name="test_description" id="test_description"
+                                                class="test_description">
+                                                <div id="errorspan" class="text-danger"></div>
+                                            <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
+
+                </div>
+                <div class="addQuesForQues">
+                    <button type="button" class="btn btn-info mb-3 aaaa">Add Questions for Quiz</button>
+                </div>
+                <div class="noDataFound">
+
                 </div>
             </div>
+
+
             <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"

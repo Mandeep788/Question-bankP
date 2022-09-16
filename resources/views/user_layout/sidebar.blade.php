@@ -26,14 +26,18 @@
 
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-                    <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" id="notification_value" data-bs-target="#myModal"></i>
-                    <span class="count  mt-1"  style="text-align:center; padding-top:3px;width:10%;background-color: red; color:white; border-radius:40%; height:25px; font-size:12px;"></span>
+                    <i class="fa-regular fa-bell bell py-4" id="notification_value" ></i>
+                    <span class="count mt-1"></span>
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
+<<<<<<< HEAD
                             <div class="notification">
                                 <p>test</p>
                             </div>
+=======
+
+>>>>>>> 9e8c3cafbf9878a8373df4d59a710ec872f88f37
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
@@ -42,6 +46,7 @@
                         </ul>
                     </div>
                     <p>{{Auth::user()->name}}</p>
+
                 </div>
             </div>
 
@@ -84,7 +89,7 @@
                         <textarea class="form-control"  id="feedback" cols="10" rows="4" readonly></textarea>
                       </div>
 
-                    
+
                   </form>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary"  id="close" data-bs-dismiss="modal">Close</button>
@@ -114,34 +119,3 @@
             </div>
         </nav>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $(".btn").click(function() {
-                var val = parseInt($('#group').find('.badge').text());
-
-                // Check for the button clicked
-                if ($(this).hasClass('btn-danger')) {
-                    $('#group').find('.badge').text(val - 1);
-                } else if ($(this).hasClass('btn-success')) {
-                    $('#group').find('.badge').text(val + 1);
-                }
-            });
-        });
-
-
-        window.onscroll = function() {
-            myFunction()
-        };
-
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-
-        function myFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
-            }
-        }
-    </script>

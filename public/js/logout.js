@@ -3,11 +3,21 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: "GET",
-            url: "/logout",
+            url: "/admin/logout",
             // data: "data",
-            // dataType: "dataType",
+            dataType: "json",
             success: function (response) {
-                window.location="/login";
+                if(response.status==200){
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Logout Successfully.',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
+                        window.location = '/login';
+                    });
+                }
+
             }
         });
 

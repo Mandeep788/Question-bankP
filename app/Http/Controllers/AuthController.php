@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\navbarTechnologyController;
-
-
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -37,10 +36,13 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         if($user->save()){
-            $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
-            DB::table('usertechnologies')->insert(['users_id'=>$id]);
+            // $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
+            // DB::table('usertechnologies')->insert(['users_id'=>$id]);
+            return response()->json(['status' => '200']);
+        }else{
+            return response()->json(['status' => '404']);
         }
-        return response()->json(['success' => 'succesfully']);
+
     }
     public function loadlogin()
     {
@@ -59,6 +61,14 @@ class AuthController extends Controller
             'password' => 'string|required'
 
         ]);
+        if($request->rememberme===null){
+           Cookie::queue('login_email',$request->email,100);
+           Cookie::queue('login_pass',$request->password,100);
+         }
+         else{
+            Cookie::queue('login_email',$request->email,time()+60*60*24*100);
+           Cookie::queue('login_pass',$request->password,time()+60*60*24*100);
+         }
         $userCredential = $request->only('email', 'password');
         if (Auth::attempt($userCredential)) {
             $last_login=Auth::user()->last_login;
@@ -148,13 +158,20 @@ class AuthController extends Controller
             'questions'=>$questions,
         ]);
     }
-    public function fetch_notifications(){
-        $notifications=Db::table('userquizzes as uq')->where('uq.status','Submitted')
+
+    public function fetchNotifications(){
+        $notifications=Db::table('userquizzes as uq')->where('uq.status','S')->orWhere('uq.status','U')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->join('blocks as b','b.id','=','uq.block_id')
-                            ->select('uq.id','u.name','b.block_name','uq.submitted_at')
+                            ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
                             ->get();
-        $count_notifications=count($notifications);
+
+        $countNotifications=Db::table('userquizzes as uq')->where('uq.status','S')
+                            ->join('users as u','u.id','=','uq.users_id')
+                            ->join('blocks as b','b.id','=','uq.block_id')
+                            ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
+                            ->get();
+        $count_notifications=count($countNotifications);
         if(count($notifications)>0){
             return response()->json(['count_notifications'=>$count_notifications,'notifications'=>$notifications,'status'=>200]);
         }else{
@@ -173,8 +190,19 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
-        Auth::logout();
+        // Cookie::queue(Cookie::forget('login_email'));
+        // Cookie::queue(Cookie::forget('login_pass'));
+            Auth::logout();
         $request->Session()->flush();
         return redirect('/');
+
+    }
+
+    public function adminlogout(Request $request){
+        // Cookie::queue(Cookie::forget('login_email'));
+        // Cookie::queue(Cookie::forget('login_pass'));
+        Auth::logout();
+            $request->Session()->flush();
+            return response()->json(['status'=>200]);
     }
 }
