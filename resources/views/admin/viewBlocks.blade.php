@@ -33,6 +33,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
+                            <th>Questions Count</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -40,12 +41,10 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $block->block_name }}</td>
+                                    <td></td>
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-                                        {{-- <button type="button" data-id="{{ $block->id }}"
-                                            class="btn btn-danger delete_block_btn"><i
-                                                class="fa-solid fa-trash"></i>&nbsp;Delete</button> --}}
                                     </td>
                                 </tr>
                             @endforeach

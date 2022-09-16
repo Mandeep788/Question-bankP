@@ -127,31 +127,7 @@
             <div id="dynamic_question_quiz" class="container-fluid">
                 <div class="first_section">
                     <div class="bg-white">
-                        <table id="test_table" class="table table-hover">
-                            <thead class="table-dark">
-                                <th>#</th>
-                                <th>S.N.</th>
-                                <th>Quiz Questions</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select
-                                            All</span>
-                                    </td>
-                                    <td>
-                                        <form>
-                                            <label for="test_description">Description</label>
-                                            <input type="text" name="test_description" id="test_description"
-                                                class="test_description" required>
-                                            <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                       <div id="test_table"></div>
                     </div>
                 </div>
             </div>

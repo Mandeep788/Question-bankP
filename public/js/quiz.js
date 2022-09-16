@@ -209,8 +209,7 @@ $(document).ready(function () {
                 else
                     if (response.status == 404) {
                         // $("#test_table > tbody"). empty();
-                        // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
-
+                        $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
                     }
             }
         });
