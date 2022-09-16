@@ -17,29 +17,22 @@ class UserUpdateController extends Controller
     public function update(Request $request){
        
         $id =Auth::user()->id;
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $gender = $request->input('gender');
-        $address = $request->input('address');
-        $phone_number = $request->input('phone_number');
-        $last_company=$request->input('last_company');
-        $current_company=$request->input('current_company');
-        $designation=$request->input('designation');
-        $experience=$request->input('experience');
 
-        $technologies_id = $request->userTechnology;
-        if(is_array($technologies_id) || is_object($technologies_id)){
-            foreach ($technologies_id as $technology) {
-                if ($technology != "") {
-                    $technology_data[] = array(
-                        'users_id' => $id,
-                        'technology_id' => $technology
-                    );
-                }
-            }
-        }    
+        $data=[
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'gender' => $request->input('gender'),
+        'address' => $request->input('address'),
+        'phone_number' => $request->input('phone_number'),
+        'last_company' => $request->input('last_company'),
+        'current_company' => $request->input('current_company'),
+        'designation' => $request->input('designation'),
+        'experience' => $request->input('experience'),
+    ];
 
-        $image=$request->input('image');
+          
+
+       // $image=$request->input('image');
 
         if($request->hasFile('image')){
             $file=$request->file('image');
@@ -53,25 +46,37 @@ class UserUpdateController extends Controller
                 $filename = public_path().$file;
                 File::delete($filename);
             }
-            $image= "/img/".$unique_image;
+            $data['image'] = "/img/".$unique_image;
         }
              DB::table('users')
               ->where('id','=',$id)
-              ->update(['name' =>$name,
-                        'email'=>$email,
-                        'gender'=>$gender ,
-                        'address'=>$address,
-                        'phone_number'=>$phone_number,
-                        'last_company'=>$last_company,
-                        'current_company'=>$current_company,
-                        'designation'=>$designation,
-                        'experience'=>$experience,
-                  
-                        'image'=>$image,
-                       ]);   
+              ->update($data); 
+
+
+              $technologies_id = $request->userTechnology;
+              if(is_array($technologies_id) || is_object($technologies_id)){
+                  foreach ($technologies_id as $technology) {
+                      if ($technology != "") {
+                          $technology_data[] = array(
+                              'users_id' => $id,
+                              'technology_id' => $technology
+                          );
+                      }
+                  }
+              }   
+              
+             $deleteQuery = DB::table('usertechnologies')->where('users_id', $id)->delete();
+             if($deleteQuery)
+             {
+                DB::table('usertechnologies')->insert($technology_data);
+                return redirect('/user_edit');        
+             }
+             else{
+                print_r($deleteQuery);
+             }
+             }
+
 
                       
-
-                       return redirect('/user_edit');        
-                    }
+              
 }
