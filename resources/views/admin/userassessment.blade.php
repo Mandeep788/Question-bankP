@@ -34,10 +34,10 @@
         </div>
       
         <div id="dynamic_submitted_block" class="container-fluid">
-          <img id="popupImage" src="{{ asset('img/giphy-unscreen.gif') }}" alt="" width="500px;">
+            <img id="popupImage" src="{{ asset('img/giphy-unscreen.gif') }}" alt="" width="500px;">
         </div>
-    
-        <div id="" class="container-fluid ">
+
+        <div id="" class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="row justify-content-left">

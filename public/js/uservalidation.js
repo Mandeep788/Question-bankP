@@ -7,7 +7,8 @@ $(document).ready(function () {
             },
             phone_number:{
                 required :true,
-                digits:true
+                digits:true,
+                minlength:10,maxlength:10
             },
             experience: {
                 required: true,
@@ -31,7 +32,9 @@ $(document).ready(function () {
             },
             phone_number:{
                 required :"Please enter your Mobile Number",
-                digits:"Mobile Number must be in digits"
+                digits:"Mobile Number must be in digits",
+                minlength:"Mobile Number must be  10 digits",
+                maxlength:"Mobile Number must be  10 digits"
             },
             experience:{
                 required: "Please enter your experience",
@@ -47,14 +50,15 @@ $(document).ready(function () {
             }
 
         },
-        success: function() {
-            Swal.fire({
-                    title: 'Success!',
-                    text: 'Profile updated Successfully.',
-                    type: 'success',
-                    icon:'success',
-                    timer: 1000
-                 });
+        submitHandler:function()
+        {
+            swal({
+                title: 'Success!',
+                text: 'Profile updated Successfully.',
+                icon:'success',
+                timer: 1000
+            });
+
         }
 
     });

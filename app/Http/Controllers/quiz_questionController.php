@@ -85,6 +85,29 @@ class quiz_questionController extends Controller
         );
 
     }
+    public function skipAnswer(Request $request)
+    {
+        $user_id=Auth::user()->id;
+        $skipAnswer=[
+            'block_question_id' => $request->question_id,
+            'answer' => 'skipped question',
+            'users_id'=>$user_id,
+            'quiz_id'=>$request->quiz_id
+        ];
+        $skip = DB::table('user_assessments')->insert($skipAnswer);
+        $id = DB::getPdo()->lastInsertId();
+        if($skip)
+        {
+        return response()->json(
+            [
+                'id'=>$id,
+                'success' => true,
+                'message' => 'Data skip successfully'
+            ]
+        );
+         }
+
+    }
     public function updateAnswer(Request $request){
         $last_id=$request->last;
         // dd($last_id);

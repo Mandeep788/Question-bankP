@@ -32,20 +32,24 @@
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <div class="notification">
                                 <p>test</p>
                             </div>
 =======
+=======
+                            <p>{{Auth::user()->name}}</p>
+>>>>>>> bba1af11ab6f7bfb9dca36e71203a72c46d6c1e1
 
 >>>>>>> 9e8c3cafbf9878a8373df4d59a710ec872f88f37
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
                             <li><a class="dropdown-item" href="{{ url('/user_edit') }}">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Log Out</a></li>
+                            <li><a class="dropdown-item" href=" "  id="logout">Log Out</a></li>
                         </ul>
                     </div>
-                    <p>{{Auth::user()->name}}</p>
+                    {{-- <p>{{Auth::user()->name}}</p> --}}
 
                 </div>
             </div>

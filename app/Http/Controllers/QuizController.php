@@ -132,11 +132,14 @@ class QuizController extends Controller
         } else {
             $offset = $users_count * $limit;
         }
-        $users = DB::table('users')->where('role', '=', 'user')
-                    ->select('id', 'name', 'email')
+        $users = DB::table('users as u')->where('u.role', '=', 'user')
+                    ->leftJoin('userquizzes as uq','u.id','=','uq.users_id')
+                    ->select('u.id', 'u.name', 'u.email',DB::raw("(SELECT block_id FROM userquizzes
+                    WHERE status = 'P' && users_id= u.id) as block_id"))
                     ->offset($offset)
                     ->limit($limit)
                     ->get();
+
         if (count($users) > 0) {
             return response()->json(['users' => $users, 'status' => 200]);
         } else {

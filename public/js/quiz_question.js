@@ -4,6 +4,8 @@ $(document).ready(function () {
     $('.enter').show();
     $('#msg').hide();
     $('.update').hide();
+    $('.skipText').hide();
+    $(this).parent().find('#skipText').hide();
     function checkAnswerValue() {
         let answerElement = $(document).find('.text-info');
         $(answerElement).each(function () {
@@ -11,7 +13,12 @@ $(document).ready(function () {
                 // console.log(this);
                 $(this).parent().find('.enter').hide();
                 $(this).parent().find('.edit').show();
+                $(this).parent().find('#skipAnswer').hide();
                 $(this).attr("disabled", true);
+            }
+            else if(($.trim($(this).val())) == "skipped question")
+            {
+                $(this).parent().find('#skipAnswer').show();
             }
         });
     }
@@ -37,11 +44,11 @@ $(document).ready(function () {
                         window.location = "/quiz/" + block_id + "/" + u_id;
                     })
                 }
-                
+
             }
         });
 
-        
+
 
     });
     $(document).on('click', "#checked_quiz", function (e) {
@@ -87,6 +94,7 @@ $(document).ready(function () {
         let quiz_id = $(this).parent().find('#quiz_id').val();
         $(this).hide();
         $(this).parent().find('.edit').show();
+        $(this).parent().find('#skipAnswer').hide();
         // $('.update').show();
         // console.log(answer);
         // console.log(question_id);
@@ -96,6 +104,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "/insertanswer",
+            context:this,
             data: {
                 answer: answer,
                 question_id: question_id,
@@ -107,6 +116,7 @@ $(document).ready(function () {
                 // console.log(response);
                 if(response.success==true)
                 {
+                    $(this).parent().find('.last_id').val(response.id);
                     $.toast({
                         text: 'Yes! Inserted succesfully>.',
                         hideAfter: 1000 ,
@@ -115,17 +125,64 @@ $(document).ready(function () {
                         showHideTransition: 'slide'
                     })
                 }
-                // $(".last_id").val(response.id);
 
             }
         });
 
 
     });
-    // insert anser code area end*************************************************************
+    //******************** */ insert anser code area END*************************************************************
+
+    // ***************************SKIP ANSWER**********************************************************
+
+    $(document).on('click',"#skipAnswer",function(){
+        let parent = $(this).parent().find('.text-info');
+        let question_id = $(this).parent().find('input').val();
+        console.log(question_id);
+        let block_id = $(this).parent().find('#block_id').val();
+        console.log(block_id);
+        let quiz_id = $(this).parent().find('#quiz_id').val();
+        console.log(quiz_id);
+        $(this).parent().find('.skipText').show();
+        $(this).hide();
+        $(this).parent().find('.enter').hide();
+        $(this).parent().find('.edit').show();
+        $(parent).attr("disabled", true);
+
+        $.ajax({
+
+            type:"post",
+            url:"/skipAnswer",
+            context:this,
+            data:{
+                question_id: question_id,
+                // block_id:block_id,
+                quiz_id: quiz_id
+
+            },
+            dataType:"json",
+            success:function(response){
+                $(this).parent().find('.last_id').val(response.id);
+
+                $.toast({
+                    text: 'You skipped question>.',
+                    hideAfter: 1000 ,
+                    icon: 'success',
+                    position: 'bottom-center',
+                    showHideTransition: 'slide'
+                })
+            }
+
+        });
 
 
-    // edit answer code******************************************************
+
+    });
+    // **************************SKIP ANSWER END*********************************************************
+
+
+
+    //***************************edit answer code******************************************************
 
     $(document).on('click', ".edit", function (e) {
         e.preventDefault();
@@ -138,6 +195,8 @@ $(document).ready(function () {
         $(this).parent().find('.enter').hide();
         //  $('.update').show();
         $(this).parent().find('.update').show();
+        $(this).parent().find('.skipText').hide();
+
 
 
     });
@@ -218,17 +277,19 @@ $(document).ready(function () {
                     showHideTransition: 'slide',
                     position: 'top-center',
                     icon: 'success',
-                    show: 1000 
+                    show: 1000
                 })
                }
                else{
                 console.log("not done");
                }
-                
+
 
             }
         });
     });
+
+
 
 
     // ********************end code area**************************************

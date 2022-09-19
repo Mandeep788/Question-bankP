@@ -33,7 +33,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
-                            <th>Questions Count</th>
+                            <th>Number of Questions</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -139,7 +139,7 @@
                     <div class="bg-white">
                         <table id="users_detail_table" class="table table-hover">
                             <thead class="table-dark">
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>#</th>
                                 <th>S.N.</th>
                                 <th>User Name</th>
                                 <th>Email</th>
@@ -153,11 +153,11 @@
                     </div>
                 </div>
             </div>
-            <div class="page_loader">
+            {{-- <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-            </div>
+            </div> --}}
 
 
 

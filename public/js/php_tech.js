@@ -55,7 +55,7 @@ $(document).ready(function () {
                 }else if(response.status==404){
                     $('#pageloader_button').hide();
                     $('#page_loader_image').hide();
-                    var url = '/user_img/img/empty-concept-illustration_114360-1233.jpg';
+                    var url = '/user_img/img/100465-no-data-found.gif';
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -63,7 +63,7 @@ $(document).ready(function () {
                         timer:1000
                     })
 
-                    $('#ques').append('<img src="'+url+'" style="width:360px; height:300px;">');
+                    $('#ques').append('<img src="'+url+'" style="width:90%; height:400px;">');
                     
                 
                 }

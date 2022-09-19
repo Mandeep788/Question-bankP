@@ -457,7 +457,7 @@
                                 <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4" required></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="question_id" id="question_id" hidden>
+                                <input type="text" class="form-control" name="question_id" id="question_id" hidden >
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="editques_experience_id"
