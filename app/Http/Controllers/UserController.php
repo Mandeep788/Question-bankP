@@ -185,4 +185,11 @@ class UserController extends Controller
         }
 
      }
+
+
+     public function viewPDF()
+    {
+        $pdf = PDF::downloadPDF('<h1>hdufvs</h1>');
+        return $pdf->stream();
+    }
 }

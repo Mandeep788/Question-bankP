@@ -18,6 +18,7 @@
                 <button id="show_submitted_block" data-id="{{ $block->id}}"
                     type="button" class="btn btn-info">View Submitted Block</button>
             </div>
+            {{-- <button id=""></button> --}}
         @endforeach
     </div>
     <div id="feedback_div">
@@ -27,40 +28,16 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <h5 class="page-title p-3 mt-2">View Assessment</h5>
                     </div>
+                  
                 </div>
             </div>
         </div>
-
+      
         <div id="dynamic_submitted_block" class="container-fluid">
-
+          <img id="popupImage" src="{{ asset('img/giphy-unscreen.gif') }}" alt="" width="500px;">
         </div>
-        <!-- Modal -->
-{{-- <div class="modal fade" id="FeedbackModal" tabindex="-1" aria-labelledby="FeedbackModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="FeedbackModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-           <div class="form-group">
-                  <label for="AggergateMarks">Aggergate Marks</label>
-                  <input type="text" class="form-control" id="AggergateMarks" disabled>
-                </div>
-                <div class="form-group">
-                  <label for="Feedback">Feedback</label>
-                  <textarea class="form-control" id="Feedback" rows="3" placeholder="Please give feedback!!"></textarea>
-                </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="FeedbackBtn" class="btn btn-primary">Okay!!</button>
-        </div>
-      </div>
-    </div>
-  </div> --}}
-  
-        <div id="" class="container-fluid">
+    
+        <div id="" class="container-fluid ">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="row justify-content-left">
@@ -72,7 +49,9 @@
                 </div>
             </div>
         </div>
+       
       <br><br>
 
     </div>
+
 @endsection

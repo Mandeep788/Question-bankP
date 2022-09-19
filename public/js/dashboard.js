@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#popupImage").hide();
     $('#feedback_div').hide();
     $('.red_circle').hide();
     Fetch_Counts();
@@ -164,6 +165,15 @@ $(document).ready(function () {
 
     $('.test_marks_btn').click(function (e) {
         e.preventDefault();
+        $("#popupImage").show();
+        // $('body').css("filter","blur(3px)");
+
+        setTimeout(function(){
+        $("#popupImage").hide();                
+        // $('body').css("filter","");
+        }, 400);
+
+
         var TickElement = $(this).parents().find('.check_tick').text();
         var str2 = "Uncheck";
         if (TickElement.indexOf(str2) != -1) {
@@ -211,6 +221,7 @@ $(document).ready(function () {
 
                     if (response.status == 200) {
                        
+
                         swal.fire({
                             title: 'Success!!',
                             icon: 'success',
@@ -227,17 +238,8 @@ $(document).ready(function () {
         }
     });
 
-    // $('#FeedbackBtn').click(function (e) {
-    //     e.preventDefault();
-
-    //     let Aggergate = $('#AggergateMarks').val();
-    //     let Feedback = $('#Feedback').val();
-    //     console.log(QuizId,Aggergate,Feedback);
-
-
-
-
-    // });
+        
+           
+  
 
 });
-// });

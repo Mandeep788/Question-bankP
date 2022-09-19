@@ -41,20 +41,6 @@ $(document).ready(function () {
       
         submitHandler:function(form)
         {
-            $("#updateAdmin").on("click", function() {
-                // $(".result").text("");
-                $(".loading-icon").removeClass("hide");
-                $(".btn").attr("disabled", true);
-                $(".btn-txt").text("Processing ...");
-       
-      setTimeout(function(){
-      
-                  $(".loading-icon").addClass("hide");
-                $(".button").attr("disabled", false);
-                $(".btn-txt").text("Registered");
-                }, 5000);
-                });
-
 
             swal({
                 title: 'Success!',
