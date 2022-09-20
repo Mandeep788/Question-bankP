@@ -94,7 +94,7 @@ $(document).ready(function () {
                     $.each(response.users, function (key, value) {
                         if (value.block_id == block_id) {
                             users_data += `<tr >
-                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled><span class="text-danger">&nbsp;&nbsp;Alreay Assigned<span></td>
+                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled><span class="text-danger">&nbsp;&nbsp;Already Assigned<span></td>
                                             <td>`+ i + `</td>
                                             <td>`+ value.name + `</td>
                                             <td>`+ value.email + `</td>

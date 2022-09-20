@@ -1,19 +1,10 @@
 <!-- logo and search bar field area----------------- -->
-<style>
-    .sticky {
-        position: fixed;
-        z-index: 1;
-        background-color: #D6D9DC;
-        top: 0;
-        width: 100%;
-    }
-</style>
 <div class="container-fluid p-0 ">
     <div class="row">
         <div class=" col-md-6 col-sm-4 col-2">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ asset('user_img/img/logo2.jpg') }}" class="img">
+                   <a  href="{{url("/dashboard")}}"> <img src="{{ asset('user_img/img/download.png') }}" class="img"></a>
                 </div>
                 <div class="col-8"></div>
             </div>
@@ -21,16 +12,23 @@
         <div class=" col-md-6 col-sm-8 col-10">
             <div class="row">
                 <div class="col-md-4 col-lg-8 col-sm-3 col-2 COL">
-                    <input type="text" id="user_id"value="{{Auth::user()->id}}" hidden>
+                    <input type="text" id="user_id"value="{{ Auth::user()->id }}" hidden>
+                    <div class="socialMedia">
+                    <i class="bi bi-instagram ml-4"></i>
+                    <i class="bi bi-facebook ml-4"></i>
+                    <i class="bi bi-twitter ml-4"></i>
+                    <i class="bi bi-youtube"></i>
+                    </div>
 
 
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-                    <i class="fa-regular fa-bell bell py-4" id="notification_value" ></i>
-                    <span class="count mt-1"></span>
+                    <i class="fa-regular fa-bell bell py-5" id="notification_value"></i>
+                    <span class="count"></span>
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                             <div class="notification">
@@ -40,13 +38,16 @@
 =======
                             <p>{{Auth::user()->name}}</p>
 >>>>>>> bba1af11ab6f7bfb9dca36e71203a72c46d6c1e1
+=======
+                        <b><p class="username">{{ Auth::user()->name }}</p></b>
+>>>>>>> d11061625818c9d3be50a25d5651995a009663d3
 
 >>>>>>> 9e8c3cafbf9878a8373df4d59a710ec872f88f37
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
                             <li><a class="dropdown-item" href="{{ url('/user_edit') }}">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href=" "  id="logout">Log Out</a></li>
+                            <li><a class="dropdown-item" href=" " id="logout">Log Out</a></li>
                         </ul>
                     </div>
                     {{-- <p>{{Auth::user()->name}}</p> --}}
@@ -57,6 +58,7 @@
         </div>
 
     </div>
+</div>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -79,41 +81,45 @@
     {{-- check status result modal------------------------------------ --}}
     <div class="modal fade" id="check_details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Results</h5>
-            </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Results</h5>
+                </div>
                 <form>
                     <div class="m-3">
-                      <label for="exampleInputMarks1" class="form-label">Marks</label>
-                      <input type="text" name="" class="form-control" id="aggregate" val="" aria-describedby="marksHelp" readonly>
+                        <label for="exampleInputMarks1" class="form-label">Marks</label>
+                        <input type="text" name="" class="form-control" id="aggregate" val=""
+                            aria-describedby="marksHelp" readonly>
                     </div>
                     <div class="m-3">
                         <label for="exampleInputMarks1" class="form-label">Feedback</label>
-                        <textarea class="form-control"  id="feedback" cols="10" rows="4" readonly></textarea>
-                      </div>
+                        <textarea class="form-control" id="feedback" cols="10" rows="4" readonly></textarea>
+                    </div>
 
 
-                  </form>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary"  id="close" data-bs-dismiss="modal">Close</button>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="close"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <!--------------------- menu bar section--------------------------- -->
-    <div class="container-fluid p-0  justify-content-center  ">
+    <div class="container-fluid p-0  justify-content-center " id="topheader">
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="myHeader">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse shadow justify-content-center" id="navbarNav">
-                <ul class="navbar-nav justify-content-center  " id="nav-menu">
+                <ul class="navbar-nav justify-content-center" id="nav-menu">
+                    
                     @foreach ($technologies as $items)
-                        <li class="nav-item ">
-                            <a class="nav-link active " data-id="{{ $items->id }}"
+                    {{-- <li class="active"></li> --}}
+                        <li class="nav-item" >
+                            <a class=" nav-link" data-id="{{ $items->id }}"
                                 href="#">{{ $items->technology_name }}&nbsp; | </a>
                         </li>
                     @endforeach
@@ -123,3 +129,9 @@
             </div>
         </nav>
     </div>
+    <script>
+       
+      
+
+    </script>
+ 

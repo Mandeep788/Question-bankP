@@ -91,8 +91,18 @@ class QuizController extends Controller
 
     public function fetchAllBlocks(Request $request)
     {
-       
-        $blocks = DB::table('blocks')->get();
+        // $limit = $request->limit;
+        // $quiz_count = $request->quiz_count;
+        // if ($quiz_count == 0) {
+        //     $offset = 0;
+        // } else {
+        //     $offset = $quiz_count * $limit;
+        //     // dd($limit);
+        // }
+        $blocks = DB::table('blocks as b')
+                    ->select('b.id','b.block_name',DB::raw("(SELECT COUNT(question_id) FROM block_questions
+                    WHERE block_id = b.id GROUP BY b.id) as question_count"))
+                    ->get();
         return view('admin.viewBlocks', ['blocks' => $blocks]);
     }
 
@@ -133,7 +143,6 @@ class QuizController extends Controller
             $offset = $users_count * $limit;
         }
         $users = DB::table('users as u')->where('u.role', '=', 'user')
-                    ->leftJoin('userquizzes as uq','u.id','=','uq.users_id')
                     ->select('u.id', 'u.name', 'u.email',DB::raw("(SELECT block_id FROM userquizzes
                     WHERE status = 'P' && users_id= u.id) as block_id"))
                     ->offset($offset)

@@ -3,6 +3,28 @@ $(document).ready(function () {
         $('#tech_question_display').hide();
         $('.div1').show();
     });
+   var loc= $(location).attr('pathname');
+   var idloc =loc.split('/');
+   var pathname=idloc[idloc.length-2];
+   var lastEl = idloc[idloc.length-1];
+//    console.log(lastEl); 
+//    console.log(pathname); 
+   if(pathname=='user_tech')
+   {
+
+       var nav=$(this).find(".nav-link");
+       nav.each(function() {
+        var navData=$(this).data("id");
+        if(navData==lastEl){
+           let litag= $(this).closest('li');
+           litag.addClass('active2');
+            // console.log(litag); 
+        }
+         
+       });
+   }
+   
+
     var limit = 10;
     var count = 0;
     var onuserchange=0;
@@ -35,7 +57,7 @@ $(document).ready(function () {
                     $.each(response.ques, function (key, value) {
                         $question_data += `<div class="col-lg-12 col-md-12">
                         <h4 class="mb-4 fw-bold"><span>Q`+ i + `.</span>` + value.question + `</h4>
-                        <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
+                        <p><span><b>Ans</b>.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
                         </div><hr>`;
                         i++;
 

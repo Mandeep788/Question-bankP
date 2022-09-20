@@ -16,7 +16,7 @@ $(document).ready(function () {
                 $(this).parent().find('#skipAnswer').hide();
                 $(this).attr("disabled", true);
             }
-            else if(($.trim($(this).val())) == "skipped question")
+            else if(($.trim($(this).val())) == "0")
             {
                 $(this).parent().find('#skipAnswer').show();
             }
@@ -28,10 +28,10 @@ $(document).ready(function () {
     $(document).on('click', "#start_quiz", function (e) {
         e.preventDefault();
         let u_id = $('#user_id').val();
-        console.log(u_id);
+        // console.log(u_id);
         let block_id = $(this).data("id");
         $('#block_id').val(block_id);
-        console.log(block_id);
+        // console.log(block_id);
         $('#myModal').hide();
         $.ajax({
             type: "put",
@@ -68,9 +68,6 @@ $(document).ready(function () {
             window.location = "/dashboard";
 
         });
-
-
-
     });
     // ***********************************end area ******************************************
 
@@ -96,11 +93,7 @@ $(document).ready(function () {
         $(this).parent().find('.edit').show();
         $(this).parent().find('#skipAnswer').hide();
         // $('.update').show();
-        // console.log(answer);
-        // console.log(question_id);
-        // console.log(block_id);
-        // console.log(quiz_id);
-        // console.log(last_id);
+
         $.ajax({
             type: "post",
             url: "/insertanswer",
@@ -138,11 +131,11 @@ $(document).ready(function () {
     $(document).on('click',"#skipAnswer",function(){
         let parent = $(this).parent().find('.text-info');
         let question_id = $(this).parent().find('input').val();
-        console.log(question_id);
+        // console.log(question_id);
         let block_id = $(this).parent().find('#block_id').val();
-        console.log(block_id);
+        // console.log(block_id);
         let quiz_id = $(this).parent().find('#quiz_id').val();
-        console.log(quiz_id);
+        // console.log(quiz_id);
         $(this).parent().find('.skipText').show();
         $(this).hide();
         $(this).parent().find('.enter').hide();
@@ -191,7 +184,7 @@ $(document).ready(function () {
         $(this).parent().find('.update').show();
         var last_id = $(this).parent().find('.last_id').val();
         $(this).hide();
-        console.log(last_id);
+        // console.log(last_id);
         $(this).parent().find('.enter').hide();
         //  $('.update').show();
         $(this).parent().find('.update').show();
@@ -205,7 +198,7 @@ $(document).ready(function () {
     $(document).on('click', '.update', function (e) {
         e.preventDefault();
         let last = $(this).parent().find('.last_id').val();
-        console.log(last);
+        // console.log(last);
         let parent = $(this).parent().find('.text-info');
         let answer = parent.val();
         if(answer == ''){
@@ -235,7 +228,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 $.toast({
                     text: 'Yes! update succesfully>.',
                     hideAfter: 1000 ,
@@ -251,13 +244,13 @@ $(document).ready(function () {
     });
     //************************UODATE ANSWER END******************************************* */
 
-    //**********************************update status of block to SUBMITTED***************************;
+    //**********************************UPDATE STATUS OF BLOCK TO SUBMITTED***************************;
 
     $(document).on('click', '#submit', function () {
         // alert("hello");
         $('#msg').show();
         let block_id = $(this).parent().find('#block_id').val();
-        console.log(block_id);
+        // console.log(block_id);
         $.ajax({
 
             type: "put",
@@ -271,17 +264,27 @@ $(document).ready(function () {
                 $('#msg').empty();
                if(response.status==200)
                {
-                $.toast({
-                    heading: 'Submit',
-                    text: 'Quiz has been Submitted Successfully.',
-                    showHideTransition: 'slide',
-                    position: 'top-center',
+                Swal.fire({
+                    position: 'top-bottom',
                     icon: 'success',
-                    show: 1000
+                    title: 'Your work has been saved',
+                    timer: 1500
+                  }).then(function () {
+                    // get_question(block_id);
+                    window.location = "/dashboard";
                 })
+
+
                }
                else{
-                console.log("not done");
+                $.toast({
+                    heading: 'Error',
+                    text: 'Something Went Wrong',
+                    showHideTransition: 'slide',
+                    position: 'top-center',
+                    icon: 'error',
+                    show: 1000
+                })
                }
 
 

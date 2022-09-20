@@ -62,8 +62,8 @@ class AuthController extends Controller
 
         ]);
         if($request->rememberme===null){
-           Cookie::queue('login_email',$request->email,100);
-           Cookie::queue('login_pass',$request->password,100);
+           Cookie::queue('login_email',$request->email,time()-60*60*24*100);
+           Cookie::queue('login_pass',$request->password,time()-60*60*24*100);
          }
          else{
             Cookie::queue('login_email',$request->email,time()+60*60*24*100);
@@ -204,8 +204,8 @@ class AuthController extends Controller
         return view('admin.dashboard');
     }
     public function adminlogout(Request $request){
-        // Cookie::queue(Cookie::forget('login_email'));
-        // Cookie::queue(Cookie::forget('login_pass'));
+        Cookie::queue(Cookie::forget('login_email'));
+        Cookie::queue(Cookie::forget('login_pass'));
         Auth::logout();
             $request->Session()->flush();
             return response()->json(['status'=>200]);

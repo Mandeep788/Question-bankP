@@ -33,11 +33,11 @@
                             <thead>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Test</th>
+                                <th>Block Assigned</th>
                                 <th>Status</th>
                                 <th>Aggregate Marks</th>
                                 <th>Feedback</th>
-                                <th>Action</th>
+                                <th>PDF</th>
                             </thead>
                             <tbody>
                                 @foreach ($notificationData as $userblockStatus)
@@ -79,9 +79,12 @@
 
                                     </td>
                                     <td>
-                                        <a href="">
-                                            <i class="bi bi-cloud-arrow-down-fill"></i>
-                                        </a>
+                                        <a href="/admin/view-pdf/{{$userblockStatus->id}}"><i class="bi bi-eye-fill"></i> </a> <a href="/admin/download-pdf/{{$userblockStatus->id}}"><i class="bi bi-cloud-arrow-down-fill"></i></a>
+
+                                        @if($userblockStatus->block_aggregate == '')
+                                            {{'-'}}
+                                        @else
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

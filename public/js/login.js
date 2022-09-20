@@ -30,7 +30,7 @@ $(document).ready(function () {
         e.preventDefault();
         var email = $("#email").val();
         var password = $("#password").val();
-        var rememberme='';
+        var rememberme=null;
         setInterval(function() {
 			$('#slide_in').fadeOut('linear',function(){
 					$(this).empty();

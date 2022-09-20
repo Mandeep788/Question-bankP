@@ -41,7 +41,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $block->block_name }}</td>
-                                    <td></td>
+                                    <td>{{ $block->question_count }}</td>
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
