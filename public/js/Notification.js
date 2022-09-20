@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    
     count_notifications();
 
     function count_notifications(){

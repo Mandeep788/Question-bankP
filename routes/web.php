@@ -15,9 +15,9 @@ use App\Http\Controllers\quiz_questionController;
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
-Route::get('/login', function () {
-    return redirect('/');
-});
+// Route::get('/login', function () {
+//     return redirect('/');
+// });
 Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'adminlogout']);
@@ -93,6 +93,8 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
     Route::put('/quiz',[quiz_questionController::class,'statusInitiate']);
     Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
+    Route::get('/notificationPanel', [NotificationController::class, 'NotificationPanel']);
+
 
 
 });
