@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
+
 
 class UserController extends Controller
 {
@@ -200,5 +203,19 @@ class UserController extends Controller
             return response()->json(['status'=>404]);
         }
 
+     }
+
+     public function viewPDF()
+     {
+        $users= User::all();
+        $pdf= PDF::loadView('admin.viewpdf', array('users' => $users));
+        return $pdf->stream();
+     }
+
+     public function downloadPDF()
+     {
+        $users= User::all();
+        $pdf= PDF::loadView('admin.viewpdf', array('users' => $users));
+        return $pdf->download('TheQuestionBankTest.pdf');
      }
 }

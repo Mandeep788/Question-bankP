@@ -11,6 +11,19 @@
         </div>
     </div>
     <div class="container-fluid">
+        <form action="{{ route('viewpdf') }}" method="post" target="_blank">
+            @csrf
+            <div>
+                <button>View pdf</button>
+            </div>
+        </form>
+        <form action="{{ route('downloadpdf') }}" method="post" target="_blank">
+            @csrf
+            <div>
+                <button type="submit">download pdf</button>
+            </div>
+        </form>
+
         <div class="row">
             <!-- Column -->
             <div class="col-lg-12 col-xlg-12 col-md-12">
@@ -24,6 +37,7 @@
                                 <th>Status</th>
                                 <th>Aggregate Marks</th>
                                 <th>Feedback</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
                                 @foreach ($notificationData as $userblockStatus)
@@ -63,6 +77,11 @@
 
                                         @endif
 
+                                    </td>
+                                    <td>
+                                        <a href="">
+                                            <i class="bi bi-cloud-arrow-down-fill"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach

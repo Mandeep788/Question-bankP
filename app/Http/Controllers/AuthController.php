@@ -210,4 +210,6 @@ class AuthController extends Controller
             $request->Session()->flush();
             return response()->json(['status'=>200]);
     }
+
+
 }

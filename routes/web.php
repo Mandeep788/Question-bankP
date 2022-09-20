@@ -22,14 +22,14 @@ Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'adminlogout']);
 
-
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
-
 
     Route::get('/admin/dashboard', [AuthController::class, 'adminDashboard']);
     Route::get('/admin/dashboard-data', [AuthController::class, 'dashboardData']);
     Route::get('/admin/notifiications', [AuthController::class, 'fetchNotifications']);
     Route::get('/admin/notificationPanel', [AuthController::class, 'notificationPanel']);
+    Route::post('/admin/viewpdf', [UserController::class, 'viewPDF'])->name('viewpdf');
+    Route::post('/admin/downloadpdf', [UserController::class, 'downloadPDF'])->name('downloadpdf');
 
     Route::get('/admin/technologies', [TechnologyController::class, 'show'])->name('show');
     Route::get('/admin/technologies/add', [TechnologyController::class, 'index']);
