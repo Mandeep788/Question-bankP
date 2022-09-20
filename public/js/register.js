@@ -31,7 +31,6 @@ $('#register').click(function(e){
                 Swal.fire({
                     title: 'Success!',
                     text: 'Registration Successfully.',
-                    type: 'success',
                     icon:'success',
                     timer: 1000
                  }).then(function () {

@@ -90,7 +90,7 @@ class quiz_questionController extends Controller
         $user_id=Auth::user()->id;
         $skipAnswer=[
             'block_question_id' => $request->question_id,
-            'answer' => 'skipped question',
+            'answer' => '0',
             'users_id'=>$user_id,
             'quiz_id'=>$request->quiz_id
         ];
@@ -114,12 +114,12 @@ class quiz_questionController extends Controller
         $data=[
                 'answer' => $request->answer,
         ];
-      
+
             $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
             if($query){
                 return response()->json(['status'=>200]);
             }
-        
+
     }
     public function updateStatus(Request $request)
     {
@@ -144,16 +144,16 @@ class quiz_questionController extends Controller
     public function statusInitiate()
     {
         $user_id=Auth::user()->id;
-        
+
         $statusInitiate = [
             'status'=>'I'
         ];
         $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
-       
+
             return response()->json(['status'=>200,
             'message'=>"status update to initiate"
     ]);
-        
+
 
     }
 

@@ -28,6 +28,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/dashboard', [AuthController::class, 'adminDashboard']);
     Route::get('/admin/dashboard-data', [AuthController::class, 'dashboardData']);
     Route::get('/admin/notifiications', [AuthController::class, 'fetchNotifications']);
+    Route::get('/admin/notificationPanel', [AuthController::class, 'notificationPanel']);
 
     Route::get('/admin/technologies', [TechnologyController::class, 'show'])->name('show');
     Route::get('/admin/technologies/add', [TechnologyController::class, 'index']);
@@ -62,7 +63,9 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/assessmentdata', [UserController::class, 'getSubmittedBlock']);
     Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
     Route::post('/admin/assessmentfeedback',[UserController::class,'feedbackBlock']);
-
+    Route::post('/admin/feedback',[UserController::class,'feedbackData']);
+    Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
+    Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);

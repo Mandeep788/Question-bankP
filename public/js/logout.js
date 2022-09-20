@@ -11,7 +11,6 @@ $(document).ready(function(){
                     Swal.fire({
                         title: 'Success!',
                         text: 'Logout Successfully.',
-                        type: 'success',
                         icon:'success',
                         timer: 1000
                      }).then(function () {

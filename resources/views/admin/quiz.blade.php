@@ -137,14 +137,12 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2">
-                                        
-                                    </td>
-                                    <td>
-                                        <form>
-                                            <label for="test_description">Description</label>
+                                    <td colspan="3">
+                                        <form id="testDescriptionForm" method="POST">
+                                            <label for="test_description"><strong>Description</strong></label>
                                             <input type="text" name="test_description" id="test_description"
-                                                class="test_description" required>
+                                                class="test_description">
+                                                <div id="errorspan" class="text-danger"></div>
                                             <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
                                         </form>
                                     </td>
@@ -152,8 +150,17 @@
                             </tfoot>
                         </table>
                     </div>
+
+                </div>
+                <div class="addQuesForQues">
+                    <button type="button" class="btn btn-info mb-3 aaaa">Add Questions for Quiz</button>
+                </div>
+                <div class="noDataFound">
+
                 </div>
             </div>
+
+
             <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"

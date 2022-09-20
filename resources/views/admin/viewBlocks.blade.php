@@ -33,6 +33,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
+                            <th>Number of Questions</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $block->block_name }}</td>
+                                    <td>{{ $block->question_count }}</td>
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
@@ -82,7 +84,7 @@
                             </div>
                             <div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -154,11 +156,11 @@
                     </div>
                 </div>
             </div>
-            <div class="page_loader">
+            {{-- <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-            </div>
+            </div> --}}
 
 
 

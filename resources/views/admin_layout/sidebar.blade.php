@@ -10,6 +10,7 @@
                     <span class="hide-menu">Dashboard</span>
                 </a>
             </li>
+
             <li class="sidebar-item pt-3">
                 <a id="admin_profile" class="sidebar-link" href="{{ url('admin/profile') }}" aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
@@ -36,8 +37,14 @@
             </li>
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/totalquizblocks') }}" aria-expanded="false">
-                    <i class="bi bi-patch-question-fill"></i>
+                    <i class="bi bi-archive-fill"></i>
                     <span class="hide-menu">View Quiz Blocks</span>
+                </a>
+            </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{ url('/admin/notificationPanel') }}" aria-expanded="false">
+                    <i class="bi bi-bell-fill"></i>
+                    <span class="hide-menu">Test Info</span>
                 </a>
             </li>
         </ul>

@@ -1,4 +1,130 @@
 $(document).ready(function () {
+    $("#popupImage").hide();
+    $('#userBlockStatus').DataTable();
+
+    $('#feedbackForm').validate({
+        rules: {
+            feedbackInput: {
+                required: true,
+
+            },
+        },
+        messages: {
+            feedbackInput: {
+                required: "Please enter Feedback",
+            }
+        },errorPlacement: function(error, element) {
+            error.appendTo('#feedbackError');
+          }
+    });
+
+    $(document).on('click','.feedbackIcon',function(){
+        $('#feedbackFormModal').modal('show');
+        let quizId=$(this).data('id');
+        // console.log(quizId);
+        $('#feedbackQuizId').val(quizId);
+    });
+    $('#feedbackFormBtn').click(function(e){
+        e.preventDefault();
+        $('#feedbackForm').valid();
+        let feedback=$('#feedbackInput').val();
+        let quizId=$('#feedbackQuizId').val();
+        // console.log(feedback, quizId);
+        $.ajax({
+            type: "post",
+            url: "/admin/feedback",
+            data: {
+                feedback:feedback,
+                quizId:quizId
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 200) {
+                    swal.fire({
+                        title: 'Success!!',
+                        text: 'Feedback Successfully Inserted!',
+                        icon: 'success',
+                        timer: 1000
+                    }).then(function () {
+                        location.reload(true);
+                    });
+                }
+            }
+        });
+
+    });
+
+    $('.test_marks_btn').click(function (e) {
+        e.preventDefault();
+        // setTimeout(function(){
+        //     $("#popupImage").hide();
+        // },4000);
+        // $('body').css("filter", "blur(3px)");
+        var TickElement = $(this).parents().find('.check_tick').text();
+        var str2 = "Uncheck";
+        if (TickElement.indexOf(str2) != -1) {
+            $.toast({
+                heading: 'Error',
+                text: 'Please Assign Marks!!',
+                showHideTransition: 'fade',
+                position: {
+                    right: 60,
+                    bottom: 80
+                },
+                icon: 'error'
+            })
+
+        } else {
+            $("#popupImage").show();
+            var marks = '';
+            var total = 0;
+            var i = 0;
+            $('.individual_marks').each(function () {
+                marks = parseInt($(this).find(":selected").val());
+                total = total + marks;
+                i++;
+            });
+            let aggergate = "";
+            if (total == 0) {
+                aggergate = 0;
+            } else {
+                aggergate = parseFloat(total / i);
+                aggergate = aggergate.toFixed(2);
+            }
+            let QuizId = $('#store_quiz_id').val();
+            $('#store_aggregate').val(aggergate);
+            $('.individual_marks').prop('disabled', true);
+            $('#AggergateMarks').val(aggergate);
+            $.ajax({
+                type: "POST",
+                url: "/admin/assessmentfeedback",
+                data: {
+                    QuizId: QuizId,
+                    Aggergate: aggergate
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    // console.log(response);
+                    $('#popupImage').delay(1000).hide(500, function(){
+                        if (response.status == 200) {
+                            swal.fire({
+                                title: 'Success!!',
+                                icon: 'success',
+                                html: "<p><b>Aggregate Marks</b>: "+aggergate+"</p>",
+                                timer: 2000
+                            }).then(function () {
+                                window.location.href='/admin/notificationPanel';
+                            });
+                        }
+                    });
+
+
+                }
+            });
+
+        }
+    });
+
     $('#feedback_div').hide();
     $('.red_circle').hide();
     Fetch_Counts();
@@ -45,7 +171,9 @@ $(document).ready(function () {
                         $('.red_circle').text('9+');
                     }
                     var notifications_desc = "";
+
                     $.each(response.notifications, function (key, value) {
+                        // $('.notication_heading').show();
                         if(value.status=='S'){
                         notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
                         }else if(value.status=='U'){
@@ -55,6 +183,7 @@ $(document).ready(function () {
                     $('#notifications_desc').append(notifications_desc);
                 } else if (response.status == 404) {
                     $('.red_circle').hide();
+                    $('.notication_heading').hide();
                 }
             }
         });
@@ -155,91 +284,23 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '.individual_marks', function () {
-
         $(this).parent().parent().find('.check_tick').removeClass('green');
         $(this).parent().parent().find('.check_tick').html('  Uncheck');
-
-        //    console.log(check);
-
     });
 
-    $('.test_marks_btn').click(function (e) {
-        e.preventDefault();
-        var TickElement = $(this).parents().find('.check_tick').text();
-        var str2 = "Uncheck";
-        if (TickElement.indexOf(str2) != -1) {
-            $.toast({
-                heading: 'Error',
-                text: 'Please Assign Marks!!',
-                showHideTransition: 'fade',
-                position: {
-                    right: 60,
-                    bottom: 80
-                },
-                icon: 'error'
-            })
 
-        } else {
-            var marks = '';
-            var total = 0;
-            var i = 0;
-            $('.individual_marks').each(function () {
-                marks = parseInt($(this).find(":selected").val());
-                total = total + marks;
-                i++;
-            });
-            let aggergate = "";
-            if (total == 0) {
-                aggergate = 0;
-            } else {
-                aggergate = parseFloat(total / i);
-                aggergate = aggergate.toFixed(2);
-            }
 
-            $('#store_aggregate').val(aggergate);
-            $('.individual_marks').prop('disabled', true);
-            $('#FeedbackModal').modal('show');
-            $('#AggergateMarks').val(aggergate);
+    // $('#FeedbackBtn').click(function (e) {
+    //     e.preventDefault();
 
-        }
-    });
-
-    $('#FeedbackBtn').click(function (e) {
-        e.preventDefault();
-        let QuizId = $('#store_quiz_id').val();
-        let Aggergate = $('#AggergateMarks').val();
-        let Feedback = $('#Feedback').val();
-        // console.log(QuizId,Aggergate,Feedback);
-        $.ajax({
-            type: "POST",
-            url: "/admin/assessmentfeedback",
-            data: {
-                QuizId: QuizId,
-                Aggergate: Aggergate,
-                Feedback: Feedback
-            },
-            dataType: "JSON",
-            success: function (response) {
-                // console.log(response);
-
-                if (response.status == 200) {
-                    $('#FeedbackModal').modal('hide');
-                    swal.fire({
-                        title: 'Success!!',
-                        text: 'Feedback Sent Sucessfully',
-                        icon: 'success',
-                        timer: 1000
-                    }).then(function () {
-                        window.location.href='/admin/dashboard';
-                    });
-                }
-
-            }
-        });
+    //     let Aggergate = $('#AggergateMarks').val();
+    //     let Feedback = $('#Feedback').val();
+    //     console.log(QuizId,Aggergate,Feedback);
 
 
 
-    });
+
+    // });
 
 });
 // });

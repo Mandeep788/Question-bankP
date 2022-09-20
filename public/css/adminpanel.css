@@ -476,6 +476,12 @@ footer a{
     padding: 10px 20px;
   }
 
+  .form-control{
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
 
   .btn_add{
     background-color: #1cbfff;
@@ -625,3 +631,29 @@ footer a{
 
 }
 
+#errorspan{
+    margin-left: 100px;
+}
+
+.noDataFound{
+    margin: 0px auto;
+}
+
+.addQuesForQues{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.feedbackIcon{
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700 ;
+    /* color:dodgerblue ; */
+}
+
+#popupImage{
+    margin: -50px 100px;
+    position: fixed ;
+    z-index: 1;
+}

@@ -19,8 +19,8 @@
             <input type="text"id="block_id" value=" {{$data['block_id']}}" hidden>
             <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
 
-            
-            
+
+
             <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
             <span class="skipText">Skipped</span>
             <i class="bi bi-pen-fill edit btn btn-default" data-id=""></i>
@@ -30,7 +30,7 @@
             @else
             <input type="text" class="last_id" value="{{$data['answerid']}}"hidden/>
             @endif
-           
+
             <button class="btn btn-primary enter">Insert</button>
             <button class="btn btn-primary update ">Update</button>
             <input type="button" class="btn btn-warning " value="Skip" id="skipAnswer">

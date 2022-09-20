@@ -56,6 +56,23 @@ class UserUpdateController extends Controller
         DB::table('users')
             ->where('id', '=', $id)
             ->update($data);
+
+        $technologies_id = $request->userTechnology;
+        if (!empty($technologies_id)) {
+            foreach ($technologies_id as $technology) {
+                if ($technology != "") {
+                    $technology_data[] = array(
+                        'users_id' => $id,
+                        'technology_id' => $technology
+                    );
+                }
+            }
+            $existingTechnologies=DB::table('usertechnologies')->where('users_id', $id)->get();
+            if(count($existingTechnologies)>0){
+                $deleteQuery = DB::table('usertechnologies')->where('users_id', $id)->delete();
+            }
+            DB::table('usertechnologies')->insert($technology_data);
+        }
         return redirect('/user_edit');
     }
 }
