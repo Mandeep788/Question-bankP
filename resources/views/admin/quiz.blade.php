@@ -143,6 +143,14 @@
                                             <input type="text" name="test_description" id="test_description"
                                                 class="test_description">
                                                 <div id="errorspan" class="text-danger"></div>
+                                                <div>
+                                                    <center> 
+                                                        <input type="text" id="hr_in" name="timer" id="timer"
+                                                        placeholder="hour" value="01"></br>
+                                                        <input type="text" id="min_in" name="timer" id="timer" placeholder placeholder="min" value="00"></></br>
+                                                        <input type="text" id="sec_in" name="timer"  id="timer" placeholder placeholder="sec" value="00"></></br></br>
+                                                    </center>
+                                                </div>
                                             <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
                                         </form>
                                     </td>

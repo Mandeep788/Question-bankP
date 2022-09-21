@@ -25,32 +25,33 @@ $(document).ready(function () {
     checkAnswerValue();
 
     // **********************************for okk to start quiz code area****************
-    $(document).on('click', "#start_quiz", function (e) {
-        e.preventDefault();
-        let u_id = $('#user_id').val();
-        // console.log(u_id);
-        let block_id = $(this).data("id");
-        $('#block_id').val(block_id);
-        // console.log(block_id);
-        $('#myModal').hide();
-        $.ajax({
-            type: "put",
-            url: "/quiz",
-            dataType: "json",
-            success: function (response) {
-                if(response.status==200){
-                    swal.fire("Start your quiz").then(function () {
-                        // get_question(block_id);
+    // $(document).on('click', "#start_quiz", function (e) {
+    //     e.preventDefault();
+    //     let u_id = $('#user_id').val();
+    //     // console.log(u_id);
+    //     let block_id = $(this).data("id");
+    //     $('#block_id').val(block_id);
+    //     // console.log(block_id);
+    //     $('#myModal').hide();
+    //     $.ajax({
+    //         type: "put",
+    //         url: "/quiz",
+    //         dataType: "json",
+    //         success: function (response){
+    //             // if(response.status==200){
+    //             //     swal.fire("Start your quiz ").then(function () {
+    //             //         get_question(block_id);
                         window.location = "/quiz/" + block_id + "/" + u_id;
-                    })
-                }
+    //                     // onclick="set_all();"
+    //             //     })
+    //             // }
 
-            }
-        });
+    //         }
+    //     });
 
 
 
-    });
+    // });
     $(document).on('click', "#checked_quiz", function (e) {
 
         e.preventDefault();
@@ -298,4 +299,112 @@ $(document).ready(function () {
     // ********************end code area**************************************
 
 
+});
+
+function set_all()
+{
+	// days = parseInt($("#days_in").val());
+	// if(days < 10)
+	// 	{$('.days').html('0'+days);}
+	// else
+	// 	{$('.days').html(days);}
+	
+	
+	hr = parseInt($("#hr_in").val());
+	if(hr < 10)
+		{$('.hr').html('0'+hr);}
+	else
+		{$('.hr').html(hr);}
+	
+	min = parseInt($("#min_in").val());
+	if(min < 10)
+		{$('.min').html('0'+min);}
+	else
+		{$('.min').html(min);}
+	
+	sec = parseInt($("#sec_in").val());
+	if(sec < 10)
+		{$('.sec').html('0'+sec);}
+	else
+		{$('.sec').html(sec);}
+	
+}
+
+// function dec_date()
+// {
+// 	days = parseInt($('.days').html());
+// 	if(days !== 0)
+// 	{
+// 		if((days - 1) < 10)
+// 			{ $('.days').html('0'+(days - 1)); }
+// 		else
+// 			{ $('.days').html(days - 1); }
+		
+// 		$('.hr').html(23);
+// 		$('.min').html(59);
+// 		$('.sec').html(59);
+// 	}
+// 	else
+// 	{
+// 		pass;
+// 	}
+	
+// }
+
+function dec_hr()
+{
+	hr = parseInt($('.hr').html());
+	if(hr !== 0)
+	{
+		if((hr - 1) < 10)
+			{ $('.hr').html('0'+(hr - 1)); }
+		else
+			{ $('.hr').html(hr - 1); }
+		
+		$('.min').html(59);
+		$('.sec').html(59);
+	}
+	else
+	{
+		dec_date();
+	}
+}
+function dec_min()
+{
+	min = parseInt($('.min').html());
+	if(min !== 0)
+	{
+		if((min - 1) < 10)
+			{ $('.min').html('0'+(min - 1)); }
+		else
+			{ $('.min').html(min - 1); }
+		
+		$('.sec').html(59);
+	}
+	else
+	{
+		dec_hr();
+	}
+}
+$(document).ready(function()
+{
+	var Update = function()
+	{
+		$('.sec').each(function()
+		{
+			var count = parseInt($(this).html());
+			if(count !== 0)
+			{
+				if((count - 1) < 10)
+					{ $(this).html('0'+(count - 1)); }
+				else
+					{ $(this).html(count - 1); }
+			}
+			else
+			{
+				dec_min();
+			}
+		});	
+	};
+	setInterval(Update, 1000);
 });

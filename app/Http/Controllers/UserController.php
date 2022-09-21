@@ -262,9 +262,8 @@ class UserController extends Controller
             WHERE id = b.admin_id) as admin_name"))
             ->get();
 
-
         $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
         ->setPaper('a4', 'portrait');
     return $pdf->download('Question-bank.pdf');
-     }
+     } 
 }

@@ -36,6 +36,7 @@ class quiz_questionController extends Controller
 
             $quizQuestionData[] = $array;
         }
+        
         // print '<pre>';
         // print_r($quizQuestionData);
         // exit;

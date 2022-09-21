@@ -28,21 +28,16 @@
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                             <div class="notification">
                                 <p>test</p>
                             </div>
-=======
-=======
-                            <p>{{Auth::user()->name}}</p>
->>>>>>> bba1af11ab6f7bfb9dca36e71203a72c46d6c1e1
-=======
-                        <b><p class="username">{{ Auth::user()->name }}</p></b>
->>>>>>> d11061625818c9d3be50a25d5651995a009663d3
 
->>>>>>> 9e8c3cafbf9878a8373df4d59a710ec872f88f37
+                            <p>{{Auth::user()->name}}</p>
+
+                        <b><p class="username">{{ Auth::user()->name }}</p></b>
+
+
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
@@ -72,8 +67,6 @@
                 <!-- Modal body -->
                 <div class="modal-body " id="notification" style="font-size:15px;">
                 </div>
-
-
 
             </div>
         </div>
@@ -123,7 +116,6 @@
                                 href="#">{{ $items->technology_name }}&nbsp; | </a>
                         </li>
                     @endforeach
-
 
                 </ul>
             </div>
