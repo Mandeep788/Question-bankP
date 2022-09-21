@@ -44,7 +44,7 @@ $(document).ready(function(){
                 $('#myModal').modal('show');
             $.each(response.notification,function(key,value){
                 if(value.status=='P'){
-                notification_data+= '<p><a onclick="set_all();" data-id= "'+value.id+'" href="#" id="start_quiz">Pending ' + value.block_name + '</a></p>';
+                notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">Pending ' + value.block_name + '</a></p>';
 
                 }else if(value.status=='C'){
                     notification_data+= '<p><a data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">Reviwed ' + value.block_name + '</a></p>';

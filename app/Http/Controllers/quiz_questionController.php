@@ -20,15 +20,18 @@ class quiz_questionController extends Controller
 
         $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
+        ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
         ->where('userquizzes.id',$quiz_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
+        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question','blocks.timer','userquizzes.started_at')->get();
 
         $quizQuestionData = array();
         foreach($query as $key=> $userTech)
         {
             $array['u'] = $userTech->u;
             $array['block_id'] = $userTech->block_id;
+            $array['timer'] = $userTech->timer;
+            $array['started_at'] = $userTech->started_at;
             $array['id'] = $userTech->id;
             $array['question'] = $userTech->question;
             $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);

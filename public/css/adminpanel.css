@@ -657,3 +657,9 @@ footer a{
     position: fixed ;
     z-index: 1;
 }
+
+.pdfColumn a{
+    text-decoration: none;
+    font-size:22px;
+}
+

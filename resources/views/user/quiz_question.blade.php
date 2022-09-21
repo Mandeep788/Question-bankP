@@ -3,11 +3,12 @@
 
 
 <div class="container-fluid p-0">
+
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
     <div class="section">
 
 
-        <center>  <!-- TIMER CARDS--->
+        {{-- <center>  <!-- TIMER CARDS--->
             <div class="timer">
                 {{-- <span class="">
                     <center>
@@ -17,7 +18,7 @@
                 </span>
                 <span class="card_colon">:</span> --}}
             
-                <span class="">
+                {{-- <span class="">
                     <center>
                         <span class="hr card_span">00</span><br/>
                         <span class="card_lebel">HOUR</span>
@@ -43,7 +44,7 @@
                 
             </div>
         </center>
-       
+        --}}
              <!-- SET TIMER INPUT FIELDS  -->
 
         {{-- <center> 
@@ -52,6 +53,9 @@
             <input type="text" id="sec_in" placeholder="sec" value="00"></br></br>
         </center> --}}
 
+        <div id="getting" class=""></div>
+        <br>
+        <br>
         <form  action="" method="post">
         @csrf
                 @foreach ($quizQuestionData as $key=>$data)
@@ -65,7 +69,8 @@
             <input type="text" class="q_" value="{{$data['id']}}" hidden/>
             <input type="text"id="block_id" value=" {{$data['block_id']}}" hidden>
             <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
-
+            <input type="text"id="quiz_timer" value=" {{$data['timer']}}" hidden>
+            <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
 
             <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
             <span class="skipText">Skipped</span>

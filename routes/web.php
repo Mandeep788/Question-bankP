@@ -25,6 +25,9 @@ Route::get('/logout', [AuthController::class, 'adminlogout']);
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
 
     Route::get('/admin/dashboard', [AuthController::class, 'adminDashboard']);
+    Route::get('/admin/profile', [AuthController::class, 'index']);
+    Route::get('/admin/profile/user', [AuthController::class, 'getProfileData']);
+    Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
     Route::get('/admin/dashboard-data', [AuthController::class, 'dashboardData']);
     Route::get('/admin/notifiications', [AuthController::class, 'fetchNotifications']);
     Route::get('/admin/notificationPanel', [AuthController::class, 'notificationPanel']);
@@ -75,9 +78,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
-    Route::get('/admin/profile', [AuthController::class, 'index']);
-    Route::get('/admin/profile/user', [AuthController::class, 'getProfileData']);
-    Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
+
 });
 
 

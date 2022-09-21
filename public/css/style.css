@@ -26,7 +26,7 @@ body {
     height: 40px;
     margin-left: 60px;
     margin-top: 40px;
-  
+
   }
   .COL {
     margin-top: 15px;
@@ -79,11 +79,11 @@ body {
   }
   /* .nav-item a {
     font-weight: 700;
-   
+
     font-family: "Josefin Sans",sans-serif;
 
   } */
-  #topheader #navbarNav .navbar-nav li a{ 
+  #topheader #navbarNav .navbar-nav li a{
     font-weight: 700;
     font-family: "Josefin Sans",sans-serif;
   }
@@ -97,7 +97,7 @@ body {
   color:black;
   border-bottom:4px solid green;
   /* transition: 0.7s; */
-  border-radius:20px; 
+  border-radius:20px;
   height:40px;
   /* animation-duration: 1s;
   animation-iteration-count:1;
@@ -105,7 +105,7 @@ body {
   animation-name: bounce;
   animation-timing-function: ease; */
 }
- 
+
   .con{
     height: 800px;
     display: flex;
@@ -220,8 +220,8 @@ body {
     background-color:#f8f4f405;
     color:rgb(27, 26, 26);
   }
-  
- 
+
+
   .flickity-prev-next-button.next {
     display: none;
   }
@@ -414,3 +414,17 @@ body {
   margin-top:5px;
   margin-left:110px;
 }
+
+.countdown-section{
+    position:sticky;
+    background-color: black;
+}
+.countdown-period{
+    color: white;
+
+}
+.countdown-amount{
+    color: white;
+}
+
+

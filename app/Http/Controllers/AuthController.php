@@ -181,17 +181,12 @@ class AuthController extends Controller
 
     public function notificationPanel(){
         $adminId = Auth::user()->id;
-
         $notificationData = DB::table('userquizzes as uq')
                             ->join('blocks as b','b.id','=','uq.block_id')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->where('b.admin_id',$adminId)
                             ->select('uq.id','uq.block_aggregate','uq.feedback','uq.status','b.block_name','u.name')
-                            ->get()
-        ;
-        // print "<pre>";
-        // print_r($notificationData);
-        // exit;
+                            ->get();
         return view('admin.notifications',['notificationData'=>$notificationData]);
     }
 
