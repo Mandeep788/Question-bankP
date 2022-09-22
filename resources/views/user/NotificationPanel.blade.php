@@ -3,11 +3,10 @@
 
 
 
-<div class="container">
+<div class="container-fluid p-0">
     <h4 class="mt-2 bg-dark text-white h-20 p-4 text-center">Notification Panel</h4>
     <div class="notificationPanel mt-3">
-        <table  id="datatable"class="table table-striped table-bordered">
-            
+        <table  id="datatable"class="table">
             <thead>
                 <th>S. No.</th>
                 <th>Blockname</th>
@@ -29,16 +28,22 @@
 
                     @elseif ($Np->status == 'I')
                     {{'Initiated'}}
+                    @elseif ($Np->status == 'S')
+                    {{'Submitted'}}
+
 
                     @elseif ($Np->status == 'C')
+                    {{'Reviewed'}}
+                    @elseif ($Np->status == 'AR')
                     {{'Reviewed'}}
 
                     @endif
                     {{-- {{$Np->status}} --}}
                 </td>
                 <td>
-                    @if ($Np->status == 'C')
-                            <button>Download</button>
+                    @if ($Np->status == 'AR')
+                 <a href="/user/download-pdf/{{$Np->id}}"><button>Download</button></a>
+                 <a href="/mail/{{$Np->id}}"><button>Send Mail</button></a>
                     @endif
                 </td>
       

@@ -12,12 +12,13 @@ use App\Http\Controllers\tech_user_Controller;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
+use App\Http\Controllers\MailController;
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
-// Route::get('/login', function () {
-//     return redirect('/');
-// });
+Route::get('/login', function () {
+    return redirect('/');
+});
 Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'adminlogout']);
@@ -97,6 +98,11 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::put('/quiz',[quiz_questionController::class,'statusInitiate']);
     Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
     Route::get('/notificationPanel', [NotificationController::class, 'NotificationPanel']);
+    Route::get('/user/download-pdf/{id}',[UserController::class,'downloadPDF']);
+    Route::get('/mail/{id}',[MailController::class,'Mail']);
+    Route::post('/mail',[MailController::class,'sendMail']);
+
+
 
 
 

@@ -47,6 +47,7 @@ $(document).ready(function () {
 
             }
         });
+    
 
 
 
@@ -64,10 +65,24 @@ $(document).ready(function () {
 
         $('#aggregate').val(checked);
         $('#feedback').val(feedback);
-        $(document).on('click', "#close", function () {
-            window.location = "/dashboard";
+        $.ajax({
+            type: "put",
+            url: "/quiz",
+            dataType: "json",
+            success: function (response) {
+                if(response.status==200){
+                    $(document).on('click', "#close", function () {
+                            window.location = "/dashboard";
+                
+                        });
+                }
 
+            }
         });
+        // $(document).on('click', "#close", function () {
+        //     window.location = "/dashboard";
+
+        // });
     });
     // ***********************************end area ******************************************
 
@@ -265,9 +280,10 @@ $(document).ready(function () {
                if(response.status==200)
                {
                 Swal.fire({
-                    position: 'top-bottom',
+                    position: 'bottom',
                     icon: 'success',
                     title: 'Your work has been saved',
+                    showConfirmButton: false,
                     timer: 1500
                   }).then(function () {
                     // get_question(block_id);

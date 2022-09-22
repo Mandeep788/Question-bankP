@@ -16,6 +16,11 @@ class quiz_questionController extends Controller
     //
     public function quizQuestion($quiz_id,$u_id)
     {
+        $startedTime=DB::table('userquizzes')->where('id',$quiz_id)->value('started_at');
+        if($startedTime==''){
+            DB::table('userquizzes')->where('id',$quiz_id)->update(['started_at'=>date('Y:m:d H:i:s')]);
+        }
+
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
         $query=DB::table('userquizzes')
@@ -148,11 +153,28 @@ class quiz_questionController extends Controller
         $statusInitiate = [
             'status'=>'I'
         ];
-        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
+        $statusAlreadyReviewed = [
+            'status'=>'AR'
+        ];
+        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->get();
+        if(count($query)>0){
+            $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
+        }
+        $query2 = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->get();
+        if(count($query2)>0){
+            $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->update($statusAlreadyReviewed);
+        }
+        if($updateQuery)
+        {
+                        return response()->json(['status'=>200,
+                        'message'=>"status update to initiate"
+                    ]);
+        }
+        else{
+            return response()->json(['status'=>404]);
+        }
 
-            return response()->json(['status'=>200,
-            'message'=>"status update to initiate"
-    ]);
+
 
 
     }

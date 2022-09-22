@@ -16,7 +16,7 @@
                 <img src="{{ asset('user_img/img/crouel3.webp') }}" alt="Los Angeles" class="d-block">
              
                 <div class="carousel-caption" id="text">
-                    <h6 class="justify-content-left quotes">The New Way To Learn properly In With Us...<h6>
+                   
                 </div>
               
             </div>

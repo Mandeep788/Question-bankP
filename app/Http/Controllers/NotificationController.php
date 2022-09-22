@@ -20,7 +20,7 @@ class NotificationController extends Controller
         ->orWhere([['users_id',$u_id],['status','C']])
         ->orWhere([['users_id',$u_id],['status','I']])
 
-        ->Select('userquizzes.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
+        ->select('userquizzes.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
         // dd($notificaton);
         // $count=count($notificaton);
         return response()->json([
@@ -48,14 +48,13 @@ class NotificationController extends Controller
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->join('users', 'blocks.admin_id','=' ,'users.id' )
         ->where([
-            ['users_id',$user_id],['userquizzes.status','=','P']
+            ['users_id',$user_id]
         ])
-        ->orWhere([['users_id',$user_id],['userquizzes.status','C']])
-        ->orWhere([['users_id',$user_id],['userquizzes.status','I']])
+        
 
         ->Select('userquizzes.id','blocks.block_name','userquizzes.status','users.name')
         ->get();
-        // dd($notificatonPanel);
+      
        return view('user.NotificationPanel',['notificationPanel' => $notificationPanel,'technologies'=>$technologies]);
        
         
