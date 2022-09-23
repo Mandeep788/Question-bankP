@@ -121,7 +121,7 @@
 <script type="text/javascript" src="{{ asset('/js/quiz_question.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/uservalidation.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/scrollHeader.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/pythonTech.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>

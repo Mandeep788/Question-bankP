@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\QuestionController;
@@ -12,6 +13,9 @@ use App\Http\Controllers\tech_user_Controller;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
+use App\Http\Controllers\UserTechnology;
+
+
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
@@ -85,6 +89,12 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/user_edit', [UserUpdateController::class, 'index']);
     Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
     Route::get('/core_php', [tech_user_Controller::class, 'getQuestion']);
+///
+    
+    Route::get('/email',[EmailController::class,'index']);
+///
+    Route::get('/technologies_second/{id}',[UserTechnology::class,'index']);
+    Route::get('/technologies_second/{id}',[UserTechnology::class,'show']);
 
     Route::get('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);
@@ -92,4 +102,5 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/insertanswer', [quiz_questionController::class, 'insertAnswer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
+
 });

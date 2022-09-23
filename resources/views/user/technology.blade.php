@@ -1,6 +1,6 @@
 @section('main-content')
 
-<input type="text" id="tech_id" value="" hidden >
+<input type="text" id="tech_id" value="" hidden>
 <input type="text" id="frame_id" value="" hidden>
 <input type="text" id="experiance_id" value="" hidden>
 
@@ -16,7 +16,6 @@
             <a href="#" class="btn btn-default mt-5  link" data-id="{{ $f->id }}" data-techid="{{$f->technology_id}}">Learn More..</a>
         </div>
         @endforeach
-
     </div>
 </div>
 <div class="tech_display" id="tech_question_display">
@@ -41,7 +40,6 @@
         <div class="row justify-content-center p-5" id="ques">
 
         </div>
-
     </div>
     <div class="page_loader">
         <button class="pageloader_button" id="pageloader_button">Load more...</button>
@@ -49,8 +47,5 @@
             class="page_loader_image"id="page_loader_image" height="80px" width="300px" />
     </div>
 </div>
-
-
-
 @endsection
 @extends('user_layout.template')

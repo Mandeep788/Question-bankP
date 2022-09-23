@@ -73,10 +73,7 @@ class UserUpdateController extends Controller
              }
              else{
                 print_r($deleteQuery);
-             }
-             }
-
-
-                      
-              
+             }             }       
+             
+           
 }

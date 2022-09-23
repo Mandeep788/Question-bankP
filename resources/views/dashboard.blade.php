@@ -3,36 +3,16 @@
     <!-- crousel code area start----------------------------------------- -->
 
     <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
 
-        <!-- Indicators/dots -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-        </div>
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner p-0">
-            <div class="carousel-item active">
-                <img src="{{ asset('user_img/img/one1.jpeg') }}" alt="Los Angeles" class="d-block">
-                <div class="carousel-caption">
-
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('user_img/img/login.png') }}" alt="Chicago" class="d-block">
-                <div class="carousel-caption">
-
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://www.glassdoor.com/employers/app/uploads/sites/2/2021/02/GoogleDrive_640X469_8-Key-Interview-Questions-to-Ask-in-the-Age-of-COVID-02-768x595.png"
-                alt="New York" class="d-block">
-                <div class="carousel-caption text-black justify-content-left">
-                    <h1 class="justify-content-left">The New Way To Learn properly In With Us...<h1>
-                </div>
-            </div>
-        </div>
-
+                @foreach($sliders as $slider)
+                    <div class="carousel-item active">
+                        <img src="{{url('user_img\img')}}/{{$slider->image}}" class="d-block w-100"  alt="..."> 
+                    </div>
+                @endforeach
+                 <!-- The slideshow/carousel -->
+          
+        </div>    
         <!-- Left and right controls/icons -->
         <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
@@ -68,7 +48,7 @@
                                 {{ $items->technology_description }}
                             </p>
 
-                             <a href="#" class="btn btn-default mt-2"style="border:1px solid green;" >Learn More..</a>
+                             <a href="{{url('/technologies_second')}}/{{$items->id}}" class="btn btn-default mt-2"style="border:1px solid green;" >Learn More..</a>
                         </div>
                       </div>
 
