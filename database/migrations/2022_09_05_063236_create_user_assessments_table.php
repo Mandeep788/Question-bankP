@@ -20,7 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('quiz_id');
             $table->double('marks_per_ques',8,2)->nullable();
-            $table->text('feedback')->nullable();
             $table->timestamps();
             $table->foreign('block_question_id')->references('id')->on('block_questions')->onDelete('cascade');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');

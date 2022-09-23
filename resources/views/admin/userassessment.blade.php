@@ -2,6 +2,8 @@
 @section('main-content')
 <input type="text" name="store_aggregate" id="store_aggregate" hidden>
 <input type="text" name="store_quiz_id" id="store_quiz_id" hidden>
+<input type="text" name="store_count_questions" id="store_count_questions" hidden>
+
 
     <div id="submitted_block" class="container p-0 ">
 

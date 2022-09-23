@@ -140,7 +140,8 @@ class UserController extends Controller
             ->where([
                 ['ua.quiz_id', $id],
             ])
-            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id')
+            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id',DB::raw("(SELECT COUNT(question_id) FROM block_questions
+            WHERE block_id = uq.block_id GROUP BY uq.block_id) as question_count"))
             ->get();
 
         if ($submitted_data) {

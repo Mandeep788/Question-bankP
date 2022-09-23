@@ -117,8 +117,6 @@ body {
 
 
   }
-
-
   .sticky {
     position: fixed;
     z-index: 1;
@@ -136,11 +134,12 @@ body {
     font-size: 49px;
     font-weight: 600;
     color: #030431;
-    margin-top: 5%;
+    margin-top: 4%;
+    margin-left:10px !important;
   }
   .card{
     margin-left:10px !important;
-   text-align: left;
+    text-align: left;
     height: 300px;
     margin-top: 150px;
     border-radius: none;
@@ -149,6 +148,7 @@ body {
 
 
   }
+
   .card-title{
     font-weight:700;
     margin-top:40px;
@@ -245,6 +245,15 @@ body {
     width:30%;
     left:65%;
   }
+  
+ .notification_design{
+  text-decoration: none !important;
+  color:black;
+ }
+
+ .notification_design:hover{
+  color:black;
+ }
   /* footer designnnnn****************************************************** */
 
 
@@ -413,6 +422,49 @@ body {
 .update{
   margin-top:5px;
   margin-left:110px;
+}
+/* datatable design css */
+
+#datatable{
+  background-color:ghostwhite;
+
+}
+.notificationPanel{
+  width:70%;
+  margin-left: 16%;
+  padding:10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+
+}
+#datatable_filter{
+  margin-bottom:10px;
+  height:49px;
+  padding: 10px;
+  width:50%;
+  background-color: black;
+  color:whitesmoke;
+}
+#datatable_length
+  select {
+  color:white;
+}
+#datatable_length
+  select option{
+color: black;
+  }
+#datatable_filter input{
+  color:white;
+}
+#datatable_length{
+  margin-bottom:10px;
+  width:50%;
+  padding: 10px;
+  color:whitesmoke;
+  background-color: black;
+
+}
+#datatable_wrapper{
+  text-decoration-style:white;
 }
 
 .countdown-section{

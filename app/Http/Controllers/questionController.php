@@ -45,6 +45,8 @@ class QuestionController extends Controller
             ->whereNull('a.question_id')
             ->limit(2)
             ->get();
+
+
             if(count($ques_ans)>0 || count($ques)>0){
                 return response()->json([
                     'Ques' => $ques,
@@ -130,4 +132,8 @@ class QuestionController extends Controller
             ]);
         }
     }
+
+
+
+
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -79,6 +80,9 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
 
+    Route::get('/mail/{id}',[MailController::class,'Mail']);
+    Route::post('/mail',[MailController::class,'sendMail']);
+
 });
 
 
@@ -97,14 +101,16 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
     Route::get('/core_php', [tech_user_Controller::class, 'getQuestion']);
 
-    Route::get('/notification/{u_id}', [NotificationController::class, 'getNotification']);
+    Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);
     Route::get('/quiz/{block_id}/{u_id}', [quiz_questionController::class, 'quizQuestion']);
     Route::post('/insertanswer', [quiz_questionController::class, 'insertAnswer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
-    Route::put('/quiz',[quiz_questionController::class,'statusInitiate']);
+    Route::get('/quiz',[quiz_questionController::class,'statusInitiate']);
     Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
+    Route::get('/notificationPanel', [NotificationController::class, 'NotificationPanel']);
+    Route::get('/user/download-pdf/{id}',[UserController::class,'downloadPDF']);
 
 
 });

@@ -56,10 +56,7 @@ $(document).ready(function () {
 
     $('.test_marks_btn').click(function (e) {
         e.preventDefault();
-        // setTimeout(function(){
-        //     $("#popupImage").hide();
-        // },4000);
-        // $('body').css("filter", "blur(3px)");
+
         var TickElement = $(this).parents().find('.check_tick').text();
         var str2 = "Uncheck";
         if (TickElement.indexOf(str2) != -1) {
@@ -78,17 +75,16 @@ $(document).ready(function () {
             $("#popupImage").show();
             var marks = '';
             var total = 0;
-            var i = 0;
+            var totalQues=$('#store_count_questions').val();
             $('.individual_marks').each(function () {
                 marks = parseInt($(this).find(":selected").val());
                 total = total + marks;
-                i++;
             });
             let aggergate = "";
             if (total == 0) {
                 aggergate = 0;
             } else {
-                aggergate = parseFloat(total / i);
+                aggergate = parseFloat(total / totalQues);
                 aggergate = aggergate.toFixed(2);
             }
             let QuizId = $('#store_quiz_id').val();
@@ -209,42 +205,68 @@ $(document).ready(function () {
                     let i = 1;
                     var submitted_data = '<div class="row justify-content-center">';
                     var store_quiz_id = "";
+                    var store_count_questions='';
                     $.each(response.submitted_data, function (key, value) {
                         submitted_data += `<div class="col-lg-12 col-md-12">
                                     <div id="white_boxes">
                                         <h4 data-id="`+ value.question_id + `"><span>Q` + i + `.</span>` + value.question + `</h4>
                                         <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
                                         <input type="text" id="assess_user" value="`+ value.users_id + `" hidden>
-                                        <div class="d-flex">
-                                            <div class="marks_on_each">
-                                                <select class="form-select individual_marks assign_marks_btn">
-                                                <option value="0" selected disabled>Assign Marks</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </div>
-                                            <div class="tick">
-                                            <i class="bi bi-check-circle check_tick" data-id="`+ value.id + `" data-quesid="` + value.question_id + `"> Uncheck</i>
-                                            </div>
+                                        <div class="d-flex">`
+                                        if(value.answer == '0' || value.answer == ''){
+                                            submitted_data += `<div class="marks_on_each">
+                                            <select class="form-select individual_marks assign_marks_btn" disabled>
+                                            <option value="" disabled>Assign Marks</option>
+                                                <option value="0" selected>0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
                                         </div>
+                                        <div class="tick">
+                                        <i class="bi bi-check-circle check_tick" data-id="`+ value.id + `" data-quesid="` + value.question_id + `"> Uncheck</i>
+                                        </div>`
+                                        }else{
+                                            submitted_data +=`<div class="marks_on_each">
+                                            <select class="form-select individual_marks assign_marks_btn">
+                                            <option value="" selected disabled>Assign Marks</option>
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                        <div class="tick">
+                                        <i class="bi bi-check-circle check_tick" data-id="`+ value.id + `" data-quesid="` + value.question_id + `"> Uncheck</i>
+                                        </div>`
+                                        }
+
+                                        submitted_data += `</div>
 
                                     </div>
                                 </div> `;
                         store_quiz_id = value.id;
-
+                        store_count_questions=value.question_count;
                         i++;
                     });
 
                     submitted_data += `</div>`;
                     $('#store_quiz_id').val(store_quiz_id);
+                    $('#store_count_questions').val(store_count_questions);
                     $('#dynamic_submitted_block').append(submitted_data);
                 } else if (response.status == 404) {
 
