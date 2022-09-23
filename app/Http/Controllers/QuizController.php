@@ -57,9 +57,10 @@ class QuizController extends Controller
         $admin_id=Auth::user()->id;
         $block_name = $request->block_name;
         $insert_data = $request->insert;
+        $timer=$request->timer;
         $questions = explode(",", $insert_data);
 
-        $query = DB::table('blocks')->insert(['block_name' => $block_name,'admin_id'=>$admin_id, 'created_at' => date('Y:m:d H:i:s')]);
+        $query = DB::table('blocks')->insert(['block_name' => $block_name,'timer'=>$timer,'admin_id'=>$admin_id, 'created_at' => date('Y:m:d H:i:s')]);
         if ($query) {
             $block_id = DB::table('blocks')->select('id')->where('block_name', $block_name)->value('id');
             $data = array();
@@ -98,7 +99,10 @@ class QuizController extends Controller
         //     $offset = $quiz_count * $limit;
         //     // dd($limit);
         // }
-        $blocks = DB::table('blocks')->get();
+        $blocks = DB::table('blocks as b')
+                    ->select('b.id','b.block_name',DB::raw("(SELECT COUNT(question_id) FROM block_questions
+                    WHERE block_id = b.id GROUP BY b.id) as question_count"))
+                    ->get();
         return view('admin.viewBlocks', ['blocks' => $blocks]);
     }
 
@@ -139,11 +143,13 @@ class QuizController extends Controller
             $offset = $users_count * $limit;
             // dd($limit);
         }
-        $users = DB::table('users')->where('role', '=', 'user')
-                    ->select('id', 'name', 'email')
+        $users = DB::table('users as u')->where('u.role', '=', 'user')
+                    ->select('u.id', 'u.name', 'u.email',DB::raw("(SELECT block_id FROM userquizzes
+                    WHERE status = 'P' && users_id= u.id) as block_id"))
                     ->offset($offset)
                     ->limit($limit)
                     ->get();
+
         if (count($users) > 0) {
             return response()->json(['users' => $users, 'status' => 200]);
         } else {

@@ -3,8 +3,12 @@
 
 
 <div class="container-fluid p-0">
+
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
     <div class="section">
+        <div id="getting" class=""></div>
+        <br>
+        <br>
         <form  action="" method="post">
         @csrf
                 @foreach ($quizQuestionData as $key=>$data)
@@ -18,18 +22,27 @@
             <input type="text" class="q_" value="{{$data['id']}}" hidden/>
             <input type="text"id="block_id" value=" {{$data['block_id']}}" hidden>
             <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
+            <input type="text"id="quiz_timer" value=" {{$data['timer']}}" hidden>
+            <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
 
 
-            <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
-            <i class="bi bi-pen-fill edit btn btn-default" data-id=""></i>
-            <input type="text" class="last_id" value="{{$data['id']}}" hidden/>
+            <textarea id="form22"  class="md-textarea form-control text-black text-info" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
+            <span class="skipText">Skipped</span>
+            <i class="bi bi-pen-fill btn btn-default edit" data-id=""></i>
+
+            @if($data['answerid']=='')
+            <input type="text" class="last_id" value=""hidden/>
+            @else
+            <input type="text" class="last_id" value="{{$data['answerid']}}"hidden/>
+            @endif
+
             <button class="btn btn-primary enter">Insert</button>
             <button class="btn btn-primary update ">Update</button>
+            <input type="button" class="btn btn-warning skipAnswer" value="Skip" id="skipAnswer">
         </div>
         @endforeach
     </form>
     {{-- {{ $quizQuestionData->links() }} --}}
-    <div class="alert alert-success " id="msg"></div>
         <button class="btn btn-primary mt-2 mb-5" name="submit" id="submit">submit</button>
     </div>
 </div>

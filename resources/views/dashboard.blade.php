@@ -48,7 +48,7 @@
                                 {{ $items->technology_description }}
                             </p>
 
-                             <a href="{{url('/technologies_second')}}/{{$items->id}}" class="btn btn-default mt-2"style="border:1px solid green;" >Learn More..</a>
+                             <a href="" class="cardtech btn btn-default mt-2" data-id="{{ $items->id }}" style="border:1px solid green;" >Learn More..</a>
                         </div>
                       </div>
 
@@ -58,7 +58,7 @@
             {{-- technology with small and multiple div ------------------------- --}}
 
 
-            <div class="section">
+            <div class="slider">
                 <h2 class="text">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
 
@@ -67,7 +67,7 @@
                             <h4 class="tech_name">
                                 {{ $items->technology_name }}
                             </h4>
-                            <a href="#" class="btn btn-primary" style="margin-top:2%">Learn More..</a>
+                            <a href="#" class="btn btn-primary slidertech " data-id="{{ $items->id }}" style="margin-top:2%">Learn More..</a>
 
                         </div>
                     @endforeach

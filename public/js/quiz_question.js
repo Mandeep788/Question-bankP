@@ -4,6 +4,8 @@ $(document).ready(function () {
     $('.enter').show();
     $('#msg').hide();
     $('.update').hide();
+    $('.skipText').hide();
+    $(this).parent().find('#skipText').hide();
     function checkAnswerValue() {
         let answerElement = $(document).find('.text-info');
         $(answerElement).each(function () {
@@ -11,7 +13,11 @@ $(document).ready(function () {
                 // console.log(this);
                 $(this).parent().find('.enter').hide();
                 $(this).parent().find('.edit').show();
+                $(this).parent().find('#skipAnswer').hide();
                 $(this).attr("disabled", true);
+            }
+            else if (($.trim($(this).val())) == "0") {
+                $(this).parent().find('#skipAnswer').show();
             }
         });
     }
@@ -21,16 +27,27 @@ $(document).ready(function () {
     $(document).on('click', "#start_quiz", function (e) {
         e.preventDefault();
         let u_id = $('#user_id').val();
-        console.log(u_id);
+        // console.log(u_id);
         let block_id = $(this).data("id");
         $('#block_id').val(block_id);
-        console.log(block_id);
+        // console.log(block_id);
         $('#myModal').hide();
+        $.ajax({
+            type: "get",
+            url: "/quiz",
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 200) {
+                    swal.fire("Start your quiz").then(function () {
+                        // get_question(block_id);
+                        window.location = "/quiz/" + block_id + "/" + u_id;
+                    })
+                }
 
-        swal.fire("Start your quiz").then(function () {
-            // get_question(block_id);
-            window.location = "/quiz/" + block_id + "/" + u_id;
-        })
+            }
+        });
+
+
 
     });
     $(document).on('click', "#checked_quiz", function (e) {
@@ -50,9 +67,6 @@ $(document).ready(function () {
             window.location = "/dashboard";
 
         });
-
-
-
     });
     // ***********************************end area ******************************************
 
@@ -76,15 +90,13 @@ $(document).ready(function () {
         let quiz_id = $(this).parent().find('#quiz_id').val();
         $(this).hide();
         $(this).parent().find('.edit').show();
+        $(this).parent().find('#skipAnswer').hide();
         // $('.update').show();
-        // console.log(answer);
-        // console.log(question_id);
-        // console.log(block_id);
-        // console.log(quiz_id);
-        // console.log(last_id);
+
         $.ajax({
             type: "post",
             url: "/insertanswer",
+            context: this,
             data: {
                 answer: answer,
                 question_id: question_id,
@@ -93,40 +105,87 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
-                if(response.success==true)
-                {
+                // console.log(response);
+                if (response.success == true) {
+                    $(this).parent().find('.last_id').val(response.id);
                     $.toast({
                         text: 'Yes! Inserted succesfully>.',
-                        hideAfter: 1000 ,
+                        hideAfter: 1000,
                         icon: 'success',
                         position: 'bottom-center',
                         showHideTransition: 'slide'
                     })
                 }
-                //  $(last).val(response.id);
 
             }
         });
+    });
+    //******************** */ insert anser code area END*************************************************************
+
+    // ***************************SKIP ANSWER**********************************************************
+
+    $(document).on('click', "#skipAnswer", function () {
+        let parent = $(this).parent().find('.text-info');
+        let question_id = $(this).parent().find('input').val();
+        // console.log(question_id);
+        let block_id = $(this).parent().find('#block_id').val();
+        // console.log(block_id);
+        let quiz_id = $(this).parent().find('#quiz_id').val();
+        // console.log(quiz_id);
+        $(this).parent().find('.skipText').show();
+        $(this).hide();
+        $(this).parent().find('.enter').hide();
+        $(this).parent().find('.edit').show();
+        $(parent).attr("disabled", true);
+
+        $.ajax({
+
+            type: "post",
+            url: "/skipAnswer",
+            context: this,
+            data: {
+                question_id: question_id,
+                // block_id:block_id,
+                quiz_id: quiz_id
+
+            },
+            dataType: "json",
+            success: function (response) {
+                $(this).parent().find('.last_id').val(response.id);
+
+                $.toast({
+                    text: 'You skipped question>.',
+                    hideAfter: 1000,
+                    icon: 'success',
+                    position: 'bottom-center',
+                    showHideTransition: 'slide'
+                })
+            }
+
+        });
+
 
 
     });
-    // insert anser code area end*************************************************************
+    // **************************SKIP ANSWER END*********************************************************
 
 
-    // edit answer code******************************************************
+
+    //***************************edit answer code******************************************************
 
     $(document).on('click', ".edit", function (e) {
         e.preventDefault();
         let parent = $(this).parent().find('.text-info');
         $(parent).attr("disabled", false);
         $(this).parent().find('.update').show();
-        var last_id = $(this).parent().find('.last_id');
+        var last_id = $(this).parent().find('.last_id').val();
         $(this).hide();
         // console.log(last_id);
         $(this).parent().find('.enter').hide();
         //  $('.update').show();
         $(this).parent().find('.update').show();
+        $(this).parent().find('.skipText').hide();
+
 
 
     });
@@ -135,9 +194,19 @@ $(document).ready(function () {
     $(document).on('click', '.update', function (e) {
         e.preventDefault();
         let last = $(this).parent().find('.last_id').val();
-        console.log(last);
+        // console.log(last);
         let parent = $(this).parent().find('.text-info');
         let answer = parent.val();
+        if (answer == '') {
+            $.toast({
+                heading: 'Error',
+                text: ' You can not Insert Empty field',
+                showHideTransition: 'slide',
+                position: 'bottom-center',
+                icon: 'error'
+            })
+            return false;
+        }
         $(parent).attr("disabled", true);
         $(this).parent().find('.edit').show();
         $(this).hide();
@@ -155,9 +224,10 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                // console.log(response);
                 $.toast({
                     text: 'Yes! update succesfully>.',
-                    hideAfter: 1000 ,
+                    hideAfter: 1000,
                     icon: 'success',
                     position: 'bottom-center',
                     showHideTransition: 'slide'
@@ -170,13 +240,49 @@ $(document).ready(function () {
     });
     //************************UODATE ANSWER END******************************************* */
 
-    //**********************************update status of block to SUBMITTED***************************;
+    //**********************************UPDATE STATUS OF BLOCK TO SUBMITTED***************************;
 
     $(document).on('click', '#submit', function () {
-        // alert("hello");
+        $('.enter').each(function(){
+            let answer = $(this).parent().find('.text-info').val();
+            let question_id = $(this).parent().find('input').val();
+            let quiz_id = $(this).parent().find('#quiz_id').val();
+            let last_id = $(this).parent().find('.last_id').val();
+
+            if(last_id == ''){
+                $.ajax({
+                    type: "post",
+                    url: "/insertanswer",
+                    data: {
+                        answer: '0',
+                        question_id: question_id,
+                        quiz_id: quiz_id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.success == true) {
+                            // $(this).parent().find('.last_id').val(response.id);
+                            $.toast({
+                                text: 'Yes! Inserted succesfully>.',
+                                hideAfter: 1000,
+                                icon: 'success',
+                                position: 'bottom-center',
+                                showHideTransition: 'slide'
+                            })
+                        }
+
+                    }
+                });
+            }
+        });
+        submitQuiz();
+    });
+
+    function submitQuiz() {
         $('#msg').show();
-        let block_id = $(this).parent().find('#block_id').val();
-        console.log(block_id);
+        let block_id = $(document).find('#block_id').val();
+        // console.log(block_id);
         $.ajax({
 
             type: "put",
@@ -188,14 +294,34 @@ $(document).ready(function () {
             success: function (response) {
                 // console.log(response);
                 $('#msg').empty();
-                var msg = response.message;
-                $("#msg").append(msg).fadeOut(9000);
+                if (response.status == 200) {
+                    Swal.fire({
+                        position: 'bottom',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        timer: 1500
+                    }).then(function () {
+                        // get_question(block_id);
+                        window.location = "/dashboard";
+                    })
 
-                // console.log(msg);
+
+                }
+                else {
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Something Went Wrong',
+                        showHideTransition: 'slide',
+                        position: 'top-center',
+                        icon: 'error',
+                        show: 1000
+                    })
+                }
+
 
             }
         });
-    });
+    }
 
 
     // ********************end code area**************************************

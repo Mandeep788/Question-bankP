@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('last_company')->nullable();
             $table->string('userTechnology')->nullable();
             $table->float('experience')->nullable();
+            $table->string('experience')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->enum('role',['admin','user','editor'])->default('user');
             $table->timestamp('last_login')->nullable();

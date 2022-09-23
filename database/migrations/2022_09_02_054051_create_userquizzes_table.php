@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id('id');
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('block_id');
-            $table->enum('status',['P','S','I','C','U'])->default('P'); //P-Pending, S-Submitted, I-Initiated, C-Checked, U -UnderReview
+            $table->enum('status',['P','S','I','C','U','AR'])->default('P')->comment('P-Pending, S-Submitted, I-Initiated, C-Checked, U-UnderReview, AR-AlreadyReviewed');
             $table->double('block_aggregate',8,2)->nullable();
+            $table->text('feedback')->nullable();
             $table->string('started_at')->nullable();
             $table->string('submitted_at')->nullable();
             $table->timestamps();

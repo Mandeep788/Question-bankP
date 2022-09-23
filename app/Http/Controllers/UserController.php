@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Pdf;
 
 class UserController extends Controller
 {
@@ -123,6 +124,7 @@ class UserController extends Controller
             ])
             ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
             ->get();
+
         return view('admin.userassessment', ['submittedblock' => $submittedblock]);
     }
 
@@ -131,14 +133,16 @@ class UserController extends Controller
         $id = $request->id;
 
         $submitted_data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua','uq.users_id','=','ua.users_id')
+            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
             ->join('block_questions as bq','bq.id','=','ua.block_question_id')
             ->join('questions as q', 'q.id', '=', 'bq.question_id')
             ->where([
-                ['uq.id', $id],
+                ['ua.quiz_id', $id],
             ])
-            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id')
+            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id',DB::raw("(SELECT COUNT(question_id) FROM block_questions
+            WHERE block_id = uq.block_id GROUP BY uq.block_id) as question_count"))
             ->get();
+
         if ($submitted_data) {
             if (count($submitted_data) > 0) {
                 return response()->json(['submitted_data' => $submitted_data, 'status' => 200]);
@@ -169,11 +173,11 @@ class UserController extends Controller
      public function feedbackBlock(Request $request){
         $QuizId=$request->QuizId;
         $Aggergate=$request->Aggergate;
-        $Feedback=$request->Feedback;
+        // $Feedback=$request->Feedback;
 
         $data=[
             'block_aggregate'=>$Aggergate,
-            'feedback'=>$Feedback,
+            // 'feedback'=>$Feedback,
             'status'=>'C',
         ];
 
@@ -184,5 +188,83 @@ class UserController extends Controller
             return response()->json(['status'=>404]);
         }
 
+     }
+
+     // Feedback Updation
+     public function feedbackData(Request $request){
+        $quizId=$request->quizId;
+        $feedback=$request->feedback;
+
+        $data=[
+            'feedback'=>$feedback,
+        ];
+
+        $query=DB::table('userquizzes')->where('id',$quizId)->update($data);
+        if($query){
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status'=>404]);
+        }
+
+     }
+
+     //PDF View Functionality
+     public function viewPDF($id){
+
+        $data = DB::table('userquizzes as uq')
+            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
+            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('questions as q', 'q.id', '=', 'bq.question_id')
+            ->where([
+                ['uq.id', $id],
+            ])
+            ->select('q.question', 'ua.answer', 'ua.marks_per_ques')
+            ->get();
+
+
+            $userdata = DB::table('userquizzes as uq')
+            ->join('blocks as b','b.id','=','uq.block_id')
+            ->join('users as u','u.id','=','uq.users_id')
+            ->where([
+                ['uq.id', $id],
+            ])
+            ->select('u.name','b.block_name','uq.block_aggregate','uq.feedback',DB::raw("(SELECT name FROM users
+            WHERE id = b.admin_id) as admin_name"))
+            ->get();
+
+
+        $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
+        ->setPaper('a4', 'portrait');
+    return $pdf->stream();
+     }
+
+      //PDF Download Functionality
+      public function downloadPDF($id){
+
+        $data = DB::table('userquizzes as uq')
+            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
+            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('questions as q', 'q.id', '=', 'bq.question_id')
+            ->where([
+                ['uq.id', $id],
+            ])
+            ->select('q.question', 'ua.answer', 'ua.marks_per_ques')
+            ->get();
+
+
+            $userdata = DB::table('userquizzes as uq')
+            ->join('blocks as b','b.id','=','uq.block_id')
+            ->join('users as u','u.id','=','uq.users_id')
+            ->where([
+                ['uq.id', $id],
+            ])
+            ->select('u.name','b.block_name','uq.block_aggregate','uq.feedback',DB::raw("(SELECT name FROM users
+            WHERE id = b.admin_id) as admin_name"))
+            ->get();
+
+
+        $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
+        ->setPaper('a4', 'portrait');
+    return $pdf->download('Question-bank.pdf');
      }
 }

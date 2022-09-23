@@ -21,8 +21,20 @@ class tech_user_Controller extends Controller
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
     
         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
+        // print "<pre>";
+        // print_r($frame1);
+        // exit();
+        $countFrame=count($frame1);
+if($countFrame>0)
+{
+  return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1]);
+}
+else{
+
+  return view('user.technology',['technologies'=>$technologies,'countFrame'=>$countFrame]);
   
-        return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1]);
+}
+
     }
 
     // fetching query of question and answer fetching**********************************************

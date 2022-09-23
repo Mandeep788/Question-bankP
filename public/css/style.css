@@ -13,46 +13,58 @@ body {
 
   .row {
     /* background-color: #b3b6b7; */
-    height: 70px;
+    height: 80px;
   }
-  .img {
+  .socialMedia{
+    text-align: right;
+  }
+  .socialMedia i{
+   margin-left:20px;
+  }
+  .img{
     width: 200px;
-    height: 60px;
-    margin-left: 20px;
-    margin-top: 5px;
-    border-radius: 50px;
+    height: 40px;
+    margin-left: 60px;
+    margin-top: 40px;
+
   }
   .COL {
     margin-top: 15px;
     width:50%;
+    padding:25px;
+  }
+  .username{
+    margin-left:-10px;
   }
 
   .dropdown {
     margin-top: 0px;
     border: none;
-    margin-left: 20px;
+    margin-left: 30px;
     border-radius: 50%;
   }
   .count{
     text-align:center;
-     padding-top:3px;
-     width:10%;
+    margin-top:30px;
+     padding-top:4px;
+     width:8%;
      background-color: red;
      color:white;
-     border-radius:40%;
+     border-radius:45%;
      height:25px; font-size:12px;
   }
   .img2 {
     width: 70px;
     margin-top: 2px;
-    margin-left: -30px;
+    margin-left: -40px;
     height: 50px;
     border-radius: 50%;
   }
   .dropdown-menu {
-    position: absolute;
-    top: 5%;
-    left: 10%;
+    width:30%;
+    margin-top: 20% !important;
+    margin-left:-45% !important;
+
   }
   .bell{
     cursor:pointer;
@@ -62,36 +74,37 @@ body {
   .div{
     margin-left: 60px;
   }
-  /* .navbar-nav {
-      margin-left:60px;
-    } */
   .nav-item {
     margin-left: 20px;
   }
-  .nav-item a {
+  /* .nav-item a {
     font-weight: 700;
-    color:black;
+
     font-family: "Josefin Sans",sans-serif;
 
-  }
-  .nav-item a:hover {
-
-    color:black;
-  }
-  .nav-item:hover{
-    color:black;
-    border-bottom:4px solid green;
-    transition: 0.7s;
-    border-radius:20px;
-    height:40px;
-
-
-  }
-  /* .active.nav-link:hover {
-    border-bottom:4px solid green;
-    border-radius:20px;
-    color: white;
   } */
+  #topheader #navbarNav .navbar-nav li a{
+    font-weight: 700;
+    font-family: "Josefin Sans",sans-serif;
+  }
+.active2{
+  border-bottom:4px solid green;
+  /* transition: 0.7s; */
+  border-radius: 20px;
+
+}
+#topheader #navbarNav .navbar-nav li :hover{
+  color:black;
+  border-bottom:4px solid green;
+  /* transition: 0.7s; */
+  border-radius:20px;
+  height:40px;
+  /* animation-duration: 1s;
+  animation-iteration-count:1;
+  transform-origin:bottom;
+  animation-name: bounce;
+  animation-timing-function: ease; */
+}
 
   .con{
     height: 800px;
@@ -104,15 +117,13 @@ body {
 
 
   }
-
-  .nav-item:hover{
-    animation-duration: 1s;
-    animation-iteration-count:1;
-    transform-origin:bottom;
-    animation-name: bounce;
-    animation-timing-function: ease;
-
-  }
+  .sticky {
+    position: fixed;
+    z-index: 1;
+    background-color: #D6D9DC;
+    top: 0;
+    width: 100%;
+}
 
   @keyframes bounce {
     0%   { transform: translateY(0); }
@@ -123,12 +134,13 @@ body {
     font-size: 49px;
     font-weight: 600;
     color: #030431;
-    margin-top: 5%;
+    margin-top: 4%;
+    margin-left:10px !important;
   }
    */
   .card{
     margin-left:10px !important;
-   text-align: left;
+    text-align: left;
     height: 300px;
     margin-top: 150px;
     border-radius: none;
@@ -137,6 +149,7 @@ body {
 
 
   }
+
   .card-title{
     font-weight:700;
     margin-top:40px;
@@ -179,11 +192,11 @@ body {
   .d-block{
     width:100%;
     height:490px;
-     padding:0px;
+    padding:0px;
   }
 
   .gallery {
-    background: #EEE;
+    background: rgba(255, 255, 255, 0.986);
   }
 
   .gallery-cell {
@@ -205,30 +218,15 @@ body {
   }
   .cell_one{
     width:30%;
-    background-color:#2D3092;
-    color:whitesmoke;
+    background-color:#f8f4f405;
+    color:rgb(27, 26, 26);
   }
-  /* cell number */
-  /* .gallery-cell:before {
-    display: block;
-    text-align: center;
-    content: counter(gallery-cell);
-    line-height: 200px;
-    font-size: 80px;
-    color: white;
-  } */
-  .flickity-prev-next-button.next {
 
-    /* margin-left: 100px !important;
-    background-color:#8C8;;
-    border:none; */
+
+  .flickity-prev-next-button.next {
     display: none;
   }
   .flickity-prev-next-button.previous {
-    /* margin-left: 580px !important;
-    margin-top: 60px;
-    background-color:#8C8;;
-    border:none; */
     display: none;
   }
 
@@ -248,6 +246,15 @@ body {
     width:30%;
     left:65%;
   }
+  
+ .notification_design{
+  text-decoration: none !important;
+  color:black;
+ }
+
+ .notification_design:hover{
+  color:black;
+ }
   /* footer designnnnn****************************************************** */
 
   .error{
@@ -256,12 +263,18 @@ body {
 
   .typefoot{
     width:100%;
+    height:200px;
     max-width: 100%;
     background-color: grey;
     height: 400px;
     padding: 0px 0px 0px 0px;
   }
   /* technology blade page design******************************** */
+.errorImg{
+
+  width:40%;
+  margin-left: 25%;
+}
 
   .div1{
     text-align: center;
@@ -391,3 +404,82 @@ body {
     border: none;
     outline: none;
 }
+.skipText{
+  color:green;
+  font-style: italic;
+  margin-left: 10%;
+}
+.edit{
+  margin-right: 90%;
+}
+.enter{
+  margin-top:5px;
+  margin-left:110px;
+
+}
+#skipAnswer{
+  margin-left: 57%;
+  margin-top: 3px;
+
+}
+.update{
+  margin-top:5px;
+  margin-left:110px;
+}
+/* datatable design css */
+
+#datatable{
+  background-color:ghostwhite;
+
+}
+.notificationPanel{
+  width:70%;
+  margin-left: 16%;
+  padding:10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+
+}
+#datatable_filter{
+  margin-bottom:10px;
+  height:49px;
+  padding: 10px;
+  width:50%;
+  background-color: black;
+  color:whitesmoke;
+}
+#datatable_length
+  select {
+  color:white;
+}
+#datatable_length
+  select option{
+color: black;
+  }
+#datatable_filter input{
+  color:white;
+}
+#datatable_length{
+  margin-bottom:10px;
+  width:50%;
+  padding: 10px;
+  color:whitesmoke;
+  background-color: black;
+
+}
+#datatable_wrapper{
+  text-decoration-style:white;
+}
+
+.countdown-section{
+    position:sticky;
+    background-color: black;
+}
+.countdown-period{
+    color: white;
+
+}
+.countdown-amount{
+    color: white;
+}
+
+

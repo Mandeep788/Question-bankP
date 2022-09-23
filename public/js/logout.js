@@ -3,7 +3,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: "GET",
-            url: "/admin/logout",
+            url: "/logout",
             // data: "data",
             dataType: "json",
             success: function (response) {
@@ -11,7 +11,6 @@ $(document).ready(function(){
                     Swal.fire({
                         title: 'Success!',
                         text: 'Logout Successfully.',
-                        type: 'success',
                         icon:'success',
                         timer: 1000
                      }).then(function () {
@@ -23,5 +22,6 @@ $(document).ready(function(){
         });
 
     });
-
+  
+  
 });

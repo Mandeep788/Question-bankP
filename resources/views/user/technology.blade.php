@@ -6,16 +6,28 @@
 
 <div class="container div2" >
     <div class="row">
-        @foreach ($frame1 as $f)
-        <div class="col-md-6  div1">
-            <h2 style=" margin-left:2px;">
-                <a href="#" class="frame1">
-                    {{ $f->framework_name }}
-                </a>
-            </h2>
-            <a href="#" class="btn btn-default mt-5  link" data-id="{{ $f->id }}" data-techid="{{$f->technology_id}}">Learn More..</a>
-        </div>
-        @endforeach
+      @isset($countFrame)
+    
+      <div class="col-md-12 p-0 errorImg">
+        <img src="{{asset("user_img/img/100465-no-data-found.gif")}}" style="margin-left:110px; height:420px;">
+      </div>
+      @endisset
+      @isset($frame1)
+      @foreach ($frame1 as $f)
+      <div class="col-md-6  div1">
+          <h2 style=" margin-left:2px;">
+              <a href="#" class="frame1">
+                  {{ $f->framework_name }}
+              </a>
+          </h2>
+          <a href="#" class="btn btn-default mt-5  link" data-id="{{ $f->id }}" data-techid="{{$f->technology_id}}">Learn More..</a>
+      </div>
+      @endforeach
+      @endisset
+           
+        
+      
+
     </div>
 </div>
 <div class="tech_display" id="tech_question_display">
@@ -38,7 +50,7 @@
     </div>
     <div class="question_display " id="question">
         <div class="row justify-content-center p-5" id="ques">
-
+           
         </div>
     </div>
     <div class="page_loader">

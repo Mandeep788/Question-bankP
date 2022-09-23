@@ -875,7 +875,7 @@ $(document).ready(function () {
                 // console.log(response);
                 $('#edit_question').val(response.question);
                 $('#edit_answer').val(response.answer);
-                $('#edit_question_id').val(response.question_id);
+                $('#question_id').val(response.question_id);
             }
         });
 
@@ -889,7 +889,7 @@ $(document).ready(function () {
         let framework_id = $('#store_framework_id').val();
 
         var url = $('#editQuestionForm').attr('action');
-        var id = $('#edit_question_id').val();
+        var id = $('#question_id').val();
         let experience_id = $('#store_experience_id').val();
         // console.log(id);
         $('#update_question').text('Updating...');

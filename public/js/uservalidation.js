@@ -6,15 +6,50 @@ $(document).ready(function () {
             phone_number: {required:true,
                 minlength:10},
 
-            gender: "required",
-            address: "required",
-            last_company: "required",
-            current_company: "required",
-            designation: "required",
-            experience: "required",
-            userTechnology: {required:true,
-                    minlength:1},
+            },
+            phone_number:{
+                required :true,
+                digits:true,
+                minlength:10,maxlength:10
+            },
+            experience: {
+                required: true,
+                digits: true
+
+            },
+            designation: {
+                required: true,
+
+            },
+            last_company: {
+                required: true,
+            },
+            address: {
+                required: true,
+            },
         },
+        messages: {
+            name: {
+                required: "Please enter your name",
+            },
+            phone_number:{
+                required :"Please enter your Mobile Number",
+                digits:"Mobile Number must be in digits",
+                minlength:"Mobile Number must be  10 digits",
+                maxlength:"Mobile Number must be  10 digits"
+            },
+            experience:{
+                required: "Please enter your experience",
+            },
+            designation:{
+                required: "Please enter your designation",
+            },
+            last_company:{
+                required: "Please enter your last company",
+            },
+            address:{
+                required: "Please enter your address",
+            }
 
 messages: {
             name:"Please enter your name.",
@@ -28,18 +63,15 @@ messages: {
             experience:"Enter your experience",
             userTechnology:"Enter your technology",
         },
-
-        submitHandler:function(form)
+        submitHandler:function()
         {
-    
-            swal.fire({
-                title: "Good job!",
-                text: "Record is Updated!",
-                icon: "success",
-                button: "Aww yiss!",
-              });
-     
-            form.submit();
+            swal({
+                title: 'Success!',
+                text: 'Profile updated Successfully.',
+                icon:'success',
+                timer: 1000
+            });
+
         }
 
 });
