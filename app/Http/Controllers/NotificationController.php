@@ -12,6 +12,21 @@ class NotificationController extends Controller
 
     public function getNotification($u_id)
     {
+        $statusInitiate = [
+            'status'=>'I'
+        ];
+        $statusAlreadyReviewed = [
+            'status'=>'AR'
+        ];
+        $query = DB::table('userquizzes')->where([['users_id',$u_id],['status','P']])->get();
+        if(count($query)>0){
+            $updateQuery = DB::table('userquizzes')->where([['users_id',$u_id],['status','P']])->update($statusInitiate);
+        }
+        $query2 = DB::table('userquizzes')->where([['users_id',$u_id],['status','C']])->get();
+        if(count($query2)>0){
+            $updateQuery = DB::table('userquizzes')->where([['users_id',$u_id],['status','C']])->update($statusAlreadyReviewed);
+        }
+
         $notificaton=DB::table('userquizzes')
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->where([
@@ -19,10 +34,11 @@ class NotificationController extends Controller
         ])
         ->orWhere([['users_id',$u_id],['status','C']])
         ->orWhere([['users_id',$u_id],['status','I']])
+        ->orWhere([['users_id',$u_id],['status','AR']])
 
-        ->select('userquizzes.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
-        // dd($notificaton);
-        // $count=count($notificaton);
+
+        ->select('userquizzes.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->orderBy('blocks.block_name')->get();
+        
         return response()->json([
            'notification'=> $notificaton,
         //    'count'=>$count

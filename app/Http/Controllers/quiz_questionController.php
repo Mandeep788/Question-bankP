@@ -148,33 +148,26 @@ class quiz_questionController extends Controller
     }
     public function statusInitiate()
     {
-        $user_id=Auth::user()->id;
+        // $user_id=Auth::user()->id;
 
-        $statusInitiate = [
-            'status'=>'I'
-        ];
-        $statusAlreadyReviewed = [
-            'status'=>'AR'
-        ];
-        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->get();
-        if(count($query)>0){
-            $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
-        }
-        $query2 = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->get();
-        if(count($query2)>0){
-            $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->update($statusAlreadyReviewed);
-        }
-        if($updateQuery)
-        {
-                        return response()->json(['status'=>200,
-                        'message'=>"status update to initiate"
-                    ]);
-        }
-        else{
-            return response()->json(['status'=>404]);
-        }
+        // $statusInitiate = [
+        //     'status'=>'I'
+        // ];
+        // $statusAlreadyReviewed = [
+        //     'status'=>'AR'
+        // ];
+        // $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->get();
+        // if(count($query)>0){
+        //     $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
+        // }
+        // $query2 = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->get();
+        // if(count($query2)>0){
+        //     $updateQuery = DB::table('userquizzes')->where([['users_id',$user_id],['status','C']])->update($statusAlreadyReviewed);
+        // }
+       
+        
 
-
+        return response()->json(['status'=>200]);
 
 
     }

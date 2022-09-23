@@ -245,6 +245,14 @@ body {
     width:30%;
     left:65%;
   }
+ .notification_design{
+  text-decoration: none !important;
+
+  color:black;
+ }
+ .notification_design:hover{
+  color:black;
+ }
   /* footer designnnnn****************************************************** */
 
 

@@ -34,11 +34,12 @@ $(document).ready(function () {
         // console.log(block_id);
         $('#myModal').hide();
         $.ajax({
-            type: "put",
+            type: "get",
             url: "/quiz",
             dataType: "json",
             success: function (response) {
                 if(response.status==200){
+                    
                     swal.fire("Start your quiz").then(function () {
                         // get_question(block_id);
                         window.location = "/quiz/" + block_id + "/" + u_id;
