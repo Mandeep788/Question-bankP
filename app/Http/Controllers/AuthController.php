@@ -198,20 +198,53 @@ class AuthController extends Controller
         return Datatables::of($notificationData)
         ->addIndexColumn()
         ->addColumn('pdf',function ($notificationData){
-            
-            return ' <a href="/admin/view-pdf/'.$notificationData->id.'"><i class="bi bi-eye-fill viewPdf"></i> </a> <a href="/admin/download-pdf/'.$notificationData->id.'"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a>';
+            if($notificationData->block_aggregate == '')
+                return '-';
+            else
+            return'<a href="/admin/download-pdf/'.$notificationData->id.'"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a> <a href="/admin/view-pdf/'.$notificationData->id.'"><i class="bi bi-eye-fill viewPdf"></i> </a>';         
         })
-        ->addColumn('action')
         ->addColumn('mail', function ($notificationData){
-            return '<a href="/mail/'.$notificationData->id.'"><i class="bi bi-envelope-fill sendMail"></i></a>';
+            if($notificationData->block_aggregate == '')
+            return '-';
+        else
+        return '<a href="/mail/'.$notificationData->id.'"><i class="bi bi-envelope-fill sendMail"></i></a>';
+    })
+
+        ->editColumn('status', function($notificationData){
+            if($notificationData->status == 'P')
+            return 'Pending';
+            elseif($notificationData->status == 'I')
+            return 'Initiated';
+            elseif($notificationData->status == 'S')
+            return 'Submitted';
+            elseif($notificationData->status == 'U')
+            return 'Under Review';
+            elseif($notificationData->status == 'C')
+            return 'Reviewed';
+            elseif($notificationData->status == 'AR')
+            return 'Already Reviewed';
         })
+
+        ->editColumn('block_aggregate', function($notificationData){
+            if($notificationData->block_aggregate == '')
+            return '-';
+        else
+        return $notificationData->block_aggregate;
+        })
+        
+        ->editColumn('feedback', function($notificationData){
+            if($notificationData->feedback == '')
+            return '-';
+        else
+        return $notificationData->feedback;
+        })
+
         ->rawColumns(['pdf', 'mail'])
         ->setRowId('id')
         ->setRowClass(function ($adminId){
             return $adminId->id % 2 == 0 ? 'alert-success' : 'alert-primary';
         })
         ->removeColumn('id')
-        // ->rawColumn('pdf')
         ->make(true);
     }
 
