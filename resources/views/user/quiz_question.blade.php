@@ -6,9 +6,26 @@
 
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
     <div class="section">
-
-
-    
+        <div style="display:none;" class="videoPlayer">
+            <video class="video" width="600px" controls></video>
+        </div>
+        <div class="d-flex">
+            <div>
+                <button class="btn btn-success mb-2" id="start"> Start </button>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                Please start recording your screen.
+            </div>
+        </div>
+        <div class="d-flex">
+            <div>
+                <button class="btn btn-danger mb-2" id="stop" > Stop </button>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                Make sure you stop the recording.
+            </div>
+        </div>
+        
         <div id="getting" class=""></div>
         <br>
         <br>
@@ -27,7 +44,13 @@
             <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
             <input type="text"id="quiz_timer" value=" {{$data['timer']}}" hidden>
             <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
+            <input type="text"id="quiz_block_name" value=" {{$data['block_name']}}" hidden>
+            <input type="text"id="quiz_user_name" value=" {{$data['name']}}" hidden>
+            <textarea id="form22"  class="md-textarea form-control text-black text-info" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
+            <span class="skipText">Skipped</span>
             <i class="bi bi-pen-fill btn btn-default edit" data-id=""></i>
+
+            @if($data['answerid']=='')
             <input type="text" class="last_id" value=""hidden/>
             @else
             <input type="text" class="last_id" value="{{$data['answerid']}}"hidden/>

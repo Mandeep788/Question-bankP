@@ -12,25 +12,14 @@
     </div>
 
     <div class="container-fluid">
-        {{-- <form action="{{ route('viewPDF') }}" method="post" target="_blank">
-            @csrf
-            <div>
-                <button>View pdf</button>
-            </div>
-        </form>
-        <form action="{{ route('downloadPDF') }}" method="post" target="_blank">
-            @csrf
-            <div>
-                <button type="submit">download pdf</button>
-            </div>
-        </form> --}}
+    
 
         <div class="row">
             <!-- Column -->
             <div class="col-lg-12 col-xlg-12 col-md-12">
                 <div class="profile_box">
                     <div class="">
-                        <table id="userBlockStatus" class="table table-light table-striped">
+                        <table id="userBlockStatus">
                             <thead>
                                 <th>#</th>
                                 <th>Name</th>
@@ -42,7 +31,7 @@
                                 <th>Mail</th>
                             </thead>
                             <tbody>
-                                @foreach ($notificationData as $userblockStatus)
+                                {{-- @foreach ($notificationData as $userblockStatus)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$userblockStatus->name}}</td>
@@ -97,12 +86,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
-                            <tfoot></tfoot>
+                            
                         </table>
-                        <!-- Button trigger modal -->
-                            <!-- Modal -->
+                      
                             <div class="modal fade" id="feedbackFormModal" tabindex="-1" aria-labelledby="feedbackFormModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                 <div class="modal-content">

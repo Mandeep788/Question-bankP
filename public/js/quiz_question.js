@@ -41,7 +41,6 @@ $(document).ready(function () {
                     swal.fire("Start your quiz").then(function () {
                         // get_question(block_id);
                         window.location = "/quiz/" + block_id + "/" + u_id;
-                        // onclick="set_all();"
                      })
                  }
 

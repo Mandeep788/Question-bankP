@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\navbarTechnologyController;
 use Illuminate\Support\Facades\Cookie;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class AuthController extends Controller
 {
@@ -179,6 +181,11 @@ class AuthController extends Controller
         }
     }
 
+    public function indexNotification()
+    {
+        return view('admin.notifications');
+    }
+
     public function notificationPanel(){
         $adminId = Auth::user()->id;
         $notificationData = DB::table('userquizzes as uq')
@@ -187,7 +194,25 @@ class AuthController extends Controller
                             ->where('b.admin_id',$adminId)
                             ->select('uq.id','uq.block_aggregate','uq.feedback','uq.status','b.block_name','u.name')
                             ->get();
-        return view('admin.notifications',['notificationData'=>$notificationData]);
+       
+        return Datatables::of($notificationData)
+        ->addIndexColumn()
+        ->addColumn('pdf',function ($notificationData){
+            
+            return ' <a href="/admin/view-pdf/'.$notificationData->id.'"><i class="bi bi-eye-fill viewPdf"></i> </a> <a href="/admin/download-pdf/'.$notificationData->id.'"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a>';
+        })
+        ->addColumn('action')
+        ->addColumn('mail', function ($notificationData){
+            return '<a href="/mail/'.$notificationData->id.'"><i class="bi bi-envelope-fill sendMail"></i></a>';
+        })
+        ->rawColumns(['pdf', 'mail'])
+        ->setRowId('id')
+        ->setRowClass(function ($adminId){
+            return $adminId->id % 2 == 0 ? 'alert-success' : 'alert-primary';
+        })
+        ->removeColumn('id')
+        // ->rawColumn('pdf')
+        ->make(true);
     }
 
     public function loadDashboard()

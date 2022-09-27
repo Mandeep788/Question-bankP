@@ -36,13 +36,13 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{ url('/admin/totalquizblocks') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('/admin/indexblock') }}" aria-expanded="false">
                     <i class="bi bi-archive-fill"></i>
                     <span class="hide-menu">View Quiz Blocks</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{ url('/admin/notificationPanel') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('/admin/indexNotification') }}" aria-expanded="false">
                     <i class="bi bi-bell-fill"></i>
                     <span class="hide-menu">Test Info</span>
                 </a>
@@ -57,18 +57,17 @@
                 <h4>Admin Panel</h4>
             </div>
             <div class="notification_bar">
-                <div class="d-flex dropdown">
+                <div class="d-flex dropdownn">
                     <div class="notification">
                         <i class="bi bi-bell-fill" id="bi"></i>
                     </div>
                     <div>
                         <span class="count">
                             <span class="red_circle">
-
                             </span>
                         </span>
                     </div>
-                    <div id="notifications_desc" class="dropdown-content notication_heading">
+                    <div id="notifications_desc" class="dropdown-content notication_heading" >
 
                     </div>
                 </div>

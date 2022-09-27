@@ -1,6 +1,24 @@
 $(document).ready(function () {
+
+    $('#userBlockStatus').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/notificationPanel',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'block_name', name: 'block_name'},
+            {data: 'status', name: 'status'},
+            {data: 'block_aggregate', name: 'block_aggregate'},
+            {data: 'feedback', name: 'feedback'},
+            {data: 'pdf', name: 'pdf', orderable:false, searchable:false} ,
+            {data: 'mail', name: 'mail', orderable:false, searchable:false}
+
+
+        ]
+    });
     $("#popupImage").hide();
-    $('#userBlockStatus').DataTable();
+    // $('#userBlockStatus').DataTable();
 
     $('#feedbackForm').validate({
         rules: {
@@ -311,115 +329,12 @@ $(document).ready(function () {
     });
 
 
-        
+    // yajra datatable of notification
+
+    
+
+    
            
   
 
-});
-function set_all()
-{
-	days = parseInt($("#days_in").val());
-	if(days < 10)
-		{$('.days').html('0'+days);}
-	else
-		{$('.days').html(days);}
-	
-	
-	hr = parseInt($("#hr_in").val());
-	if(hr < 10)
-		{$('.hr').html('0'+hr);}
-	else
-		{$('.hr').html(hr);}
-	
-	min = parseInt($("#min_in").val());
-	if(min < 10)
-		{$('.min').html('0'+min);}
-	else
-		{$('.min').html(min);}
-	
-	sec = parseInt($("#sec_in").val());
-	if(sec < 10)
-		{$('.sec').html('0'+sec);}
-	else
-		{$('.sec').html(sec);}
-	
-}
-
-function dec_date()
-{
-	days = parseInt($('.days').html());
-	if(days !== 0)
-	{
-		if((days - 1) < 10)
-			{ $('.days').html('0'+(days - 1)); }
-		else
-			{ $('.days').html(days - 1); }
-		
-		$('.hr').html(23);
-		$('.min').html(59);
-		$('.sec').html(59);
-	}
-	else
-	{
-		pass;
-	}
-	
-}
-
-function dec_hr()
-{
-	hr = parseInt($('.hr').html());
-	if(hr !== 0)
-	{
-		if((hr - 1) < 10)
-			{ $('.hr').html('0'+(hr - 1)); }
-		else
-			{ $('.hr').html(hr - 1); }
-		
-		$('.min').html(59);
-		$('.sec').html(59);
-	}
-	else
-	{
-		dec_date();
-	}
-}
-function dec_min()
-{
-	min = parseInt($('.min').html());
-	if(min !== 0)
-	{
-		if((min - 1) < 10)
-			{ $('.min').html('0'+(min - 1)); }
-		else
-			{ $('.min').html(min - 1); }
-		
-		$('.sec').html(59);
-	}
-	else
-	{
-		dec_hr();
-	}
-}
-$(document).ready(function()
-{
-	var Update = function()
-	{
-		$('.sec').each(function()
-		{
-			var count = parseInt($(this).html());
-			if(count !== 0)
-			{
-				if((count - 1) < 10)
-					{ $(this).html('0'+(count - 1)); }
-				else
-					{ $(this).html(count - 1); }
-			}
-			else
-			{
-				dec_min();
-			}
-		});	
-	};
-	setInterval(Update, 1000);
 });

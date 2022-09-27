@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 date_default_timezone_set("Asia/Calcutta");
 class QuizController extends Controller
@@ -90,21 +91,31 @@ class QuizController extends Controller
         }
     }
 
+    public function indexBlocks()
+    {
+        return view('admin.viewBlocks');
+    }
+
     public function fetchAllBlocks(Request $request)
     {
-        // $limit = $request->limit;
-        // $quiz_count = $request->quiz_count;
-        // if ($quiz_count == 0) {
-        //     $offset = 0;
-        // } else {
-        //     $offset = $quiz_count * $limit;
-        //     // dd($limit);
-        // }
         $blocks = DB::table('blocks as b')
                     ->select('b.id','b.block_name',DB::raw("(SELECT COUNT(question_id) FROM block_questions
                     WHERE block_id = b.id GROUP BY b.id) as question_count"))
                     ->get();
-        return view('admin.viewBlocks', ['blocks' => $blocks]);
+        return Datatables::of($blocks)
+        ->addIndexColumn()
+
+        ->addColumn('action',function ($blocks){
+            return '<button id="show_block_btn" type="button" data-id="'.$blocks->id.'"
+        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>';
+        })
+        // ->editColumn('block_name', 'Mr. {{$block_name}}')
+        ->setRowId('id')
+        ->setRowClass(function ($blocks){
+            return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
+        })
+        ->removeColumn('id')
+        ->make(true);
     }
 
     public function fetchBlockQuestions(Request $request, $id)

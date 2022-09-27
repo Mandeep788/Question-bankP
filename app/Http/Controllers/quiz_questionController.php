@@ -27,14 +27,17 @@ class quiz_questionController extends Controller
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
+        ->join('users', 'users.id','=', 'userquizzes.users_id')
         ->where('userquizzes.id',$quiz_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question','blocks.timer','userquizzes.started_at')->get();
+        ->select('userquizzes.id as u','block_questions.block_id', 'blocks.block_name', 'block_questions.id','questions.question','blocks.timer', 'users.name', 'userquizzes.started_at')->get();
 
         $quizQuestionData = array();
         foreach($query as $key=> $userTech)
         {
             $array['u'] = $userTech->u;
             $array['block_id'] = $userTech->block_id;
+            $array['block_name'] = $userTech->block_name;
+            $array['name'] = $userTech->name;
             $array['timer'] = $userTech->timer;
             $array['started_at'] = $userTech->started_at;
             $array['id'] = $userTech->id;

@@ -9,17 +9,17 @@
                         <div>
                             <h5 class="page-title p-3 mt-2">Quiz</h5>
                         </div>
-                        <div class="d-flex">
-                            <div>
+                        {{-- <div class="d-flex"> --}}
+                            {{-- <div>
                                 <select id="show_blocks_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
                                     <option value="10" selected>10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
                                     <option value="40">40</option>
                                 </select>
-                            </div>
-                            <div>
-                            </div>
+                            </div> --}}
+                            {{-- <div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -29,25 +29,15 @@
         <div id="block_data" class="container-fluid">
             <div class="first_section">
                 <div class="bg-white">
-                    <table class="table table-hover">
-                        <thead class="">
+                    <table id="indexblocks" class="table table-striped">
+                        <thead >
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
                             <th>Number of Questions</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach ($blocks as $block)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $block->block_name }}</td>
-                                    <td>{{ $block->question_count }}</td>
-                                    <td>
-                                        <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
-                                            class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-                                    </td>
-                                </tr>
-                            @endforeach
+
                         </tbody>
                         <tfoot>
                         </tfoot>

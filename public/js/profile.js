@@ -41,7 +41,6 @@ $(document).ready(function () {
       
         submitHandler:function(form)
         {
-
             swal({
                 title: 'Success!',
                 text: 'Profile updated Successfully.',

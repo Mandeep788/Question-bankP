@@ -28,13 +28,6 @@
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
-
-                            <div class="notification">
-                                <p>test</p>
-                            </div>
-
-                            <p>{{Auth::user()->name}}</p>
-
                         <b><p class="username">{{ Auth::user()->name }}</p></b>
 
 

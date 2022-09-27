@@ -1,4 +1,18 @@
 $(document).ready(function () {
+    $('.dropdown-content').hide();
+
+    $('#indexblocks').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/totalquizblocks',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'block_name', name: 'block_name'},
+            {data: 'question_count', name: 'question_count'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
 
     $.ajaxSetup({
         headers: {
@@ -233,4 +247,19 @@ $(document).ready(function () {
 
         // alert($page_limit);
     });
+
+
+    $('.dropdownn').click(function () { 
+        $('.dropdown-content').toggle();
+        $('.dropdown-content').delay(10000).fadeOut();
+
+    });
+    // $('body').click(function (event) { 
+    //     // $('.dropdown-content').show();
+    //     if(!$(event.target).closest('.dropdown-content').length && !$(event.target).is('.dropdown-content')) {
+    //     $('.dropdown-content').hide();
+    //     }
+    // });
+
+
 });
