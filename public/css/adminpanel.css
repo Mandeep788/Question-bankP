@@ -374,6 +374,7 @@ footer a{
     border-radius: 8px;
     padding: 7px 10px;
     font-size: 14px;
+    /* border: 1px solid rgb(0, 183, 255); */
 }
 
 .profile_details:hover{
@@ -619,6 +620,7 @@ footer a{
 .notification_div{
     text-decoration: none;
     color: black;
+    /* border-bottom: 1px solid gray; */
 }
 
 .notification_div:hover{
@@ -689,11 +691,14 @@ footer a{
     text-decoration: none;
     margin-left: 5px;
 
-
 }
 
 .sendMail{
     font-size: 22px;
     text-decoration: none;
 
+}
+
+.hr{
+    color: black;
 }

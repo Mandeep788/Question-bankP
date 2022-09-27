@@ -191,7 +191,7 @@ $(document).ready(function () {
                         if(value.status=='S'){
                         notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
                         }else if(value.status=='U'){
-                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr>`;
+                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr class=" hr">`;
                         }
                     });
                     $('#notifications_desc').append(notifications_desc);
