@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use app\Models\Datamodel;
 Use \Carbon\Carbon;
+use App\Http\Requests;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+
 date_default_timezone_set("Asia/Calcutta");
 
 
@@ -26,13 +31,15 @@ class quiz_questionController extends Controller
         $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
+        ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->where('userquizzes.id',$quiz_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
+        ->select('blocks.block_name','userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
 
         $quizQuestionData = array();
         foreach($query as $key=> $userTech)
         {
             $array['u'] = $userTech->u;
+            $array['block_name'] = $userTech->block_name;
             $array['block_id'] = $userTech->block_id;
             $array['id'] = $userTech->id;
             $array['question'] = $userTech->question;
@@ -41,12 +48,20 @@ class quiz_questionController extends Controller
 
             $quizQuestionData[] = $array;
         }
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $itemCollection = collect($quizQuestionData);
+        $perPage = 1;
+        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+        $paginatedItems= new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage);
         // print '<pre>';
         // print_r($quizQuestionData);
         // exit;
-         return view("user.quiz_question",['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
+      
+        $paginatedItems->setPath($currentPage);  
+         return view("user.quiz_question",['quizQuestionData'=>$paginatedItems,'technologies'=>$technologies]);
     }
-
+  
+  
     public function getAnswerId($quiz_id,$ques_id)
     {
         $query = DB::table('user_assessments as ua')

@@ -3,41 +3,40 @@ $(document).ready(function () {
         $('#tech_question_display').hide();
         $('.div1').show();
     });
-   var loc= $(location).attr('pathname');
-   var idloc =loc.split('/');
-   var pathname=idloc[idloc.length-2];
-   var lastEl = idloc[idloc.length-1];
-//    console.log(lastEl); 
-//    console.log(pathname); 
-   if(pathname=='user_tech')
-   {
+    var loc = $(location).attr('pathname');
+    var idloc = loc.split('/');
+    var pathname = idloc[idloc.length - 2];
+    var lastEl = idloc[idloc.length - 1];
+    //    console.log(lastEl); 
+    //    console.log(pathname); 
+    if (pathname == 'user_tech') {
 
-       var nav=$(this).find(".nav-link");
-       nav.each(function() {
-        var navData=$(this).data("id");
-        if(navData==lastEl){
-           let litag= $(this).closest('li');
-           litag.addClass('active2');
-            // console.log(litag); 
-        }
-         
-       });
-   }
-   
+        var nav = $(this).find(".nav-link");
+        nav.each(function () {
+            var navData = $(this).data("id");
+            if (navData == lastEl) {
+                let litag = $(this).closest('li');
+                litag.addClass('active2');
+                // console.log(litag); 
+            }
+
+        });
+    }
+
 
     var limit = 10;
     var count = 0;
-    var onuserchange=0;
+    var onuserchange = 0;
 
     $('#tech_question_display').hide();
 
 
-    function FetchUserQuestions(fid,tech_id,experience_id,limit,count){
+    function FetchUserQuestions(fid, tech_id, experience_id, limit, count) {
         // delete window.count;
         // clearTimeout(count);
         // $.removeData(count);
         console.log(onuserchange);
-        count=0;
+        count = 0;
         $.ajax({
             method: "get",
             url: "/core_php",
@@ -46,7 +45,7 @@ $(document).ready(function () {
                 tech_id: tech_id,
                 experience_id: experience_id,
                 limit: limit,
-                count:count
+                count: count
             },
             dataType: "json",
             success: function (response) {
@@ -74,7 +73,7 @@ $(document).ready(function () {
                         $('#pageloader_button').hide();
                     }
 
-                }else if(response.status==404){
+                } else if (response.status == 404) {
                     $('#pageloader_button').hide();
                     $('#page_loader_image').hide();
                     var url = '/user_img/img/100465-no-data-found.gif';
@@ -82,12 +81,12 @@ $(document).ready(function () {
                         icon: 'error',
                         title: 'Oops...',
                         text: 'No record Found!',
-                        timer:1000
+                        timer: 1000
                     })
 
-                    $('#ques').append('<img src="'+url+'" style="width:90%; height:400px;">');
-                    
-                
+                    $('#ques').append('<img src="' + url + '" style="width:90%; height:400px;">');
+
+
                 }
 
             }
@@ -101,13 +100,13 @@ $(document).ready(function () {
         $('#frame_id').val(fid);
 
 
-        var experience_id =0;
+        var experience_id = 0;
         // console.log(fid);
         // console.log(tech_id);
         $('#tech_question_display').toggle();
         $('.div1').hide();
         $('#ques').empty();
-        FetchUserQuestions(fid,tech_id,experience_id,limit,count);
+        FetchUserQuestions(fid, tech_id, experience_id, limit, count);
 
 
     });
@@ -124,7 +123,7 @@ $(document).ready(function () {
     $('#experience_id').on('change', function () {
 
         let experience_id = $('#experience_id').find(":selected").val();
-        onuserchange=1;
+        onuserchange = 1;
         // console.log( experience_id);
 
         var tech_id = $('#tech_id').val();
@@ -134,8 +133,8 @@ $(document).ready(function () {
         $('#experiance_id').val(experience_id);
         // console.log(fid);
         // console.log( tech_id);
-         $('#ques').empty();
-         FetchUserQuestions(fid,tech_id,experience_id,limit,count);
+        $('#ques').empty();
+        FetchUserQuestions(fid, tech_id, experience_id, limit, count);
 
 
 
@@ -145,10 +144,10 @@ $(document).ready(function () {
 
 
     $('#page_loader_image').hide();
-    $('#pageloader_button').click(function() {
-        if(onuserchange==1){
-            count=0;
-            onuserchange=0;
+    $('#pageloader_button').click(function () {
+        if (onuserchange == 1) {
+            count = 0;
+            onuserchange = 0;
         }
         count++;
         $('#page_loader_image').show();
@@ -168,7 +167,7 @@ $(document).ready(function () {
                 tech_id: tech_id,
                 experience_id: experience_id,
                 limit: limit,
-                count:count
+                count: count
             },
             dataType: "json",
             success: function (response) {
@@ -196,7 +195,7 @@ $(document).ready(function () {
                         $('#pageloader_button').hide();
                     }
 
-                 }
+                }
 
             }
         });

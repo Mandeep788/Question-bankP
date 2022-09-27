@@ -67,7 +67,7 @@ $(document).ready(function () {
         $('#aggregate').val(checked);
         $('#feedback').val(feedback);
         $.ajax({
-            type: "put",
+            type: "get",
             url: "/quiz",
             dataType: "json",
             success: function (response) {

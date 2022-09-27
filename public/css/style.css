@@ -25,7 +25,7 @@ body {
     width: 200px;
     height: 40px;
     margin-left: 60px;
-    margin-top: 40px;
+    margin-top: 23px;
   
   }
   .COL {
@@ -240,11 +240,19 @@ body {
 
   }
 
-  #myModal{
+
+  .modalDesign{
+    margin-top: 100px;
+    margin-left: 580px;
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  /* #myModal{
     top:5%;
     width:30%;
     left:65%;
-  }
+  } */
  .notification_design{
   text-decoration: none !important;
 
@@ -465,4 +473,6 @@ color: black;
 #datatable_wrapper{
   text-decoration-style:white;
 }
-
+.nextQuiz{
+  margin-left: 20px;
+}
