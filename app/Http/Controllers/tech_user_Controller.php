@@ -18,7 +18,7 @@ class tech_user_Controller extends Controller
     public function show($id){
 
         // $tech=DB::table('technologies')->where('id',$id)->get();
-        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+        $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
     
         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
         // print "<pre>";

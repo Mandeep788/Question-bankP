@@ -21,7 +21,7 @@ class quiz_questionController extends Controller
         }
 
 
-        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+        $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
 
         $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')

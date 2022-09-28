@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blocks', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('block_name');
-            $table->string('timer');
+        Schema::table('blocks', function (Blueprint $table) {
             $table->softDeletes();
-            $table->status();
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('users');
-            $table->timestamps();
         });
     }
 
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test');
+        Schema::table('blocks', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

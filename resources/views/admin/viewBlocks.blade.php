@@ -33,7 +33,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
-                            <th>Number of Questions</th>
+                            {{-- <th>Number of Questions</th> --}}
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -41,13 +41,12 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $block->block_name }}</td>
-                                    <td>{{ $block->question_count }}</td>
+                                    {{-- <td>{{ $block->question_count }}</td> --}}
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-                                        {{-- <button type="button" data-id="{{ $block->id }}"
-                                            class="btn btn-danger delete_block_btn"><i
-                                                class="fa-solid fa-trash"></i>&nbsp;Delete</button> --}}
+                                        <a href="{{url('/viewBlocks/destroy')}}/{{ $block->id }}"><button id="delete" class="btn btn-danger" >Delete</button></a>
+                                        <a href="{{url('/viewBlocks/restore')}}/{{ $block->id }}"><button class="btn btn-danger" >Restore</button></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -12,8 +12,8 @@ class navbarTechnologyController extends Controller
     {
         $sliders = DB::table('slider')->get();
 
-        $technologies = DB::table('technologies') ->whereBetween('id', [1,7])->get();
-        $technologies2 = DB::table('technologies') ->whereBetween('id', [3,6])->get();
+        $technologies = DB::table('technologies') ->whereBetween('id', [1,8])->get();
+        $technologies2 = DB::table('technologies') ->whereBetween('id', [9,12])->get();
         $technologies3 = DB::table('technologies')->get();
         //dd($technologies);
         return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3,'sliders'=>$sliders]);

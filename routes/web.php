@@ -15,6 +15,7 @@ use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 use App\Http\Controllers\UserTechnology;
+use App\Http\Controllers\softDeletes;
 
 
 
@@ -82,7 +83,10 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
-
+    /////
+    Route::get('/viewBlocks/destroy/{id}',[softDeletes::class, 'destroy'])->name('viewBlocks.destroy');
+    Route::get('/viewBlocks/restore/{id}',[softDeletes::class, 'restore'])->name('viewBlocks.restore');
+    /////
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
 
@@ -101,7 +105,7 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/email',[EmailController::class,'index']);
 ///
     Route::get('/technologies_second/{id}',[UserTechnology::class,'index']);
-    Route::get('/technologies_second/{id}',[UserTechnology::class,'show']);
+    // Route::get('/technologies_second/{id}',[UserTechnology::class,'show']);
 
     Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);

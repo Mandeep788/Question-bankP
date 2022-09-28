@@ -124,6 +124,7 @@
 <script type="text/javascript" src="{{ asset('js/pythonTech.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/logout.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/countdown.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/softDelete.js') }}"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.1.0/js/jquery.plugin.min.js"></script>

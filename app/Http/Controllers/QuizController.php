@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -100,9 +98,12 @@ class QuizController extends Controller
         //     // dd($limit);
         // }
         $blocks = DB::table('blocks as b')
-                    ->select('b.id','b.block_name',DB::raw("(SELECT COUNT(question_id) FROM block_questions
-                    WHERE block_id = b.id GROUP BY b.id) as question_count"))
+                    ->select('b.id','b.block_name')
+                    ->whereNull('deleted_at')
                     ->get();
+                    // print'<pre>';
+                    // print_r($blocks);
+                    // exit;
         return view('admin.viewBlocks', ['blocks' => $blocks]);
     }
 

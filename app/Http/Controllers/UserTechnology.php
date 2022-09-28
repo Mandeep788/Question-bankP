@@ -14,7 +14,7 @@ class UserTechnology extends Controller
     }
     public function show($id2){
     $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
-    $technology2=DB::table('technologies')->whereBetween('id',[3,6])->get();    
+    $technology2=DB::table('technologies')->whereBetween('id',[9,12])->get();    
     $frame2=DB::table('frameworks')->where('technology_id',$id2)->get();
 
    // dd($frame2);

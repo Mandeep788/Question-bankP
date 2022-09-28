@@ -48,7 +48,7 @@
                                 {{ $items->technology_description }}
                             </p>
 
-                             <a href="" class="cardtech btn btn-default mt-2" data-id="{{ $items->id }}" style="border:1px solid green;" >Learn More..</a>
+                             <a href="{{url('technologies_second/{id}')}}" class="cardtech btn btn-default mt-2" data-id="{{ $items->id }}" style="border:1px solid green;" >Learn More..</a>
                         </div>
                       </div>
 
