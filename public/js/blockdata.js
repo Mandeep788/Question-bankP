@@ -1,5 +1,17 @@
 $(document).ready(function () {
 
+    $('#indexblocks').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/totalquizblocks',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'block_name', name: 'block_name'},
+            {data: 'question_count', name: 'question_count'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -87,17 +99,18 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status == 200) {
                     let i = 1;
                     var users_data = "";
                     $.each(response.users, function (key, value) {
                         if (value.block_id == block_id) {
                             users_data += `<tr >
-                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled><span class="text-danger">&nbsp;&nbsp;Already Assigned<span></td>
+                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled></td>
                                             <td>`+ i + `</td>
                                             <td>`+ value.name + `</td>
                                             <td>`+ value.email + `</td>
+                                            <td><span class="text-danger">&nbsp;&nbsp;Already Assigned<span><td>
                                          </tr>`;
                         }
                         else {
@@ -106,6 +119,7 @@ $(document).ready(function () {
                                             <td>`+ i + `</td>
                                             <td>`+ value.name + `</td>
                                             <td>`+ value.email + `</td>
+                                            <td><td>
                                          </tr>`;
                         }
                         i++;
@@ -180,35 +194,48 @@ $(document).ready(function () {
             })
             return false;
         }
+
         // console.log(user_id);
-        $.ajax({
-            type: "post",
-            url: "/admin/asssignblock",
-            data: {
-                user_id: user_id,
-                block_id: block_id
-            },
-            dataType: "json",
-            success: function (response) {
-                if (response.status == 200) {
-                    swal.fire({
-                        title: "Block Assigned!",
-                        text: "Block Assigned Successfully.",
-                        icon: 'success',
-                        timer: 1000
-                    }).then(function () {
-                        location.reload(true);
-                    });
-                } else if (response.status == 404) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        timer: 1000
-                    })
-                }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to assign!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#008000',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Assign it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "post",
+                    url: "/admin/asssignblock",
+                    data: {
+                        user_id: user_id,
+                        block_id: block_id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status == 200) {
+                            swal.fire({
+                                title: "Block Assigned!",
+                                text: "Block Assigned Successfully.",
+                                icon: 'success',
+                                timer: 1000
+                            }).then(function () {
+                                location.reload(true);
+                            });
+                        } else if (response.status == 404) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                timer: 1000
+                            })
+                        }
+                    }
+                });
             }
-        });
+        })
     });
 
     // $('#show_blocks_limit').on('change', function () {

@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
     Route::get('/admin/dashboard-data', [AuthController::class, 'dashboardData']);
     Route::get('/admin/notifiications', [AuthController::class, 'fetchNotifications']);
+    Route::get('/admin/indexNotification', [AuthController::class, 'indexNotification']);
     Route::get('/admin/notificationPanel', [AuthController::class, 'notificationPanel']);
 
     Route::get('/admin/technologies', [TechnologyController::class, 'show'])->name('show');
@@ -67,7 +68,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/admin/users', [UserController::class, 'store']);
-    // Route::get('/admin/users/list', [UserController::class, 'getUsers']);
+    Route::get('/admin/users/list', [UserController::class, 'getUsers']);
     Route::get('/admin/userassessment/{id}', [UserController::class, 'assessmentIndex']);
     Route::get('/admin/assessmentdata', [UserController::class, 'getSubmittedBlock']);
     Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
@@ -79,6 +80,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
+    Route::get('/admin/indexblock', [QuizController::class, 'indexBlocks']);
     Route::get('/admin/totalquizblocks', [QuizController::class, 'fetchAllBlocks']);
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);

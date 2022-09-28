@@ -21,42 +21,20 @@
                 <div class="row justify-content-center">
 
                     <div id="white-box table-responsive">
-                        <table class="table bg-white table-hover table-striped table-bordered yajra-datatable py-3">
+                        <table id="yajra-datatable" class="table table-light">
                             <thead>
                                 <tr>
                                     <th>S.N</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Technologies</th>
                                     <th>Designation</th>
-                                    <th>Company</th>
+                                    <th>Last Company</th>
                                     <th>Experience</th>
+                                    <th>Technology Name</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @php
-                                    $prev="";
-                                @endphp --}}
-                                @foreach ($users as $user)
-                                <tr>
-                                    {{-- @if ($prev==$user['id'])
-                                        @continue
-                                    @else --}}
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$user['name']}}</td>
-                                    <td>{{$user['email']}}</td>
-                                    <td>{{$user['technology_name']}}</td>
-                                    <td>{{$user['designation']}}</td>
-                                    <td>{{$user['last_company']}}</td>
-                                    <td>{{$user['experience']}}</td>
-                                    {{-- @endif
 
-                                    @php
-                                        $prev=$user['id'];
-                                    @endphp --}}
-                                </tr>
-
-                                @endforeach
 
                             </tbody>
                         </table>

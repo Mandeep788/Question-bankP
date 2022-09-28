@@ -649,7 +649,7 @@ footer a{
     cursor: pointer;
     font-size: 20px;
     font-weight: 700 ;
-    /* color:dodgerblue ; */
+    color:dodgerblue ;
 }
 
 #popupImage{
@@ -672,7 +672,31 @@ footer a{
     margin-top:5px;
 
 }
-.sendMail{
+/* .sendMail{
     text-decoration: none;
     font-size:22px;
+} */
+
+.viewPdf{
+    font-size: 22px;
+    text-decoration: none;
+
+}
+
+.downPdf{
+    font-size: 22px;
+    text-decoration: none;
+    /* margin-left: 5px; */
+
+
+}
+
+.sendMail{
+    font-size: 22px;
+    text-decoration: none;
+
+}
+
+.hr{
+    color: black;
 }

@@ -36,13 +36,13 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{ url('/admin/totalquizblocks') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('/admin/indexblock') }}" aria-expanded="false">
                     <i class="bi bi-archive-fill"></i>
                     <span class="hide-menu">View Quiz Blocks</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{ url('/admin/notificationPanel') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('/admin/indexNotification') }}" aria-expanded="false">
                     <i class="bi bi-bell-fill"></i>
                     <span class="hide-menu">Test Info</span>
                 </a>
@@ -56,7 +56,7 @@
             <div class="heading">
                 <h4>Admin Panel</h4>
             </div>
-            <div class="notification_bar">
+            <div class="notification_bar" data-bs-toggle="modal" data-bs-target="#notificationModal">
                 <div class="d-flex dropdown">
                     <div class="notification">
                         <i class="bi bi-bell-fill" id="bi"></i>
@@ -68,8 +68,16 @@
                             </span>
                         </span>
                     </div>
-                    <div id="notifications_desc" class="dropdown-content notication_heading">
-
+                    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content" style="margin-top: 91px; margin-left: -123px; width: 75%; ">
+                            <div class="modal-header">
+                            <h5 class="modal-title text-dark" id="notificationModalLabel">Notifications</h5>
+                            </div>
+                            <div class="modal-body" id="notifications_desc" class="dropdown-content notication_heading">
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

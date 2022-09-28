@@ -25,7 +25,7 @@ class MailController extends Controller
     }
     public function sendMail(Request $request)
     {
-        // $id=$request->id;
+    //     $id=$request->id;
     //     $email=$request->email;
     //     $name=$request->name;
     //     $blockName=$request->block_name;

@@ -718,10 +718,11 @@ $(document).ready(function () {
                         $('.pageloader_button').show();
                     } else {
                         $('.pageloader_button').hide();
-
+                        $('.page_loader_image').hide();
                     }
                 }else if (response.status == 404) {
                     $('.pageloader_button').hide();
+                    $('.page_loader_image').hide();
                     $('.spinner-grow').hide();
                     Swal.fire({
                         icon: 'error',
@@ -1020,6 +1021,9 @@ $(document).ready(function () {
                     } else {
                         $('.pageloader_button').hide();
                     }
+                }else if (response.status == 404) {
+                    $('.pageloader_button').hide();
+                    $('.page_loader_image').hide();
                 }
             }
         });

@@ -44,11 +44,16 @@ $(document).ready(function () {
                     let last_id = $(this).parent().find('.last_id').val();
 
                     if (last_id == '') {
+                        if (answer == '') {
+                            var ans ='0';
+                        }else{
+                            var ans =answer;
+                        }
                         $.ajax({
                             type: "post",
                             url: "/insertanswer",
                             data: {
-                                answer: '0',
+                                answer: ans,
                                 question_id: question_id,
                                 quiz_id: quiz_id
                             },

@@ -34,7 +34,6 @@ class NotificationController extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->orWhere([['users_id', $u_id], ['status', 'AR']])
             ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')->get();
 
         return response()->json([

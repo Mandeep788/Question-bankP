@@ -5,6 +5,25 @@ $(document).ready(function () {
     $('#msg').hide();
     $('.update').hide();
     $('.skipText').hide();
+    $('#submit').hide();
+    checkSubmit();
+    function checkSubmit(){
+        let last_id_get=$(document).find('.last_id');
+        var last_id_count=0;
+        $(last_id_get).each(function (){
+            if(($(this).val())==''){
+
+            }else{
+                last_id_count++;
+                // console.log($(this).val());
+            }
+        });
+        let last_id_total=$(document).find('.last_id').length;
+        if(last_id_count == last_id_total){
+            $('#submit').show();
+        }
+        // console.log(last_id_total);
+    }
     $(this).parent().find('#skipText').hide();
     function checkAnswerValue() {
         let answerElement = $(document).find('.text-info');
@@ -31,7 +50,7 @@ $(document).ready(function () {
         let block_id = $(this).data("id");
         $('#block_id').val(block_id);
         // console.log(block_id);
-        $('#myModal').hide();
+        $('#exampleModal').hide();
         $.ajax({
             type: "get",
             url: "/quiz",
@@ -59,7 +78,7 @@ $(document).ready(function () {
         // console.log(checked);
         // console.log(feedback);
         $('#check_details').modal('show');
-        $('#myModal').hide();
+        $('#exampleModal').hide();
 
         $('#aggregate').val(checked);
         $('#feedback').val(feedback);
@@ -92,33 +111,44 @@ $(document).ready(function () {
         $(this).parent().find('.edit').show();
         $(this).parent().find('#skipAnswer').hide();
         // $('.update').show();
-
-        $.ajax({
-            type: "post",
-            url: "/insertanswer",
-            context: this,
-            data: {
-                answer: answer,
-                question_id: question_id,
-                // block_id:block_id,
-                quiz_id: quiz_id
-            },
-            dataType: "json",
-            success: function (response) {
-                // console.log(response);
-                if (response.success == true) {
-                    $(this).parent().find('.last_id').val(response.id);
-                    $.toast({
-                        text: 'Yes! Inserted succesfully>.',
-                        hideAfter: 1000,
-                        icon: 'success',
-                        position: 'bottom-center',
-                        showHideTransition: 'slide'
-                    })
-                }
-
+        let last_id=$(this).parent().find('.last_id').val();
+        if(last_id == ''){
+            if(answer == ''){
+                var ans_value = '0';
+            }else{
+                var ans_value = answer;
             }
-        });
+            $.ajax({
+                type: "post",
+                url: "/insertanswer",
+                context: this,
+                data: {
+                    answer: ans_value,
+                    question_id: question_id,
+                    // block_id:block_id,
+                    quiz_id: quiz_id
+                },
+                dataType: "json",
+                success: function (response) {
+                    // console.log(response);
+                    if (response.success == true) {
+                        $(this).parent().find('.last_id').val(response.id);
+                        $.toast({
+                            text: 'Yes! Inserted succesfully>.',
+                            hideAfter: 1000,
+                            icon: 'success',
+                            position: 'bottom-center',
+                            showHideTransition: 'slide'
+                        })
+                    }
+                    checkSubmit();
+                }
+            });
+        }else{
+            let last =last_id;
+
+            updateAnswer(last,answer);
+        }
     });
     //******************** */ insert anser code area END*************************************************************
 
@@ -210,6 +240,10 @@ $(document).ready(function () {
         $(parent).attr("disabled", true);
         $(this).parent().find('.edit').show();
         $(this).hide();
+        updateAnswer(last,answer);
+
+    });
+    function updateAnswer(last,answer){
         // $('.enter').hide();
 
         $.ajax({
@@ -236,25 +270,29 @@ $(document).ready(function () {
                 // $(last_id).val(response.id);
             }
         });
-
-    });
+    }
     //************************UODATE ANSWER END******************************************* */
 
     //**********************************UPDATE STATUS OF BLOCK TO SUBMITTED***************************;
 
     $(document).on('click', '#submit', function () {
-        $('.enter').each(function(){
+        $('.enter').each(function () {
             let answer = $(this).parent().find('.text-info').val();
             let question_id = $(this).parent().find('input').val();
             let quiz_id = $(this).parent().find('#quiz_id').val();
             let last_id = $(this).parent().find('.last_id').val();
 
-            if(last_id == ''){
+            if (last_id == '') {
+                if (answer == '') {
+                    var ans ='0';
+                }else{
+                    var ans =answer;
+                }
                 $.ajax({
                     type: "post",
                     url: "/insertanswer",
                     data: {
-                        answer: '0',
+                        answer: ans,
                         question_id: question_id,
                         quiz_id: quiz_id
                     },
@@ -317,8 +355,6 @@ $(document).ready(function () {
                         show: 1000
                     })
                 }
-
-
             }
         });
     }

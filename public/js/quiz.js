@@ -316,6 +316,7 @@ $(document).ready(function () {
         }
 
         // console.log(insert);
+       
         $.ajax({
             type: "Post",
             url: "/admin/quiz/questions",

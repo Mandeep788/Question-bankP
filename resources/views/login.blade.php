@@ -45,8 +45,7 @@
                         <i class="fas fa-at"></i>
                     </div>
                     <div class="div">
-                        <h5>Email</h5>
-                        <input type="text" name="email" id="email" class="input" value="{{ $login_email }}">
+                        <input type="text" name="email" id="email" placeholder="Email" class="input" value="{{ $login_email }}">
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -54,8 +53,7 @@
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="div">
-                        <h5>Password</h5>
-                        <input type="password" name="password" id="password" class="input"
+                        <input type="password" name="password" id="password" placeholder="password" class="input"
                             value="{{ $login_pass }}">
                     </div>
                 </div>

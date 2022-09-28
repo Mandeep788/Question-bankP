@@ -23,68 +23,13 @@
                                 <th>Name</th>
                                 <th>Block Assigned</th>
                                 <th>Status</th>
-                                <th>Aggregate Marks</th>
+                                <th >Aggregate Marks</th>
                                 <th>Feedback</th>
-                                <th>PDF</th>
+                                <th width="50px">PDF</th>
                                 <th>Mail</th>
                             </thead>
                             <tbody>
-                                @foreach ($notificationData as $userblockStatus)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$userblockStatus->name}}</td>
-                                    <td>{{$userblockStatus->block_name}}</td>
-                                    <td>
-                                        @if($userblockStatus->status =='P')
-                                        {{'Pending'}}
-                                        @elseif ($userblockStatus->status =='I')
-                                        {{'Initiated'}}
-                                        @elseif ($userblockStatus->status =='S')
-                                        {{'Submitted'}}
-                                        @elseif ($userblockStatus->status =='U')
-                                        {{'Under Review'}}
-                                        @elseif ($userblockStatus->status =='C')
-                                        {{'Reviewed'}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($userblockStatus->block_aggregate == '')
-                                            {{'-'}}
-                                        @else
-                                        {{$userblockStatus->block_aggregate}}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($userblockStatus->block_aggregate == '')
-                                            {{'-'}}
-                                        @else
-                                        @if($userblockStatus->feedback == '')
-                                         <i class="bi bi-plus-circle feedbackIcon" data-id="{{$userblockStatus->id}}"></i>
-                                        @else
-                                        {{$userblockStatus->feedback}}
-                                        @endif
 
-                                        @endif
-
-                                    </td>
-                                    <td class="pdfColumn">
-
-                                        @if($userblockStatus->block_aggregate == '')
-                                            {{'-'}}
-                                        @else
-                                        <a href="/admin/view-pdf/{{$userblockStatus->id}}"><i class="bi bi-eye-fill viewPdf"></i> </a> <a href="/admin/download-pdf/{{$userblockStatus->id}}"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a>
-                                        @endif
-                                    </td>
-                                    <td>
-
-                                        @if($userblockStatus->block_aggregate == '')
-                                            {{'-'}}
-                                        @else
-                                        <a href="/mail/{{$userblockStatus->id}}"><i class="bi bi-envelope-fill sendMail"></i></a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
                             <tfoot></tfoot>
                         </table>

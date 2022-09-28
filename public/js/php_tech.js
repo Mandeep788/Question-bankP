@@ -7,8 +7,8 @@ $(document).ready(function () {
    var idloc =loc.split('/');
    var pathname=idloc[idloc.length-2];
    var lastEl = idloc[idloc.length-1];
-//    console.log(lastEl); 
-//    console.log(pathname); 
+//    console.log(lastEl);
+//    console.log(pathname);
    if(pathname=='user_tech')
    {
 
@@ -18,12 +18,12 @@ $(document).ready(function () {
         if(navData==lastEl){
            let litag= $(this).closest('li');
            litag.addClass('active2');
-            // console.log(litag); 
+            // console.log(litag);
         }
-         
+
        });
    }
-   
+
 
     var limit = 10;
     var count = 0;
@@ -33,10 +33,7 @@ $(document).ready(function () {
 
 
     function FetchUserQuestions(fid,tech_id,experience_id,limit,count){
-        // delete window.count;
-        // clearTimeout(count);
-        // $.removeData(count);
-        console.log(onuserchange);
+
         count=0;
         $.ajax({
             method: "get",
@@ -86,8 +83,8 @@ $(document).ready(function () {
                     })
 
                     $('#ques').append('<img src="'+url+'" style="width:90%; height:400px;">');
-                    
-                
+
+
                 }
 
             }
@@ -109,17 +106,10 @@ $(document).ready(function () {
         $('#ques').empty();
         FetchUserQuestions(fid,tech_id,experience_id,limit,count);
 
-
     });
 
 
-
-
-
-
     // ***************experience fetching code********************************
-
-
 
     $('#experience_id').on('change', function () {
 
@@ -137,12 +127,7 @@ $(document).ready(function () {
          $('#ques').empty();
          FetchUserQuestions(fid,tech_id,experience_id,limit,count);
 
-
-
     });
-
-    // console.log(onuserchange);
-
 
     $('#page_loader_image').hide();
     $('#pageloader_button').click(function() {
@@ -172,7 +157,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status == 200) {
                     $question_data = '';
                     let i = (count * limit) + 1;
@@ -196,6 +181,9 @@ $(document).ready(function () {
                         $('#pageloader_button').hide();
                     }
 
+                 }else if(response.status==404){
+                    $('#pageloader_button').hide();
+                    $('#page_loader_image').hide();
                  }
 
             }

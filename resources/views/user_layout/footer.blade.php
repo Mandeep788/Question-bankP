@@ -124,7 +124,8 @@
 <script type="text/javascript" src="{{ asset('js/pythonTech.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/logout.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/countdown.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/softDelete.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/datatables.js') }}"></script>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.1.0/js/jquery.plugin.min.js"></script>
@@ -137,6 +138,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 </body>
 

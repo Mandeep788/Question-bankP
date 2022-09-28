@@ -6,61 +6,55 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Pdf;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
     public function index()
+    {
+        $technologies = DB::table('technologies')->orderBy('technology_name', 'asc')->get();
+        return view('admin.ListUsers', ['technologies' => $technologies]);
+    }
+
+
+    public function getUsers(Request $request)
     {
         $query = DB::table('users as u')
         ->select('u.id', 'u.name', 'u.email', 'u.designation', 'u.last_company', 'u.experience')
         ->where('u.role', 'user')
         ->get();
 
-        $users = array();
-        foreach($query as $key=> $userTech)
-        {
-            $array['id'] = $userTech->id;
-            $array['name'] = $userTech->name;
-            $array['email'] = $userTech->email;
-            $array['designation'] = $userTech->designation;
-            $array['last_company'] = $userTech->last_company;
-            $array['experience'] = $userTech->experience;
-            $array['technology_name'] = $this->getUserTech($userTech->id);
-            $users[] = $array;
-        }
-      $technologies = DB::table('technologies')->orderBy('technology_name', 'asc')->get();
-        return view('admin.ListUsers', ['technologies' => $technologies,'users'=>$users]);
+        return DataTables::of($query)
+            ->addIndexColumn()
+            // ->addColumn('action', function ($user) {
+            //     return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            // })
+            ->addColumn('technology_name', function($user){
+                $query = DB::table('usertechnologies as ut')
+                ->select('t.technology_name')
+                ->where('ut.users_id',$user->id)
+                ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
+                $i=0;
+                if(count($query)>0){
+                    foreach($query as $key=> $userTech){
+                        $std[$i]=$userTech->technology_name;
+                        $i++;
+                    }
+                    $technologies=implode(',',$std);
+                }else{
+                    $technologies='';
+                }
+                return $technologies;
+            })
+            // ->editColumn('name', 'Shri: {{$name}}')
+            ->setRowId('id')
+            ->setRowClass(function ($user) {
+                return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
+            })
+            ->removeColumn('id')
+            ->make(true);
     }
 
-
-    public function getUserTech($user_id)
-    {
-        $query = DB::table('usertechnologies as ut')
-        ->select('t.technology_name')
-        ->where('ut.users_id',$user_id)
-        // ->where('u.role', 'user')
-        ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
-        $i=0;
-        if(count($query)>0){
-            foreach($query as $key=> $userTech){
-                $std[$i]=$userTech->technology_name;
-                $i++;
-            }
-            $technologies=implode(',',$std);
-        }else{
-            $technologies='';
-        }
-        return $technologies;
-
-    }
-    public function getUsers()
-    {
-
-
-
-
-
-    }
     public function store(Request $request)
     {
         // dd($request->all());

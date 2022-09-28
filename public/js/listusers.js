@@ -7,22 +7,24 @@ $(document).ready(function () {
     $('#user_datatable').hide();
 
     });
-    $('.yajra-datatable').DataTable();
-    // $('.yajra-datatable').DataTable({
-    //     // "processing": true,
-    //     // "serverSide": true,
-    //     // "ajax": "/admin/users/list",
-    //     // "columns": [
-    //     //     {"data": 'id'},
-    //     //     { "data": "name" },
-    //     //     { "data": "email" },
-    //     //     { "data": "role" },
-    //     //     { "data": "technology_name" },
-    //     //     { "data": "designation" },
-    //     //     { "data": "last_company" },
-    //     //     { "data": "experience" }
-    //     // ]
-    // });
+
+    $('#yajra-datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/users/list',
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            // {data: 'id', name: 'id'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {data: 'designation', name: 'designation'},
+            {data: 'last_company', name: 'last_company'},
+            {data: 'experience', name: 'experience'},
+            {data: 'technology_name', name: 'technology_name'},
+            // {data: 'action', name: 'action', orderable: false, searchable: false}
+        ]
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
