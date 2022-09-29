@@ -12,7 +12,7 @@ class UserUpdateController extends Controller
        
         $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
         $users = DB::table('users')->where ('id',$id)->get();
-        return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
+        return view('userEdit',['users'=>$users,'technologies'=>$technologies]); 
     }
     public function update(Request $request){
        
@@ -72,6 +72,6 @@ class UserUpdateController extends Controller
             }
             DB::table('usertechnologies')->insert($technology_data);
         }
-        return redirect('/user_edit');
+        return redirect('/userEdit');
     }
 }

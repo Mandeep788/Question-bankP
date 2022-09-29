@@ -7,7 +7,19 @@ $(document).ready(function () {
         columns: [
             {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
             {data: 'block_name', name: 'block_name'},
-            {data: 'question_count', name: 'question_count'},
+            // {data: 'question_count', name: 'question_count'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
+    $('#restoreblock').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/restoreBlocks',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'block_name', name: 'block_name'},
+            // {data: 'question_count', name: 'question_count'},
             {data: 'action', name: 'action'}
         ]
     });

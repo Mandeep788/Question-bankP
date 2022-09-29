@@ -104,7 +104,10 @@ class QuizController extends Controller
 
         ->addColumn('action',function ($blocks){
             return '<button id="show_block_btn" type="button" data-id="'.$blocks->id.'"
-        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>';
+        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
+       <a href="/viewBlocks/destroy/'.$blocks->id.'"> <button id="show_block_btn" type="button"
+        class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Delete</button></a>
+        ';
         })
         ->setRowId('id')
         ->setRowClass(function ($blocks){
@@ -113,7 +116,30 @@ class QuizController extends Controller
         ->removeColumn('id')
         ->make(true);
     }
+    public function restoreBlocks(Request $request)
+    {
+        $blocks = DB::table('blocks as b')
+                    ->select('b.id','b.block_name')
+                    ->whereNotNull('deleted_at')
+                    ->get();
+        return DataTables::of($blocks)
+        ->addIndexColumn()
 
+        ->addColumn('action',function ($blocks){
+            return '<button id="show_block_btn" type="button" data-id="'.$blocks->id.'"
+        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
+       <a href="/admin/restoreBlocks/'.$blocks->id.'"> <button id="show_block_btn" type="button"
+        class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Restore</button></a>
+        ';
+        })
+        ->setRowId('id')
+        ->setRowClass(function ($blocks){
+            return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
+        })
+        ->removeColumn('id')
+        ->make(true);
+    }
+    
     public function fetchBlockQuestions(Request $request, $id)
     {
         $limit = $request->limit;

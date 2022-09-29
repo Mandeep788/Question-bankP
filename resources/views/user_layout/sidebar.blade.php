@@ -37,7 +37,7 @@
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ url('/user_edit') }}">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/userEdit') }}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="{{ url('/notificationPanel') }} ">Notificatons</a></li>
 
                             <li><a class="dropdown-item" href=" " id="logout">Log Out</a></li>

@@ -65,12 +65,13 @@ messages: {
         },
         submitHandler:function()
         {
-            swal({
+            swal.fire({
                 title: 'Success!',
                 text: 'Profile updated Successfully.',
                 icon:'success',
-                timer: 1000
-            });
+                timer: 2000
+            });   
+            form.submit();
 
         }
 

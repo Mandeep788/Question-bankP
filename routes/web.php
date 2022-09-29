@@ -86,8 +86,11 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
     /////
-    Route::get('/viewBlocks/destroy/{id}',[softDeletes::class, 'destroy'])->name('viewBlocks.destroy');
-    Route::get('/viewBlocks/restore/{id}',[softDeletes::class, 'restore'])->name('viewBlocks.restore');
+    Route::get('/viewBlocks/destroy/{id}',[softDeletes::class, 'destroy']);
+    Route::get('/admin/restoreBlocks/{id}',[softDeletes::class, 'restore']);
+    Route::get('/viewBlocksRestore',function(){ return view('admin.viewBlocksRestore');});
+    Route::get('/admin/restoreBlocks',[QuizController::class,'restoreBlocks'])->name ('restoreBlocks');
+
     /////
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
@@ -99,8 +102,8 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/tech_data/{id}', [tech_user_Controller::class, 'index']);
     Route::get('/user_tech/{id}', [tech_user_Controller::class, 'show']);
 
-    Route::get('/user_edit', [UserUpdateController::class, 'index']);
-    Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
+    Route::get('/userEdit', [UserUpdateController::class, 'index']);
+    Route::post('/userEdit', [UserUpdateController::class, 'update'])->name('userEdit');
     Route::get('/core_php', [tech_user_Controller::class, 'getQuestion']);
 ///
     
