@@ -45,20 +45,32 @@ $(document).ready(function () {
     var quiz_count = 0;   //Global Variable
 
     //Fetch Frameworks of a Technology
-    $(document).on('click', '#clickable_quiz', function (e) {
+    $(document).on('click', '#techGoBtn', function (e) {
         e.preventDefault();
         // alert();
-        let id = $(this).data('id');
+        // let id = $(this).data('id');
         $('#load_technologies_quiz').hide();
         $('#load_frameworks_quiz').show();
         $('#dynamic_frameworks_quiz').empty();
         $('.spinner-grow').show();
-
+        let  technology_id= [];
+        $('.technology_check').each(function () {
+            if ($(this).is(":checked")) {
+                technology_id.push($(this).data('id'));
+            }
+        });
+        technology_id=technology_id.toString();
+        $('#quiz_technology_id').val(technology_id);
+        // console.log(technology_id);
         $.ajax({
             type: "get",
-            url: "/admin/frameworks/" + id,
+            url: "/admin/quiz/frameworks",
+            data:{
+                technology_id:technology_id
+            },
             dataType: "json",
             success: function (response) {
+                // console.log(response);
                 // window.history.pushState('new','title','/admin/frameworks/'+id);
                 if (response.status == 200) {
                     $frame_data = '<div class="row justify-content-left">';
@@ -67,25 +79,30 @@ $(document).ready(function () {
                         $frame_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickframeworkquiz" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
+                                                <h4>`+ value.framework_name +`</h4>
                                             </div>
+                                            <div id="icons_gap">
+                                    <input type="checkbox" data-id="`+ value.id + `" class="frameworks_check">
+                                </div>
                                         </div>
                                     </div>`;
-                        $('#quiz_technology_id').val(value.technology_id);
-                        $('#quiz_technology_name').val(value.technology_name);
+                        
+                        // $('#quiz_technology_name').val(value.technology_name);
 
-                        $('.bread_tech').text(value.technology_name);
+                        // $('.bread_tech').text(value.technology_name);
 
                     });
-                    $frame_data += '</div>';
+                    $frame_data += `</div><div>
+                    <button id="frameGoBtn" class="btn btn-success">Next </button>
+                </div>`;
                     $('.spinner-grow').hide();
                     $('#dynamic_frameworks_quiz').append($frame_data);
-
+                    
                 } else if (response.status == 404) {
                     $.each(response.technology, function (key, value) {
-                        $('#quiz_technology_id').val(value.id);
-                        $('#quiz_technology_name').val(value.technology_name);
-                        $('.bread_tech').text(value.technology_name);
+                        // $('#quiz_technology_id').val(value.id);
+                        // $('#quiz_technology_name').val(value.technology_name);
+                        // $('.bread_tech').text(value.technology_name);
 
                         $('.spinner-grow').hide();
                         Swal.fire({
@@ -105,7 +122,7 @@ $(document).ready(function () {
     });
 
     //Function for Fetching Questions
-    function FetchQuizQuestion(tech_id, id, exp_id, limit) {
+    function FetchQuizQuestion(frameworks_id, exp_id, limit) {
         // $('#test_table').html('');
         $("#test_table > tbody").empty();
         quiz_count = 0;
@@ -113,8 +130,7 @@ $(document).ready(function () {
             type: "get",
             url: "/admin/quiz/questions",
             data: {
-                tech_id: tech_id,
-                frame_id: id,
+                frameworks_id: frameworks_id,
                 exp_id: exp_id,
                 limit: limit,
                 quiz_count: quiz_count
@@ -124,8 +140,6 @@ $(document).ready(function () {
                 // console.log(response);
                 if (response.status == 200) {
                     $('.addQuesForQues').hide();
-
-
                     let i = 1;
                     var questions_data = "";
                     $.each(response.questions, function (key, value) {
@@ -170,22 +184,30 @@ $(document).ready(function () {
     }
 
     //Click Event for Fetching Questions
-    $(document).on('click', '#clickframeworkquiz', function (e) {
+    $(document).on('click', '#frameGoBtn', function (e) {
         e.preventDefault();
+        let  frameworks_id= [];
+        $('.frameworks_check').each(function () {
+            if ($(this).is(":checked")) {
+                frameworks_id.push($(this).data('id'));
+            }
+        });
+        frameworks_id=frameworks_id.toString();
+// console.log(frameworks_id);
         $('#load_frameworks_quiz').hide();
         $('#load_question_quiz').show();
-        let tech_id = $('#quiz_technology_id').val();
-        let id = $(this).data('id');
-        let name = $(this).data('name');
+        // let tech_id = $('#quiz_technology_id').val();
+        // let id = $(this).data('id');
+        // let name = $(this).data('name');
         let exp_id = 0;
         let limit = $('#quiz_page_limit').find(":selected").text();
-        $('#quiz_framework_id').val(id);
-        $('#quiz_framework_name').val(name);
-        let technology_name = $('#quiz_technology_name').val();
-        $('.bread_technology').text(technology_name);
-        $('.bread_frame').text(name);
+        $('#quiz_framework_id').val(frameworks_id);
+        // $('#quiz_framework_name').val(name);
+        // let technology_name = $('#quiz_technology_name').val();
+        // $('.bread_technology').text(technology_name);
+        // $('.bread_frame').text(name);
         // console.log(limit);
-        FetchQuizQuestion(tech_id, id, exp_id, limit)
+        FetchQuizQuestion(frameworks_id, exp_id, limit);
 
     });
 
@@ -199,8 +221,8 @@ $(document).ready(function () {
 
     //Page Loader
     $('#pageloader_quiz_button').click(function () {
-        let frame_id = $('#quiz_framework_id').val();
-        let tech_id = $('#quiz_technology_id').val();
+        let frameworks_id = $('#quiz_framework_id').val();
+        // let tech_id = $('#quiz_technology_id').val();
         let experience_id = $('#quiz_experience').find(":selected").val();
         let limit = $('#quiz_page_limit').find(":selected").text();
         quiz_count++;
@@ -211,8 +233,8 @@ $(document).ready(function () {
             type: "get",
             url: "/admin/quiz/questions",
             data: {
-                tech_id: tech_id,
-                frame_id: frame_id,
+                // tech_id: tech_id,
+                frameworks_id: frameworks_id,
                 exp_id: experience_id,
                 limit: limit,
                 quiz_count: quiz_count
@@ -245,6 +267,9 @@ $(document).ready(function () {
                 }
                 else
                     if (response.status == 404) {
+                        $('#pageloader_quiz_button').hide();
+                    $('#quiz_page_loader_image').hide();
+
                         // $("#test_table > tbody"). empty();
                         // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
 
@@ -258,10 +283,10 @@ $(document).ready(function () {
     $('#quiz_page_limit').on('change', function () {
         let page_limit = this.value;
         let frame_id = $('#quiz_framework_id').val();
-        let tech_id = $('#quiz_technology_id').val();
+        // let tech_id = $('#quiz_technology_id').val();
         let experience_id = $('#quiz_experience').find(":selected").val();
 
-        FetchQuizQuestion(tech_id, frame_id, experience_id, page_limit);
+        FetchQuizQuestion(frame_id, experience_id, page_limit);
         // alert(page_limit);
     });
 
@@ -269,10 +294,10 @@ $(document).ready(function () {
     $('#quiz_experience').on('change', function () {
         let experience_id = this.value;
         let frame_id = $('#quiz_framework_id').val();
-        let tech_id = $('#quiz_technology_id').val();
+        // let tech_id = $('#quiz_technology_id').val();
         let limit = $('#quiz_page_limit').find(":selected").text();
         // alert(tech_id);
-        FetchQuizQuestion(tech_id, frame_id, experience_id, limit);
+        FetchQuizQuestion(frame_id, experience_id, limit);
         // alert($page_limit);
     });
 

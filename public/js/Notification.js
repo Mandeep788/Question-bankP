@@ -1,70 +1,73 @@
-$(document).ready(function () {
-
+$(document).ready(function(){
+    
     count_notifications();
 
-    function count_notifications() {
-
-        let u_id = $('#user_id').val();
+    function count_notifications(){
+       
+        let u_id=$('#user_id').val();
         $.ajax({
             type: "get",
             url: "/get_count_value",
             data: {
-                u_id: u_id
+                u_id:u_id
             },
             dataType: "json",
             success: function (response) {
                 // console.log(response);
-                if (response == "") {
+                if(response=="")
+                {
                     $('.count').hide();
                 }
-                else {
-                    $('.count').text(response);
+                else{
+                $('.count').text(response);
                 }
             }
         });
     }
-    $('#notification_value').click(function () {
-        let u_id = $('#user_id').val();
-        $('.count').hide();
-        $('.modal-backdrop').removeClass("modal-backdrop");
-        // $('#myModal').modal('show');
+    $('#notification_value').click(function(){
+      let u_id=$('#user_id').val();
+      $('.count').hide();
+        $('.modal-backdrop').removeClass("modal-backdrop");  
+            // $('#myModal').modal('show');
 
-        $('.modal-body').empty();
-        $.ajax({
-            type: "put",
-            url: "/notification/" + u_id,
-            success: function (response) {
+    $('.modal-body').empty();
+      $.ajax({
+        type: "put",
+        url: "/notification/"+u_id,
+        success: function (response) {
 
-                // console.log(response);
-                var notification_data = "<span> ";
-                if ((response.notification.length) == 0) {
-                }
-                else {
+             console.log(response);
+            var notification_data="<span> ";
+            if((response.notification.length)==0){
+                   $('#example').modal('hide');
+            }
+            else{
+          
+            $.each(response.notification,function(key,value){
+                if(value.status=='P'){
+                notification_data+= '<p><a "data-id= "'+value.id+'" href="#" id="start_quiz">Pending ' + value.block_name + '</a></p>';
 
-                    $.each(response.notification, function (key, value) {
-                        if (value.status == 'P') {
-                            notification_data += '<p><a "data-id= "' + value.id + '" href="#" id="start_quiz">Pending ' + value.block_name + '</a></p>';
-
-                        } else if (value.status == 'C') {
-                            notification_data += '<p><a class="notification_design"data-aggregate= "' + value.block_aggregate + '" data-feedback="' + value.feedback + '" href="#" id="checked_quiz">Reviwed ' + value.block_name + '</a></p>';
-
-                        }
-                        else if (value.status == 'I') {
-                            notification_data += '<p><a class="notification_design" data-id= "' + value.id + '" href="#" id="start_quiz"><b>Initiated</b> ' + value.block_name + '</a></p><hr>';
-                        } else if (value.status == 'AR') {
-                            notification_data += '<p><a   class="notification_design" data-aggregate= "' + value.block_aggregate + '" data-feedback="' + value.feedback + '" href="#" id="checked_quiz"><b>Reviwed</b> ' + value.block_name + '</a></p>';
-
-                        }
-
-
-                    });
-                    notification_data += '</span>';
-                    $('#notification').append(notification_data);
+                }else if(value.status=='C'){
+                    notification_data+= '<p><a class="notification_design"data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">Reviwed ' + value.block_name + '</a></p>';
 
                 }
+                else if(value.status=='I')
+                {
+                    notification_data+= '<p><a class="notification_design" data-id= "'+value.id+'" href="#" id="start_quiz"><b>Initiated</b> ' + value.block_name + '</a></p><hr>';
+                }else if(value.status=='AR'){
+                notification_data+= '<p><a   class="notification_design" data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz"><b>Reviwed</b> ' + value.block_name + '</a></p>';
 
             }
-        });
+
+
+            });
+            notification_data += '</span>';
+            $('#notification').append(notification_data);
+
+        }
+
+        }
+      });
 
     });
 

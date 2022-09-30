@@ -15,10 +15,40 @@ class QuizController extends Controller
         $technologies = DB::table('technologies')->get();
         return view('admin.quiz', ['technologies' => $technologies]);
     }
+
+    public function fetchFrameworks(Request $request){
+        $technology_id=$request->technology_id;
+        $id=explode(',', $technology_id);
+        $frameworks= DB::table('frameworks as f')
+        ->join('technologies as t','t.id','=','f.technology_id')
+        ->whereIn('f.technology_id', $id)
+        ->select('f.id','f.framework_name','f.technology_id','t.technology_name')
+        ->get();
+       
+        // return view('admin.technologies.index');
+        if(count($frameworks)>0){
+            return response()->json([
+            'frameworks'=>$frameworks,
+            'status' =>200
+            ]);
+        }else{
+            $technology= DB::table('technologies')
+                        ->where('id','=',$id)
+                        ->select('id','technology_name')
+                        ->get();
+
+            return response()->json([
+            'technology'=> $technology,
+            'status'=> 404
+            ]);
+
+        }
+    }
     public function getQuestions(Request $request)
     {
-        $tech_id = $request->tech_id;
-        $frame_id = $request->frame_id;
+        // $tech_id = $request->tech_id;
+        $frameworks_id = $request->frameworks_id;
+        $frame_id=explode(',', $frameworks_id);
         $id = $request->exp_id;
         $limit = $request->limit;
         $quiz_count = $request->quiz_count;
@@ -30,23 +60,22 @@ class QuizController extends Controller
         }
         if ($id == 0) {
             $questions = DB::table('questions as q')
-                ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
-                ->where([
-                    ['f.technology_id', $tech_id],
-                    ['q.framework_id', $frame_id]
-                ]);
+            ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
+            ->whereIn('q.framework_id', $frame_id);
         } else {
-            $questions = DB::table('questions as q')
+                            // dd($id);
+            $questions = DB::table('questions as q')->where('q.experience_id',$id)
                 ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
-                ->where([
-                    ['f.technology_id', $tech_id],
-                    ['q.framework_id', $frame_id],
-                    ['q.experience_id', $id]
-                ]);
+                ->whereIn('q.framework_id', $frame_id);
         }
+        $countQuestions = $questions->select('q.id', 'q.question')->count();
         $questions = $questions->select('q.id', 'q.question')->offset($offset)->limit($limit)->get();
+        //  print '<pre>';
+        // print_r($countQuestions);
+        // exit;
+        // dd($countQuestions);
         if (count($questions) > 0) {
-            return response()->json(['status' => 200, 'questions' => $questions]);
+            return response()->json(['status' => 200, 'questions' => $questions, 'countQuestions'=>$countQuestions]);
         } else {
             return response()->json(['status' => 404]);
         }

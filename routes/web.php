@@ -69,6 +69,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
+    Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
     Route::get('/admin/totalquizblocks', [QuizController::class, 'fetchAllBlocks']);

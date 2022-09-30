@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
-                    <i class="fa-regular fa-bell bell py-5" data-bs-toggle="modal" data-bs-target="#myModal"
+                    <i class="fa-regular fa-bell bell py-5" data-bs-toggle="modal" data-bs-target="#example"
                         id="notification_value"></i>
                     <span class="count"></span>
                     <div class="dropdown">
@@ -53,7 +53,7 @@
 
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true" data-backdrop="false">
         <div class="modal-dialog">
             <div class="modal-content modalDesign">
