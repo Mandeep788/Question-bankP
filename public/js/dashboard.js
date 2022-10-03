@@ -189,7 +189,7 @@ $(document).ready(function () {
                     $.each(response.notifications, function (key, value) {
                         // $('.notication_heading').show();
                         if(value.status=='S'){
-                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
+                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr class=" hr">`;
                         }else if(value.status=='U'){
                             notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr class=" hr">`;
                         }

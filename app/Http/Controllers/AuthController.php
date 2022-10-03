@@ -15,7 +15,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AuthController extends Controller
 {
-    //
+
     public function loadRegister()
     {
         if (Auth::user() && Auth::user()->role == 'admin') {
@@ -38,8 +38,6 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         if($user->save()){
-            // $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
-            // DB::table('usertechnologies')->insert(['users_id'=>$id]);
             return response()->json(['status' => '200']);
         }else{
             return response()->json(['status' => '404']);
@@ -58,7 +56,6 @@ class AuthController extends Controller
     public function userlogin(Request $request)
     {
         $request->validate([
-
             'email' => 'string|required|email',
             'password' => 'string|required'
 

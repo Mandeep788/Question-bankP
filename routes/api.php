@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/register', [AuthController::class, 'loadRegister']);
+Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
+Route::get('/login', function () {
+    return redirect('/');
+});
+Route::get('/', [API\V1\AuthController::class, 'loadloginn']);
+Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
+Route::get('/logout', [AuthController::class, 'adminlogout']);
