@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\mcqQuestions;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -76,7 +77,10 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/feedback',[UserController::class,'feedbackData']);
     Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
     Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
-
+    //
+    Route::get('/admin/mcq_questions',[mcqQuestions::class, 'index'])->name('admin/mcq_questions');
+    Route::post('/admin/mcq_frameworks',[mcqQuestions::class, 'show']);
+    //
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
@@ -102,10 +106,11 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/tech_data/{id}', [tech_user_Controller::class, 'index']);
     Route::get('/user_tech/{id}', [tech_user_Controller::class, 'show']);
 
-    Route::get('/userEdit', [UserUpdateController::class, 'index']);
-    Route::post('/userEdit', [UserUpdateController::class, 'update'])->name('userEdit');
+    Route::get('/user_edit', [UserUpdateController::class, 'index']);
+    Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
     Route::get('/core_php', [tech_user_Controller::class, 'getQuestion']);
 ///
+    Route::post('/update-password', [UserUpdateController::class, 'updatePassword'])->name("update-password");
     
     Route::get('/email',[EmailController::class,'index']);
 ///

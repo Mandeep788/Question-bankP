@@ -2,28 +2,33 @@ $(document).ready(function () {
     $('#userEditForm').validate({
         
         rules: {
-            name: "required",
-            phone_number: {required:true,
-                minlength:10},
 
+            name: {required:true,
             },
+
             phone_number:{
                 required :true,
                 digits:true,
                 minlength:10,maxlength:10
             },
+
             experience: {
                 required: true,
-                digits: true
-
             },
+
             designation: {
                 required: true,
 
             },
+
             last_company: {
                 required: true,
             },
+
+            current_company:{
+                required: true,
+            },
+
             address: {
                 required: true,
             },
@@ -47,33 +52,23 @@ $(document).ready(function () {
             last_company:{
                 required: "Please enter your last company",
             },
+            current_company:{
+                required: "Please enter your last company",
+            },
             address:{
                 required: "Please enter your address",
             }
-
-messages: {
-            name:"Please enter your name.",
-            phone_number:"Please enter your mobile number.",
-            minlength:"Mobile number must be 10 char long.",
-            gender:"Select Your Gender",
-            address:"Please enter your address",
-            last_company:"Enter Your last company name",
-            current_company:"Enter your current company name",
-            designation:"Enter your designation",
-            experience:"Enter your experience",
-            userTechnology:"Enter your technology",
         },
-        submitHandler:function()
-        {
-            swal.fire({
-                title: 'Success!',
-                text: 'Profile updated Successfully.',
-                icon:'success',
-                timer: 2000
-            });   
-            form.submit();
+        // submitHandler:function()
+        // {
+        //     swal.fire({
+        //         title: 'Success!',
+        //         text: 'Profile updated Successfully.',
+        //         icon:'success',
+        //         timer: 1000
+        //     });
 
-        }
+        // }
 
 });
 });

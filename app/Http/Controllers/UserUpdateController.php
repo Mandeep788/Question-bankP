@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserUpdateController extends Controller
 {
@@ -12,12 +14,10 @@ class UserUpdateController extends Controller
        
         $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
         $users = DB::table('users')->where ('id',$id)->get();
-        return view('userEdit',['users'=>$users,'technologies'=>$technologies]); 
+        return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
     }
     public function update(Request $request){
-       
         $id =Auth::user()->id;
-
         $data=[
         'name' => $request->input('name'),
         'email' => $request->input('email'),
@@ -28,9 +28,12 @@ class UserUpdateController extends Controller
         'current_company' => $request->input('current_company'),
         'designation' => $request->input('designation'),
         'experience' => $request->input('experience'),
-    ];
+        ];
+    //dd($data);
 
-          
+        //   print "<pre>";
+        //   print_r($data);
+        //   exit;
 
        // $image=$request->input('image');
 
@@ -72,6 +75,29 @@ class UserUpdateController extends Controller
             }
             DB::table('usertechnologies')->insert($technology_data);
         }
-        return redirect('/userEdit');
+        return redirect('/user_edit');
     }
+    
+
+
+    public function updatePassword(Request $request)
+    {
+       
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+           // dd('old_password');
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
+    }
+
 }
