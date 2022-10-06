@@ -7,5 +7,9 @@
 <div class="con" id="mcq">
 
 </div>
+<div class="conn" id="mcq_q">
+</div>
+<div class="connn" id="mcq_a">
+</div>   
 @endsection
 

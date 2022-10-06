@@ -23,4 +23,18 @@ class mcqQuestions extends Controller
         'status'=>200
        ]);
     }
+    public function add(Request $request){
+        $frameworkId= $request->frameworkId;
+       // dd($frameworkId);
+       $mcqQuestion =DB::table('mcq_question')
+       ->join('mcq_answer','mcq_question.id','=','mcq_answer.mcq_question_id')
+       ->where('framework_id',$frameworkId)->get();
+      // dd($mcqQuestion);
+
+
+       return response()->json([
+        'mcqQuestion'=>$mcqQuestion,
+        'status'=>200
+       ]);
+    }
 }
