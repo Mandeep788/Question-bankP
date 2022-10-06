@@ -37,8 +37,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         if ($user->save()) {
-            // $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
-            // DB::table('usertechnologies')->insert(['users_id'=>$id]);
+
             return response()->json(['status' => '200']);
         } else {
             return response()->json(['status' => '404']);
@@ -139,24 +138,8 @@ class AuthController extends Controller
             $data['image'] = "/uploads/" . $unique_image;
         }
 
-        // $data1 = [
-        //     "users_id" =>$id,
-
-        // ];
-        // $data2 = [
-        //     "experience" => $request->profile_experience,
-        //     "designation" => $request->profile_designation,
-        //     "last_company" => $request->profile_last_company,
-        // ];
 
         DB::table('users')->where('id', '=', $id)->update($data);
-        // $query=DB::table('usertechnology')->where('users_id','=',$id)->get();
-        // $query=count($query);
-        // if($query==0){
-        // DB::table('usertechnology')->where('users_id','=',$id)->insert($data1);
-        // }else{
-        // DB::table('usertechnology')->where('users_id','=',$id)->update($data2);
-        // }
 
 
         return redirect()->back()->with('status', 'Profile Update Successfully');
@@ -182,6 +165,7 @@ class AuthController extends Controller
             ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->join('blocks as b', 'b.id', '=', 'uq.block_id')
             ->select('uq.id', 'uq.status', 'u.name', 'b.block_name', 'uq.submitted_at')
+            ->orderBy('uq.id','desc')
             ->get();
 
         $countNotifications = Db::table('userquizzes as uq')->where('uq.status', 'S')
@@ -199,6 +183,7 @@ class AuthController extends Controller
 
     public function indexNotification()
     {
+
         return view('admin.notifications');
     }
 
@@ -209,7 +194,8 @@ class AuthController extends Controller
             ->join('blocks as b', 'b.id', '=', 'uq.block_id')
             ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->where('b.admin_id', $adminId)
-            ->select('uq.id', 'uq.block_aggregate', 'uq.feedback', 'uq.status', 'b.block_name', 'u.name')
+            ->select('uq.id', 'uq.block_aggregate', 'uq.feedback', 'uq.status','uq.submitted_at', 'b.block_name', 'u.name')
+            ->orderBy('uq.id','desc')
             ->get();
 
         return DataTables::of($notificationData)
@@ -224,7 +210,7 @@ class AuthController extends Controller
                 if ($notificationData->block_aggregate == '')
                     return '-';
                 else
-                    return '<a href="/mail/' . $notificationData->id . '"><i class="bi bi-envelope-fill sendMail"></i></a>';
+                    return '<i class="bi bi-envelope-fill sendMail" data-id=" '. $notificationData->id .'"data-bs-toggle="modal" data-bs-target="#exampleModal"></i></a>';
             })
 
             ->editColumn('status', function ($notificationData) {

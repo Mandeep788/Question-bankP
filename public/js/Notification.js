@@ -35,7 +35,7 @@ $(document).ready(function(){
         url: "/notification/"+u_id,
         success: function (response) {
 
-             console.log(response);
+            //  console.log(response);
             var notification_data="<span> ";
             if((response.notification.length)==0){
                 $('#exampleModal').modal('hide');

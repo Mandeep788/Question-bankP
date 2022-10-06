@@ -3,6 +3,7 @@ $(document).ready(function () {
     $(function () {
         var timer = $('#quiz_timer').val();
         var quizStartTime = $('#quiz_started_at').val();
+        // console.log(quizStartTime);
         if (timer == '') {
             $('#getting').hide();
         } else {
@@ -45,7 +46,7 @@ $(document).ready(function () {
 
                     if (last_id == '') {
                         if (answer == '') {
-                            var ans ='0';
+                            var ans ='Skipped Answer';
                         }else{
                             var ans =answer;
                         }

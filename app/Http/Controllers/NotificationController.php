@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
-    //
+
 
     public function getNotification($u_id)
     {
@@ -34,7 +34,9 @@ class NotificationController extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')->get();
+            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
+            ->orderBy('userquizzes.id','desc')
+            ->get();
 
         return response()->json([
             'notification' => $notificaton,
@@ -61,6 +63,7 @@ class NotificationController extends Controller
         ])
 
         ->select('userquizzes.id','blocks.block_name','userquizzes.status','users.name')
+        ->orderBy('userquizzes.id','desc')
         ->get();
 
        return view('user.NotificationPanel',['notificationPanel' => $notificationPanel,'technologies'=>$technologies]);

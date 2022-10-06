@@ -52,7 +52,13 @@
 <script src="{{ asset('js/quiz.js') }}"></script>
 <script src="{{ asset('js/blockdata.js') }}"></script>
 <script src="{{ asset('js/countdown.js') }}"></script>
+<<<<<<< HEAD
 <script src="{{ asset('js/mcqQuestions.js') }}"></script>
+=======
+<script src="{{ asset('js/mail.js') }}"></script>
+
+
+>>>>>>> 0c29c7681a80ef20bcc51954ceb35ae67fb03587
 
 </body>
 </html>

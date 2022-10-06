@@ -114,7 +114,7 @@ $(document).ready(function () {
         let last_id=$(this).parent().find('.last_id').val();
         if(last_id == ''){
             if(answer == ''){
-                var ans_value = '0';
+                var ans_value = 'Skipped Answer';
             }else{
                 var ans_value = answer;
             }
@@ -190,6 +190,7 @@ $(document).ready(function () {
                     position: 'bottom-center',
                     showHideTransition: 'slide'
                 })
+                checkSubmit();
             }
 
         });
@@ -284,7 +285,7 @@ $(document).ready(function () {
 
             if (last_id == '') {
                 if (answer == '') {
-                    var ans ='0';
+                    var ans ='Skipped Answer';
                 }else{
                     var ans =answer;
                 }

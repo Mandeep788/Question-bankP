@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserUpdateController extends Controller
 {
-    public function index(){
-        $id =Auth::user()->id;
-       
-        $technologies = DB::table('technologies')->whereBetween('id', [1,8])->get();
-        $users = DB::table('users')->where ('id',$id)->get();
-        return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
+    public function index()
+    {
+        $id = Auth::user()->id;
+        $technologies = DB::table('technologies')->whereBetween('id', [1, 10])->get();
+        $users = DB::table('users')->where('id', $id)->get();
+        //dd($users);
+        //$user = App\User::where('id',$id)->first();
+        
+
+        return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
     }
     public function update(Request $request){
         $id =Auth::user()->id;

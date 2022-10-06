@@ -21,9 +21,7 @@
                                         </ol>
                                     </nav>
                                 </h6>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -34,13 +32,18 @@
                         <div class="col-lg-4 col-md-12">
                             <div id="white_box">
                                 <div id="clickable_quiz" data-id="{{ $technology->id }}">
-                                    <h4>{{ $technology->technology_name }} &nbsp;<i
-                                            class="bi bi-arrow-right-circle icon_hover"></i></h4>
+                                    <h4>{{ $technology->technology_name }}</h4>
+                                </div>
+                                <div id="icons_gap">
+                                    <input type="checkbox" data-id="{{ $technology->id }}" class="technology_check">
                                 </div>
                             </div>
                         </div>
                     @endforeach
 
+                </div>
+                <div>
+                    <button id="techGoBtn" class="btn btn-success">Next </button>
                 </div>
             </div>
         </div>
@@ -59,9 +62,8 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a class="bread_home"
-                                                    href="#">Technologies</a></li>
-                                            <li class="breadcrumb-item active bread_tech" aria-current="page"></li>
+                                            <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item active bread_tech" aria-current="page">Frameworks</li>
                                         </ol>
                                     </nav>
                                 </h6>
@@ -92,15 +94,20 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a class="bread_home"
-                                                    href="#">Technologies</a></li>
-                                            <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
-                                            <li class="breadcrumb-item active bread_frame" aria-current="page"></li>
+                                          <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                          <li class="breadcrumb-item"><a class="bread_technology" href="#">Frameworks</a></li>
+                                          <li class="breadcrumb-item active bread_frame" aria-current="page">Questions</li>
                                         </ol>
-                                    </nav>
+                                      </nav>
                                 </h6>
                             </div>
                             <div class="d-flex">
+                                <div class="random_btn">
+                                    <button class="btn btn-primary aaa" data-bs-toggle="modal" data-bs-target="#exampleModal">Random</button>
+                                </div>
+                                <div>
+
+                                </div>
                                 <div>
                                     <select id="quiz_page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
                                         <option value="10" selected>10</option>
@@ -131,7 +138,7 @@
                     <div class="bg-white">
                         <table id="test_table" class="table table-hover">
                             <thead class="table-dark">
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th><input type="checkbox" id="select-all-ques"></th>
                                 <th>S.N.</th>
                                 <th>Quiz Questions</th>
                             </thead>
@@ -168,6 +175,36 @@
                 </div>
             </div>
 
+             <!-- Modal -->
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose Random Number</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class=" totalqueslabel">
+                            <label class="form-label" for="totalQues">Total Questions</label>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                        <div class="noofquestion">
+                            <label class="form-label" for="noOfQues">No. of Questions</label>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
 
             <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>

@@ -10,6 +10,7 @@ $(document).ready(function () {
             {data: 'status', name: 'status'},
             {data: 'block_aggregate', name: 'block_aggregate'},
             {data: 'feedback', name: 'feedback'},
+            {data: 'submitted_at', name: 'submitted_at'},
             {data: 'pdf', name: 'pdf', orderable:false, searchable:false} ,
             {data: 'mail', name: 'mail', orderable:false, searchable:false}
         ]
@@ -230,7 +231,7 @@ $(document).ready(function () {
                                         <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
                                         <input type="text" id="assess_user" value="`+ value.users_id + `" hidden>
                                         <div class="d-flex">`
-                                        if(value.answer == '0' || value.answer == ''){
+                                        if(value.answer == 'Skipped Answer' || value.answer == ''){
                                             submitted_data += `<div class="marks_on_each">
                                             <select class="form-select individual_marks assign_marks_btn" disabled>
                                             <option value="" disabled>Assign Marks</option>

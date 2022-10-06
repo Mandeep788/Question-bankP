@@ -93,7 +93,7 @@ class quiz_questionController extends Controller
         $user_id=Auth::user()->id;
         $skipAnswer=[
             'block_question_id' => $request->question_id,
-            'answer' => '0',
+            'answer' => 'Skipped Answer',
             'users_id'=>$user_id,
             'quiz_id'=>$request->quiz_id
         ];
@@ -133,7 +133,8 @@ class quiz_questionController extends Controller
             'status'=>'S',
             'submitted_at'=>$date,
         ];
-        $query = DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->update($update_status);
+        $updateId=DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->orderBy('id','desc')->latest()->value('id');
+        $query = DB::table('userquizzes')->where('id',$updateId)->update($update_status);
         if($query)
         {
             return response()->json(['status'=>200,

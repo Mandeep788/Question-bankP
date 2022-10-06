@@ -20,10 +20,10 @@
         </div>
         <div class="md-form mt-3 amber-textarea active-amber-textarea">
             <input type="text" class="q_" value="{{$data['id']}}" hidden/>
-            <input type="text"id="block_id" value=" {{$data['block_id']}}" hidden>
-            <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
-            <input type="text"id="quiz_timer" value=" {{$data['timer']}}" hidden>
-            <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
+            <input type="text"id="block_id" value="{{$data['block_id']}}" hidden>
+            <input type="text"id="quiz_id" value="{{$data['u']}}" hidden>
+            <input type="text"id="quiz_timer" value="{{$data['timer']}}" hidden>
+            <input type="text"id="quiz_started_at" value="{{$data['started_at']}}" hidden>
 
 
             <textarea id="form22"  class="md-textarea form-control text-black text-info mb-2" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>

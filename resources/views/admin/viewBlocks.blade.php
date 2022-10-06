@@ -140,11 +140,11 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="page_loader">
+            <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-            </div> --}}
+            </div>
 
 
 

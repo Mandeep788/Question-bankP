@@ -694,9 +694,24 @@ footer a{
 .sendMail{
     font-size: 22px;
     text-decoration: none;
-
+    color:#00b7ff;
 }
 
 .hr{
     color: black;
+}
+
+.random_btn{
+    margin-top: 15px;
+}
+
+.aaa{
+    border-radius: 15px;
+    padding: 10px;
+
+}
+
+
+.noofquestion{
+    margin-top: 10px;
 }

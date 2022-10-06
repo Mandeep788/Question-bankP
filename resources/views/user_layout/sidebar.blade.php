@@ -1,5 +1,5 @@
 <!-- logo and search bar field area----------------- -->
-<div class="container-fluid p-0 ">
+<div class="container-fluid p-0 bg-light ">
     <div class="row">
         <div class=" col-md-6 col-sm-4 col-2">
             <div class="row">
@@ -24,7 +24,7 @@
 
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-                    <i class="fa-regular fa-bell bell py-5" data-bs-toggle="exampleModal"
+                    <i class="fa-regular fa-bell bell" data-bs-toggle="exampleModal"
                     data-bs-target="#exampleModal" id="notification_value"></i>
                     <span class="count"></span>
                     <div class="dropdown">
@@ -35,8 +35,7 @@
                         </b>
 
                         <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item" href="{{ url('/view_profile') }}"><b>View Profile</b></a>
-                            </li>
+
                             <li><a class="dropdown-item" href="{{ url('/user_edit') }}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="{{ url('/notificationPanel') }} ">Notificatons</a></li>
 
