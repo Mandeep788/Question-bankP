@@ -106,9 +106,5 @@ $(document).ready(function () {
             },
         });
     });
-    //validation on add technology
-    $()
-
-
-
+    
 });

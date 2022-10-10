@@ -70,22 +70,22 @@
                             placeholder="Add Question" hidden><br>
                         <select name="experience" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
-                            <option selected>Select Experience</option>
+                            <option selected id="experienceId">Select Experience</option>
                             @foreach ($experiences as $experience)
                                 <option value="{{ $experience->id }}">{{ $experience->experience_name }}</option>
                             @endforeach
                         </select>
-                        <input type="text" class="form-control" id="" name="mcq_question" value=""
+                        <input type="text" class="form-control" id="mcq_question" name="mcq_question" value=""
                             placeholder="Add Question"><br>
-                        <input type="text" class="form-control" id="" name="mcq_answer[]" value=""
+                        <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                             placeholder="Add Answer option 1"><br>
-                        <input type="text" class="form-control" id="" name="mcq_answer[]" value=""
+                        <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                             placeholder="Add Answer option 2 "><br>
-                        <input type="text" class="form-control" id="" name="mcq_answer[]" value=""
+                        <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                             placeholder="Add Answer option 3 "><br>
-                        <input type="text" class="form-control" id="" name="mcq_answer[]" value=""
+                        <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                             placeholder="Add Answer option 4 "><br>
-                        <input type="text" class="form-control" id="" name="correctAnswer" value=""
+                        <input type="text" class="form-control" id="mcq_answer" name="correctAnswer" value=""
                             placeholder="Correct Answer"><br>
 
                         <button type="submit" class="btn btn-primary">Save changes</button>
