@@ -80,7 +80,9 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     //
     Route::get('/admin/mcq_questions',[mcqQuestions::class, 'index'])->name('admin/mcq_questions');
     Route::post('/admin/mcq_frameworks',[mcqQuestions::class, 'show']);
-    Route::post('/admin/mcq_questions',[mcqQuestions::class, 'add']);
+    Route::post('/admin/mcq_questions',[mcqQuestions::class, 'getMcq']);
+    Route::post('/admin/mcq_questions/addMcq',[mcqQuestions::class,'addMcq']);
+    
     //
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);

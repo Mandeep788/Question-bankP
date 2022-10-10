@@ -235,6 +235,13 @@ color: white;
     padding: 40px;
 }
 
+
+#white_bo{
+    background-color: #fff;
+    padding: 5px;
+    
+    border-radius: 10px;
+}
 #white_box{
     background-color: #fff;
     padding: 20px;

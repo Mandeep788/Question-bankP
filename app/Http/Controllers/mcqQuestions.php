@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -9,8 +8,10 @@ class mcqQuestions extends Controller
 {
     public function index(){
          $technologies = DB::table('technologies')->get();
+
+         $experiences = DB::table('experiences')->get();
          //dd($technologies);
-         return view('admin.mcq_questions',['technologies'=>$technologies]);
+         return view('admin.mcq_questions',['technologies'=>$technologies,'experiences'=>$experiences]);
     }
     public function show(Request $request){
        $technology_id= $request->technology_id;
@@ -23,18 +24,73 @@ class mcqQuestions extends Controller
         'status'=>200
        ]);
     }
-    public function add(Request $request){
+    public function getMcq(Request $request){
         $frameworkId= $request->frameworkId;
        // dd($frameworkId);
        $mcqQuestion =DB::table('mcq_question')
-       ->join('mcq_answer','mcq_question.id','=','mcq_answer.mcq_question_id')
-       ->where('framework_id',$frameworkId)->get();
+       //->join('mcq_answer','mcq_question.id','=','mcq_answer.mcq_question_id')
+       ->where('framework_id',$frameworkId)
+       ->select('mcq_questions','id')
+       ->get();
+       $array = [];
+       foreach($mcqQuestion as $question)
+       {
+         $data['id'] = $question->id;
+         $data['question'] = $question->mcq_questions;
+         $data['answer'] = $this->getAnswer($data['id']);
+         $array[] = $data;
+        }
+        // print'<pre>';
+        // print_r($array);
+        // exit;
       // dd($mcqQuestion);
-
-
        return response()->json([
-        'mcqQuestion'=>$mcqQuestion,
+        'mcqQuestions'=>$array,
         'status'=>200
        ]);
+    }
+    public function getAnswer($questionId)
+    {
+       $mcq_answer = DB::table('mcq_answer')
+        ->where('mcq_question_id',$questionId)
+        ->select('mcq_answers','id','status')
+        ->get();
+        return $mcq_answer;
+        //    print'<pre>';
+        //    print_r($mcq_answer);
+        //    exit;
+        // dd($mcq_answer);
+        // ->get();
+    }
+    public function addMcq(Request $request){
+    //    dd($request->all());
+    $questionData=[
+        'framework_id' => $request->frameworkId,
+        'experience_id'=> $request->experience,
+        'mcq_questions' => $request->mcq_question
+    ];
+
+       DB::table('mcq_question')->insert($questionData);
+       $id = DB::getPdo()->lastInsertId();
+        $answers=$request->mcq_answer;
+        $correctAnswer=$request->correctAnswer;
+       foreach ($answers as $answer) {
+           if($correctAnswer == $answer){
+                $answerData[] = array(
+                    'mcq_question_id'=>$id,
+                    'mcq_answers' =>$answer,
+                    'status' => 1
+                 );
+            }else{
+                $answerData[] = array(
+                    'mcq_question_id'=>$id,
+                    'mcq_answers' =>$answer,
+                    'status' => 0
+                 );
+            }       
+        }
+      
+       DB::table('mcq_answer')->insert($answerData);
+        return back();
     }
 }
