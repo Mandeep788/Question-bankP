@@ -79,7 +79,6 @@
                         <input type="text" class="form-control" id="mcq_question" name="mcq_question" value=""
                             placeholder="Add Question"><br>
 
-                       
                                
                             <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                                 placeholder="Add Answer option 1"><br>

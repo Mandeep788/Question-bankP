@@ -27,7 +27,7 @@ class mcqQuestions extends Controller
     public function getMcq(Request $request){
         $frameworkId= $request->frameworkId;
        // dd($frameworkId);
-       $mcqQuestion =DB::table('mcq_question')
+       $mcqQuestion =DB::table('mcq_questions')
        //->join('mcq_answer','mcq_question.id','=','mcq_answer.mcq_question_id')
        ->where('framework_id',$frameworkId)
        ->select('mcq_questions','id','experience_id')
@@ -52,7 +52,7 @@ class mcqQuestions extends Controller
     }
     public function getAnswer($questionId)
     {
-       $mcq_answer = DB::table('mcq_answer')
+       $mcq_answer = DB::table('mcq_answers')
         ->where('mcq_question_id',$questionId)
         ->select('mcq_answers','id','status')
         ->get();
@@ -71,7 +71,7 @@ class mcqQuestions extends Controller
         'mcq_questions' => $request->mcq_question
     ];
 
-       DB::table('mcq_question')->insert($questionData);
+       DB::table('mcq_questions')->insert($questionData);
        $id = DB::getPdo()->lastInsertId();
         $answers=$request->mcq_answer;
         $correctAnswer=$request->correctAnswer;
@@ -91,7 +91,7 @@ class mcqQuestions extends Controller
             }       
         }
       
-       DB::table('mcq_answer')->insert($answerData);
+       DB::table('mcq_answers')->insert($answerData);
         return back();
     }
 }
