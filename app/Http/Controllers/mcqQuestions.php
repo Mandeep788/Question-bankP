@@ -30,13 +30,14 @@ class mcqQuestions extends Controller
        $mcqQuestion =DB::table('mcq_question')
        //->join('mcq_answer','mcq_question.id','=','mcq_answer.mcq_question_id')
        ->where('framework_id',$frameworkId)
-       ->select('mcq_questions','id')
+       ->select('mcq_questions','id','experience_id')
        ->get();
        $array = [];
        foreach($mcqQuestion as $question)
        {
          $data['id'] = $question->id;
          $data['question'] = $question->mcq_questions;
+         $data['experience'] = $question->experience_id;
          $data['answer'] = $this->getAnswer($data['id']);
          $array[] = $data;
         }
@@ -63,7 +64,7 @@ class mcqQuestions extends Controller
         // ->get();
     }
     public function addMcq(Request $request){
-    //    dd($request->all());
+      //dd($request->all());
     $questionData=[
         'framework_id' => $request->frameworkId,
         'experience_id'=> $request->experience,
