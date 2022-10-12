@@ -100,7 +100,7 @@ $(document).ready(function () {
                     });
                     $("#mcq_q").append(mcqQuestion);
                     $("#mcq_q").append(
-                        '<button type="button" class="btn btn-primary" id="submitt" value="submit">Send</button>'
+                        // '<button type="button" class="btn btn-primary" id="submitt" value="submit">Send</button>'
                     );
                 }
             },

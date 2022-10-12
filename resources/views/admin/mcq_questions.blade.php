@@ -34,14 +34,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Questions</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Add Question"><br>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Enter email">
+                    <input type="text" class="form-control" id="mcq_frameworkid" name="frameworkId" value=""
+                        hidden><br>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="frameworkId" value=""
+                    hidden><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
