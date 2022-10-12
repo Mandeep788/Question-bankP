@@ -17,12 +17,10 @@ class tech_user_Controller extends Controller
     }
     public function show($id){
 
-        // $tech=DB::table('technologies')->where('id',$id)->get();
+      
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+
         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
-        // print "<pre>";
-        // print_r($frame1);
-        // exit();
         $countFrame=count($frame1);
 if($countFrame>0)
 {

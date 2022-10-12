@@ -194,11 +194,51 @@
                         <div>
                             <input type="text" class="form-control">
                         </div>
-                        
-
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2">Generate Questions</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">SecondOne</h5>
+                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                    </div>
+                    <div class="modal-body">
+                        <div class="bg-white">
+                            <table id="test_table" class="table table-hover">
+                                <thead class="table-dark">
+                                    <th><input type="checkbox" id="select-all"></th>
+                                    <th>S.N.</th>
+                                    <th>Quiz Questions</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3">
+                                            <form id="testDescriptionForm" method="POST">
+                                                <label for="test_description"><strong>Description</strong></label>
+                                                <input type="text" name="test_description" id="test_description"
+                                                    class="test_description">
+                                                    <div id="errorspan" class="text-danger"></div>
+                                                <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
                 </div>
