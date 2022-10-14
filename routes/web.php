@@ -17,6 +17,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 use App\Http\Controllers\UserTechnology;
 use App\Http\Controllers\softDeletes;
+use App\Http\Controllers\McqQuizBlockController;
 
 
 
@@ -77,12 +78,14 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/feedback',[UserController::class,'feedbackData']);
     Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
     Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
-    //
+    //latest work of sandeep
     Route::get('/admin/mcq_questions',[mcqQuestions::class, 'index'])->name('admin/mcq_questions');
     Route::post('/admin/mcq_frameworks',[mcqQuestions::class, 'show']);
     Route::post('/admin/mcq_questions',[mcqQuestions::class, 'getMcq']);
     Route::post('/admin/mcq_questions/addMcq',[mcqQuestions::class,'addMcq']);
-    
+    Route::get('/admin/McqQuizBlock',[McqQuizBlockController::class,'index'])->name('admin/McqQuizBlock');
+    Route::get('/admin/QuizBlocks/Frameworks',[McqQuizBlockController::class,'fetchFramework']);
+    Route::get('/admin/Mcq/questions',[McqQuizBlockController::class,'getMcqQuestions']);
     //
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
@@ -98,8 +101,8 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/restoreBlocks/{id}',[softDeletes::class, 'restore']);
     Route::get('/viewBlocksRestore',function(){ return view('admin.viewBlocksRestore');});
     Route::get('/admin/restoreBlocks',[QuizController::class,'restoreBlocks'])->name ('restoreBlocks');
-
     /////
+
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
 

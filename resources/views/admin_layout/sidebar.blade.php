@@ -53,6 +53,12 @@
                     <span class="hide-menu">MCQ Questions</span>
                 </a>
             </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{ url('/admin/McqQuizBlock') }}" aria-expanded="false">
+                    <i class="bi bi-bell-fill"></i>
+                    <span class="hide-menu">MCQ Quiz Block</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

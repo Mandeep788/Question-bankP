@@ -81,9 +81,18 @@ class QuizController extends Controller
         $block_name = $request->block_name;
         $insert_data = $request->insert;
         $timer=$request->timer;
+        $data=[
+            'block_name' => $block_name,
+            'timer'=>$timer,
+            'admin_id'=>$admin_id, 
+            'created_at' => date('Y:m:d H:i:s')
+        ];
+        if(isset($request->type)){
+            $data['type']= $request->type;
+        }
         $questions = explode(",", $insert_data);
 
-        $query = DB::table('blocks')->insert(['block_name' => $block_name,'timer'=>$timer,'admin_id'=>$admin_id, 'created_at' => date('Y:m:d H:i:s')]);
+        $query = DB::table('blocks')->insert($data);
         if ($query) {
             $block_id = DB::table('blocks')->select('id')->where('block_name', $block_name)->value('id');
             $data = array();

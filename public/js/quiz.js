@@ -193,20 +193,14 @@ $(document).ready(function () {
             }
         });
         frameworks_id=frameworks_id.toString();
-// console.log(frameworks_id);
+
         $('#load_frameworks_quiz').hide();
         $('#load_question_quiz').show();
-        // let tech_id = $('#quiz_technology_id').val();
-        // let id = $(this).data('id');
-        // let name = $(this).data('name');
+       
         let exp_id = 0;
         let limit = $('#quiz_page_limit').find(":selected").text();
         $('#quiz_framework_id').val(frameworks_id);
-        // $('#quiz_framework_name').val(name);
-        // let technology_name = $('#quiz_technology_name').val();
-        // $('.bread_technology').text(technology_name);
-        // $('.bread_frame').text(name);
-        // console.log(limit);
+      
         FetchQuizQuestion(frameworks_id, exp_id, limit);
 
     });
