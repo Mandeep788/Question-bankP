@@ -18,8 +18,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'string|required|min:4',
             'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:8',
-
+            
         ]);
         if($validator->fails()){
             $response = [
@@ -57,7 +56,6 @@ class AuthController extends Controller
         }
         else{
             $response = [
-                'success' => false,
                 'message' => 'unauthorised'
             ];
             return response()->json($response,401);
@@ -72,24 +70,20 @@ class AuthController extends Controller
         ],200);
     }
 
-    // public function update(Request $request)
-    // {
-    //     $user=User::find($id);
-    //     $user->update($request->all());
-    //         return $user();
-    //     $validator = Validator::make($request->all(),[
-    //         'name' => 'required',
-    //         'email' => 'required',
-    //         'password' => 'required',
-    //         'c_password' => 'required | same:password'
-    //     ]);
+    public function update(Request $request)
+    {
+        $user=User::find($id);
+        $user->update($request->all());
+            return $user();
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required',
+        ]);
 
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => "Updated successfully!",
-
-    //     ], 200);
-    // }
+        return response()->json([
+            'message' => "Updated successfully!",
+        ], 200);
+    }
 
 
      Public function destroy($id){

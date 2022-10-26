@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
 
-class NotificationControllers extends Controller
+class NotificationController extends Controller
 {
     public function getNotification($u_id)
     {
@@ -32,11 +32,20 @@ class NotificationControllers extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')->get();
+            ->select('userquizzes.id as id', 'blocks.block_name as blockName', 'userquizzes.status', 'userquizzes.block_aggregate as blockAggregate', 'userquizzes.feedback')->get();
+            if(Count($notificaton)>0)
+             {
+            return response()->json([
+                'data' => $notificaton,
+            ],200);
+            }else
+            {
+                return response()->json([
+                    'message' => "This user_id Does't have any notification",
+                ],404);
+            }
 
-        return response($notificaton)->json([
-            'notification' => $notificaton,
-        ]);
+            
     }
     public function getCount(Request $request)
     {

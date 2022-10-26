@@ -15,7 +15,8 @@ class UserUpdateController extends Controller
     {
         $id = Auth::user()->id;
         $technologies = DB::table('technologies')->whereBetween('id', [1, 10])->get();
-        $users = DB::table('users')->where('id', $id)->get();
+        $users = DB::table('users')->where('id', $id)
+        ->select('users.id as id','users.name as name','users.email as email','users.gender as gender','users.image as image','users.phone_number as phoneNumber','users.address as address','users.current_company as currentCompany','users.last_company as lastCompany','users.experience as experience','users.status as status','users.role as role','users.last_login as lastLogin','users.remember_token as rememberToken')->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
 
@@ -33,8 +34,8 @@ class UserUpdateController extends Controller
             'email' => $request->email,
             'gender' => $request->gender,
             'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'last_company' => $request->last_company,
+            'phoneNumber' => $request->phone_number,
+            'lastCompany' => $request->last_company,
             'designation' => $request->designation,
             'experience' => $request->experience,
 
