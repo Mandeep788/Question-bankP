@@ -11,11 +11,17 @@ class NavBarController extends Controller
     public static function show()
     
     {
-        $technologies = DB::table('technologies') ->offset(0)->limit(7)->get();
-        $technologies2 = DB::table('technologies') ->offset(3)->limit(4)->get();
-        $technologies3 = DB::table('technologies')->get();
+        // $technologies = DB::table('technologies') ->offset(0)->limit(7)
+        // ->select('technologies.id as id','technologies.technology_name as technologyName','technologies.technology_description as technologyDescription')
+        // ->get();
+        // $technologies2 = DB::table('technologies') ->offset(3)->limit(4)
+        // ->select('technologies.id as id','technologies.technology_name as technologyName','technologies.technology_description as technologyDescription')
+        // ->get();
+        $technologies = DB::table('technologies')
+        ->select('technologies.id as id','technologies.technology_name as technologyName','technologies.technology_description as technologyDescription')
+        ->get();
         //dd($technologies);
-        // return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
-        return response($technologies3);
+        return response( ['technologies'=> $technologies]);
+        // return response($technologies3);
     }
 }

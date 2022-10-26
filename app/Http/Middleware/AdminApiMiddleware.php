@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class userMiddleware
+class AdminApiMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,16 @@ class userMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user() && auth()->user()->role=='user')
+        
+        if(auth()->user() && auth()->user()->role=='admin')
         {
             return $next($request);
         }
-        return redirect('/dashboard'); 
-        // return $response;
+        // return redirect('/'); 
+        return response()->json([
+            'message'=>'Unauthorized Access...',
+
+        ],401);
+       
     }
 }

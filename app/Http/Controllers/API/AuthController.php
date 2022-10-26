@@ -15,7 +15,6 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'string|required|min:4',
             'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:8',
             
         ]);
         if($validator->fails()){
@@ -31,8 +30,6 @@ class AuthController extends Controller
         $success['token'] = $user->createToken('MyApp')->plainTextToken;
         $success['name'] = $user->name;
         $success['email'] = $user->email;
-        $success['password'] = $user->password;
-        $success['cPassword'] = $user->password;
 
         $response = [
             'data' => $success,
@@ -47,7 +44,6 @@ class AuthController extends Controller
             $success['token'] = $user->createToken('MyApp')->plainTextToken;
             $success['name'] = $user->name;
             $success['email'] = $user->email;
-            $success['password'] = $user->password;
 
             $response = [
                 'data' => $success,
@@ -80,8 +76,6 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
-            'c_password' => 'required | same:password'
         ]);
 
         return response()->json([
