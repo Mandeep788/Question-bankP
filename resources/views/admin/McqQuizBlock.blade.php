@@ -122,7 +122,7 @@
                                             <input type="text" name="mcqTimer" id="mcqTimer" class="mcqTimer"
                                                 placeholder="In Minutes">
                                             <div class="text-danger errorspan"></div>
-                                            <button type="submit" class="btn btn-primary mcq_test">Create Quiz</button>
+                                            <button type="submit" class="btn btn-primary mcqTest">Create Quiz</button>
                                         </form>
                                     </td>
                                 </tr>

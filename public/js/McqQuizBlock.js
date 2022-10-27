@@ -19,9 +19,9 @@ $(document).ready(function () {
                 digits : "Please enter time",
             },
         },
-        success: function () {
-            $(".mcq_test").removeAttr("disabled");
-        },
+        // success: function () {
+        //     $(".mcqTest").removeAttr("disabled");
+        // },
         // submitHandler: function(form){
         //     $(".make_test").removeAttr("disabled");
         // form.submit();
@@ -203,7 +203,7 @@ $(document).ready(function () {
     });
 
     //Create a mcq module
-    $(".mcq_test").on("click", function (e) {
+    $(".mcqTest").on("click", function (e) {
         e.preventDefault();
         // $("#McqDescriptionForm").valid();
         let MCQblock_name = $("#mcqDescription").val();
@@ -295,7 +295,7 @@ $(document).ready(function () {
     });
 
     //Create a mcq quiz module
-    $('.mcq_test').click(function (e) {
+    $('.mcqTest').click(function (e) {
         e.preventDefault();
         $('#McqDescriptionForm').valid();
         let block_name=$('#mcqDescription').val();
