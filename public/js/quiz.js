@@ -2,24 +2,46 @@ $(document).ready(function () {
 
     //JqValidation for Create  quiz block
     $('#testDescriptionForm').validate({
-        rules:{
+        rules: {
             test_description: {
                 required: true,
+            },
+            test_timer: {
+                required: true,
+                digits:true
             }
         },
         messages: {
             test_description: {
                 required: "Please add description",
             },
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo('#errorspan');
-          },success:function(){
-            $('.make_test').removeAttr('disabled');
-          }
+            test_timer: {
+                required: "Please add timer",
+                digits: "Timer must be in digits"
+            }
+        }
     });
 
-
+    $('#testRandomDescriptionForm').validate({
+        rules: {
+            testRandomDescription: {
+                required: true,
+            },
+            randomTestTimer: {
+                required: true,
+                digits:true
+            }
+        },
+        messages: {
+            testRandomDescription: {
+                required: "Please add description",
+            },
+            randomTestTimer: {
+                required: "Please add timer",
+                digits: "Timer must be in digits"
+            }
+        }
+    });
     $('#load_frameworks_quiz').hide();
     $('#load_question_quiz').hide();
 
@@ -53,20 +75,20 @@ $(document).ready(function () {
         $('#load_frameworks_quiz').show();
         $('#dynamic_frameworks_quiz').empty();
         $('.spinner-grow').show();
-        let  technology_id= [];
+        let technology_id = [];
         $('.technology_check').each(function () {
             if ($(this).is(":checked")) {
                 technology_id.push($(this).data('id'));
             }
         });
-        technology_id=technology_id.toString();
+        technology_id = technology_id.toString();
         $('#quiz_technology_id').val(technology_id);
         // console.log(technology_id);
         $.ajax({
             type: "get",
             url: "/admin/quiz/frameworks",
-            data:{
-                technology_id:technology_id
+            data: {
+                technology_id: technology_id
             },
             dataType: "json",
             success: function (response) {
@@ -79,7 +101,7 @@ $(document).ready(function () {
                         $frame_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickframeworkquiz" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name +`</h4>
+                                                <h4>`+ value.framework_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
                                     <input type="checkbox" data-id="`+ value.id + `" class="frameworks_check">
@@ -150,6 +172,7 @@ $(document).ready(function () {
                                          </tr>`;
                         i++;
                     });
+                    $('#totalQues').val(response.countQuestions);
                     $('#test_table').append(questions_data);
                     // $('#pageloader_quiz_button').show();
                     if (response.questions.length == limit) {
@@ -186,14 +209,14 @@ $(document).ready(function () {
     //Click Event for Fetching Questions
     $(document).on('click', '#frameGoBtn', function (e) {
         e.preventDefault();
-        let  frameworks_id= [];
+        let frameworks_id = [];
         $('.frameworks_check').each(function () {
             if ($(this).is(":checked")) {
                 frameworks_id.push($(this).data('id'));
             }
         });
-        frameworks_id=frameworks_id.toString();
-
+        frameworks_id = frameworks_id.toString();
+        // console.log(frameworks_id);
         $('#load_frameworks_quiz').hide();
         $('#load_question_quiz').show();
        
@@ -206,7 +229,7 @@ $(document).ready(function () {
     });
 
     //Select all Functionality
-    $(document).on('click','#select-all-ques',function (event) {
+    $(document).on('click', '#select-all-ques', function (event) {
         var $that = $(this);
         $('.ques_checkbox').each(function () {
             this.checked = $that.is(':checked');
@@ -262,7 +285,7 @@ $(document).ready(function () {
                 else
                     if (response.status == 404) {
                         $('#pageloader_quiz_button').hide();
-                    $('#quiz_page_loader_image').hide();
+                        $('#quiz_page_loader_image').hide();
 
                         // $("#test_table > tbody"). empty();
                         // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
@@ -299,18 +322,21 @@ $(document).ready(function () {
     //Create a quiz module
     $('.make_test').click(function (e) {
         e.preventDefault();
-        $('#testDescriptionForm').validate();
-        let block_name=$('#test_description').val();
-        let timer=$('#test_timer').val();
+        $('#testDescriptionForm').valid();
+        let block_name = $('#test_description').val();
+        let timer = $('#test_timer').val();
+        if(timer == "" || block_name == "" ){
+            return false;
+        }
         var insert = [];
         $('.ques_checkbox').each(function () {
             if ($(this).is(":checked")) {
                 insert.push($(this).data('id'));
             }
         });
-        insert=insert.toString();
+        insert = insert.toString();
         $(this).attr('disabled', true);
-        if(insert==''){
+        if (insert == '') {
             $.toast({
                 heading: 'Warning',
                 text: 'Please select any question. ;)',
@@ -329,13 +355,13 @@ $(document).ready(function () {
             type: "Post",
             url: "/admin/quiz/questions",
             data: {
-                block_name:block_name,
-                insert:insert,
-                timer:timer
+                block_name: block_name,
+                insert: insert,
+                timer: timer
             },
             dataType: "json",
             success: function (response) {
-                if(response.status==200){
+                if (response.status == 200) {
 
                     swal.fire({
                         title: 'Added',
@@ -343,7 +369,162 @@ $(document).ready(function () {
                         icon: 'success',
                         timer: 1000
                     }).then(function () {
-                        window.location='/admin/indexblock';
+                        window.location = '/admin/indexblock';
+                    });
+                }
+            }
+        });
+    });
+
+
+    //Random Questions
+
+    $(document).on('click', '#genterateRandom', function (e) {
+        e.preventDefault();
+        let frameworksId = $('#quiz_framework_id').val();
+        let numberOfQuestions = $('#noOfQues').val().trim();
+
+        let totalQues = $('#totalQues').val().trim();
+        if(totalQues > 0){
+            if(parseInt(numberOfQuestions) > parseInt(totalQues)){
+                $('#randomQuesError').html('Number of questions should be less than total number of questions')
+                return false;
+            }else{
+                // console.log(numberOfQuestions , totalQues );
+                $('#randomQuesError').html('');
+            }
+        }
+
+        $("#randomTestTable > tbody").empty();
+
+        $.ajax({
+            type: "get",
+            url: "/admin/quiz/randomquestions",
+            data: {
+                frameworksId: frameworksId,
+                numberOfQuestions:numberOfQuestions
+            },
+            dataType: "json",
+            success: function (response) {
+                $('#randomQuesModal').modal('hide');
+                // console.log(response);
+                if (response.status == 200) {
+                    $('#modal2').modal('show');
+                    $('.addQuesForQues').hide();
+                    let i = 1;
+                    let j = '';
+                    let k = '';
+                    var questions_data = "";
+                    $.each(response.questions1, function (key, value) {
+                        questions_data += `<tr>
+                                            <td><input type="checkbox" class="randomQuesCheckbox" data-id="`+ value.id + `"></td>
+                                            <td>`+ i + `</td>
+                                            <td>`+ value.question + `</td>
+                                         </tr>`;
+                        i++;
+                        j=i;
+                    });
+                    $.each(response.questions2, function (key, value) {
+                        questions_data += `<tr>
+                                            <td><input type="checkbox" class="randomQuesCheckbox" data-id="`+ value.id + `"></td>
+                                            <td>`+ j + `</td>
+                                            <td>`+ value.question + `</td>
+                                         </tr>`;
+                        j++;
+                        k=j;
+                    });
+                    $.each(response.questions3, function (key, value) {
+                        questions_data += `<tr>
+                                            <td><input type="checkbox" class="randomQuesCheckbox" data-id="`+ value.id + `"></td>
+                                            <td>`+ k + `</td>
+                                            <td>`+ value.question + `</td>
+                                         </tr>`;
+                        k++;
+                    });
+                    $('#randomTestTable').append(questions_data);
+
+                }
+                else
+                    if (response.status == 404) {
+                        $("#randomTestTable > thead").empty();
+                        $("#randomTestTable > tbody").empty();
+                        $("#randomTestTable > tfoot").empty();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                        })
+                        $('.addQuesForQues').show();
+                        $(".addQuesForQues").click(function (e) {
+                            e.preventDefault();
+                            window.location = "/admin/technologies";
+                        });
+                        $('.noDataFound').html('<img src="/img/No data-cuate.png" width=50% height=50%; style="margin-left:25%">');
+
+
+                    }
+            }
+
+        });
+    });
+
+    $(document).on('click', '#select-all-random', function (event) {
+        var $that = $(this);
+        $('.randomQuesCheckbox').each(function () {
+            this.checked = $that.is(':checked');
+        });
+    });
+
+    //Random Questions Test
+    $('.makeRandomQuesTest').click(function (e) {
+        e.preventDefault();
+        $('#testRandomDescriptionForm').valid();
+        let block_name = $('#testRandomDescription').val();
+        let timer = $('#randomTestTimer').val();
+        if(timer == "" || block_name == "" ){
+            return false;
+        }
+        var insert = [];
+        $('.randomQuesCheckbox').each(function () {
+            if ($(this).is(":checked")) {
+                insert.push($(this).data('id'));
+            }
+        });
+        insert = insert.toString();
+        $(this).attr('disabled', true);
+        if (insert == '') {
+            $.toast({
+                heading: 'Warning',
+                text: 'Please select any question. ;)',
+                showHideTransition: 'plain',
+                position: {
+                    right: 50,
+                    bottom: 30
+                },
+                icon: 'warning'
+            })
+            return false;
+        }
+
+        $.ajax({
+            type: "Post",
+            url: "/admin/quiz/questions",
+            data: {
+                block_name: block_name,
+                insert: insert,
+                timer: timer
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 200) {
+
+                    swal.fire({
+                        title: 'Added',
+                        text: 'Quiz Block Added Successfully',
+                        icon: 'success',
+                        timer: 1000
+                    }).then(function () {
+                        window.location = '/admin/indexblock';
                     });
                 }
             }

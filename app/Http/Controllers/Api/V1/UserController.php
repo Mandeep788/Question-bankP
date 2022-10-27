@@ -153,7 +153,7 @@ class UserController extends Controller
         }
         return response()->json(['data' => $insertedData], 200);
     }
-    public function assessmentIndex($quizId)
+    public function getAssessment($quizId)
     {
         try {
             DB::table('userquizzes')->where('status', 'S')->update(['status' => 'U']);
@@ -168,7 +168,7 @@ class UserController extends Controller
                     ['uq.status', 'U'],
                     ['uq.id', $quizId],
                 ])
-                ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
+                ->select('uq.id as quizId', 'u.name as userName', 'b.block_name as blockName', 'uq.submitted_at as submittedAt')
                 ->get();
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
@@ -180,6 +180,9 @@ class UserController extends Controller
     {
         try {
             $quizId = $request->quizId;
+            if(!isset($quizId)){
+                return response()->json(['message' => ' Quiz id is required'], 400);
+            }
 
             $submittedData = DB::table('userquizzes as uq')
                 ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
@@ -188,156 +191,119 @@ class UserController extends Controller
                 ->where([
                     ['ua.quiz_id', $quizId],
                 ])
-                ->select('ua.users_id', 'uq.id', 'q.question', 'ua.answer', 'ua.id as question_id', DB::raw("(SELECT COUNT(question_id) FROM block_questions
-                WHERE block_id = uq.block_id GROUP BY uq.block_id) as question_count"))
+                ->select('ua.users_id as userId', 'uq.id as quizId', 'q.question', 'ua.answer', 'ua.id as questionId', DB::raw("(SELECT COUNT(question_id) FROM block_questions
+                WHERE block_id = uq.block_id GROUP BY uq.block_id) as totalQuestions"))
                 ->get();
 
-            if ($submittedData) {
-                if (count($submittedData) > 0) {
-                    return response()->json(['submitted_data' => $submittedData, 'status' => 200]);
-                } else {
-                    return response()->json(['status' => 404]);
-                }
-            } else {
-                return response()->json(['message' => 'Query Failed', 'status' => 404]);
+            if (!$submittedData) {
+                return response()->json(['message' => 'No content found for quiz id '.$quizId],404);
             }
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
         }
+        return response()->json(['data' => $submittedData],200);
     }
 
     public function insertIndividualMarks(Request $request)
     {
         try {
+            $questionId = $request->questionId;
+            $singleMark = $request->singleMark;
+            $data = [
+                'marks_per_ques' => $singleMark
+            ];
+            $query = DB::table('user_assessments')->where('id', $questionId)->update($data);
+            $updatedData = DB::table('user_assessments')->where('id', $questionId)->select('id as questionId','marks_per_ques as marks')->get;
+            if (!$query) {
+                return response()->json(['message' =>'Something went wrong with question id '.$questionId ], 404);
+            }
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
         }
-        $ques_id = $request->ques_id;
-        $single_mark = $request->single_mark;
-        $data = [
-            'marks_per_ques' => $single_mark
-        ];
-        $query = DB::table('user_assessments')->where('id', $ques_id)->update($data);
-        if ($query) {
-            return response()->json(['status' => 200]);
-        } else {
-            return response()->json(['status' => 404]);
-        }
+        return response()->json(['data' => $updatedData],200);
     }
 
     public function feedbackBlock(Request $request)
     {
         try {
+            if (!isset($request->quizId)) {
+                return response()->json(['message' => ' Quiz Id is required'], 400);
+            }
+            if (!isset($request->aggregate)) {
+                return response()->json(['message' => ' Aggregate is required'], 400);
+            }
+            $quizId = $request->quizId;
+            $aggregate = $request->aggregate;
+
+            $data = [
+                'block_aggregate' => $aggregate,
+                'status' => 'C',
+            ];
+
+            $query = DB::table('userquizzes')->where('id', $quizId)->update($data);
+            $updatedData = DB::table('userquizzes')->where('id', $quizId)->select('id as quizId','block_aggregate as aggregate')->get();
+            if (!$query) {
+                return response()->json(['message' => 'Something went wrong with quiz id '.$quizId],404);
+            }
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
         }
-        $QuizId = $request->QuizId;
-        $Aggergate = $request->Aggergate;
-        // $Feedback=$request->Feedback;
-
-        $data = [
-            'block_aggregate' => $Aggergate,
-            // 'feedback'=>$Feedback,
-            'status' => 'C',
-        ];
-
-        $query = DB::table('userquizzes')->where('id', $QuizId)->update($data);
-        if ($query) {
-            return response()->json(['status' => 200]);
-        } else {
-            return response()->json(['status' => 404]);
-        }
+        return response()->json(['data' => $updatedData],200);
     }
 
     // Feedback Updation
     public function feedbackData(Request $request)
     {
         try {
+            if (!isset($request->quizId)) {
+                return response()->json(['message' => ' Quiz Id is required'], 400);
+            }
+            if (!isset($request->feedback)) {
+                return response()->json(['message' => ' Feedback is required'], 400);
+            }
+            $quizId = $request->quizId;
+            $feedback = $request->feedback;
+
+            $data = [
+                'feedback' => $feedback,
+            ];
+
+            DB::table('userquizzes')->where('id', $quizId)->update($data);
+            $updatedData = DB::table('userquizzes')->where('id', $quizId)->select('id as quizId', 'feedback')->get();
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
         }
-        $quizId = $request->quizId;
-        $feedback = $request->feedback;
-
-        $data = [
-            'feedback' => $feedback,
-        ];
-
-        $query = DB::table('userquizzes')->where('id', $quizId)->update($data);
-        if ($query) {
-            return response()->json(['status' => 200]);
-        } else {
-            return response()->json(['status' => 404]);
-        }
+            return response()->json(['data' =>$updatedData ],200);
     }
 
     //PDF View Functionality
-    public function viewPDF($id)
+    public function getPdfData($id)
     {
         try {
+            $data = DB::table('userquizzes as uq')
+                ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
+                ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
+                ->join('questions as q', 'q.id', '=', 'bq.question_id')
+                ->where([
+                    ['uq.id', $id],
+                ])
+                ->select('q.question', 'ua.answer', 'ua.marks_per_ques')
+                ->get();
+
+            $userdata = DB::table('userquizzes as uq')
+                ->join('blocks as b', 'b.id', '=', 'uq.block_id')
+                ->join('users as u', 'u.id', '=', 'uq.users_id')
+                ->where([
+                    ['uq.id', $id],
+                ])
+                ->select('u.name', 'b.block_name', 'uq.block_aggregate', 'uq.feedback', DB::raw("(SELECT name FROM users
+                WHERE id = b.admin_id) as admin_name"))
+                ->get();
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
         }
+        return response()->json(['data' => $data, 'userdata' => $userdata], 200);
 
-        $data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
-            ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
-            ->join('questions as q', 'q.id', '=', 'bq.question_id')
-            ->where([
-                ['uq.id', $id],
-            ])
-            ->select('q.question', 'ua.answer', 'ua.marks_per_ques')
-            ->get();
-
-
-        $userdata = DB::table('userquizzes as uq')
-            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
-            ->join('users as u', 'u.id', '=', 'uq.users_id')
-            ->where([
-                ['uq.id', $id],
-            ])
-            ->select('u.name', 'b.block_name', 'uq.block_aggregate', 'uq.feedback', DB::raw("(SELECT name FROM users
-            WHERE id = b.admin_id) as admin_name"))
-            ->get();
-
-
-        $pdf =   Pdf::loadView('PDF.viewPdf', ['data' => $data, 'userdata' => $userdata])
-            ->setPaper('a4', 'portrait');
-        return $pdf->stream();
     }
 
-    //PDF Download Functionality
-    public function downloadPDF($id)
-    {
-        try {
-        } catch (QueryException $ex) {
-            return response()->json(['message' => $ex->getMessage()], 404);
-        }
-
-        $data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
-            ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
-            ->join('questions as q', 'q.id', '=', 'bq.question_id')
-            ->where([
-                ['uq.id', $id],
-            ])
-            ->select('q.question', 'ua.answer', 'ua.marks_per_ques')
-            ->get();
-
-
-        $userdata = DB::table('userquizzes as uq')
-            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
-            ->join('users as u', 'u.id', '=', 'uq.users_id')
-            ->where([
-                ['uq.id', $id],
-            ])
-            ->select('u.name', 'b.block_name', 'uq.block_aggregate', 'uq.feedback', DB::raw("(SELECT name FROM users
-            WHERE id = b.admin_id) as admin_name"))
-            ->get();
-
-
-        $pdf =   Pdf::loadView('PDF.viewPdf', ['data' => $data, 'userdata' => $userdata])
-            ->setPaper('a4', 'portrait');
-        return $pdf->download('Question-bank.pdf');
-    }
 }

@@ -722,3 +722,10 @@ footer a{
 .noofquestion{
     margin-top: 10px;
 }
+.copy{
+    display: none;
+}
+.add-more-input{
+    margin-right: 4px;
+    border-radius: 15px !important;
+}

@@ -517,9 +517,6 @@ $(document).ready(function () {
                                                 <h4>`+ value.experience_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_experience" data-id="`+ value.id + `" href="">
-                                                    <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
-                                                </a>
                                                 <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" href="">
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
@@ -633,42 +630,42 @@ $(document).ready(function () {
     });
 
     //Delete Experience
-    $(document).on('click', '#delete_experience', function (e) {
-        e.preventDefault();
-        let id = $(this).data('id');
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/admin/experiences/delete/' + id,
-                    method: 'delete',
-                    data: {
-                        id: id
-                    },
-                    success: function (response) {
-                        // console.log(response);
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Experience Deleted.",
-                            icon: 'success',
-                            timer: 1000
-                        }).then(function () {
-                            FetchExperience();
-                        });
-                        //   fetchAllEmployees();
-                    }
-                });
-            }
-        })
+    // $(document).on('click', '#delete_experience', function (e) {
+    //     e.preventDefault();
+    //     let id = $(this).data('id');
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             $.ajax({
+    //                 url: '/admin/experiences/delete/' + id,
+    //                 method: 'delete',
+    //                 data: {
+    //                     id: id
+    //                 },
+    //                 success: function (response) {
+    //                     // console.log(response);
+    //                     Swal.fire({
+    //                         title: "Deleted!",
+    //                         text: "Experience Deleted.",
+    //                         icon: 'success',
+    //                         timer: 1000
+    //                     }).then(function () {
+    //                         FetchExperience();
+    //                     });
+    //                     //   fetchAllEmployees();
+    //                 }
+    //             });
+    //         }
+    //     })
 
-    });
+    // });
 
     //Fetch Question Function
     function FetchQuestion(id, technology_id, framework_id, limit) {

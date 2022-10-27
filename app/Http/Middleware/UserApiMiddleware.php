@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class userMiddleware
+class UserApiMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,10 @@ class userMiddleware
         {
             return $next($request);
         }
-        return redirect('/dashboard'); 
-        // return $response;
+        // return redirect('/dashboard'); 
+        return response()->json([
+            'message'=>'Unauthorized Access...',
+
+        ],401);
     }
 }

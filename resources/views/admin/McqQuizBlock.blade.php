@@ -37,6 +37,7 @@
                         <button id="GoNext" class="btn btn-success">Next </button>
                     </div>
                 </div>
+                
                 <div id="frameworksNamee">
 
                 </div>
@@ -122,7 +123,7 @@
                                             <input type="text" name="mcqTimer" id="mcqTimer" class="mcqTimer"
                                                 placeholder="In Minutes">
                                             <div class="text-danger errorspan"></div>
-                                            <button type="submit" class="btn btn-primary mcqTest">Create Quiz</button>
+                                            <button type="submit" class="btn btn-primary mcq_test">Create Quiz</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -130,16 +131,18 @@
                         </table>
                     </div>
                 </div>
-                
+                {{-- <div class="addQuesForQuess">
+                    <button type="button" class="btn btn-info mb-3 aaaa">Add Questions for Quiz</button>
+                </div> --}}
                 <div class="noDataFound">
 
                 </div>
             </div>
 
             <!-- Modal -->
-{{-- 
-            <div class="page_loaderr">
-                <button class="pageloader_button" id="pageloader_mcq_button">Load more...</button>
+
+            {{-- <div class="page_loaderr">
+                <button class="pageloader_buttonn" id="pageloader_mcq_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
             </div> --}}

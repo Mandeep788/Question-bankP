@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(document).on('click','.sendEmail',function(){
-     
+
     $('#sendEmailModal').modal('show');
        var id = $(this).attr("data-id");
        $("#email-box").val(id);
@@ -14,16 +14,16 @@ $(document).ready(function(){
         },
         dataType: "json",
         success: function (response) {
-            if (response.status == 200) 
+            if (response.status == 200)
             {
                 $("#name").val(response.data[0]['name']);
                 $("#blockname").val(response.data[0]['block_name']);
                 $("#email").val(response.data[0]['email']);
-    
+
             }
         }
     });
-    
+
     });
 
 });

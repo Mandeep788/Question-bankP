@@ -26,7 +26,6 @@ class NotificationController extends Controller
         if (count($query2) > 0) {
             DB::table('userquizzes')->where([['users_id', $u_id], ['status', 'C']])->update($statusAlreadyReviewed);
         }
-
         $notificaton = DB::table('userquizzes')
             ->join('blocks', 'blocks.id', '=', 'userquizzes.block_id')
             ->where([
@@ -34,11 +33,11 @@ class NotificationController extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
+            ->select('userquizzes.id', 'blocks.block_name','blocks.type', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
             ->orderBy('userquizzes.id','desc')
             ->get();
 
-        return response($notificaton)->json([
+        return response()->json([
             'notification' => $notificaton,
         ]);
     }
@@ -62,7 +61,7 @@ class NotificationController extends Controller
             ['users_id',$user_id]
         ])
 
-        ->select('userquizzes.id','blocks.block_name','userquizzes.status','users.name')
+        ->select('userquizzes.id','blocks.block_name','blocks.type','userquizzes.status','users.name')
         ->orderBy('userquizzes.id','desc')
         ->get();
 

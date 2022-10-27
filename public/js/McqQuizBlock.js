@@ -19,9 +19,9 @@ $(document).ready(function () {
                 digits : "Please enter time",
             },
         },
-        // success: function () {
-        //     $(".mcqTest").removeAttr("disabled");
-        // },
+        success: function () {
+            $(".mcq_test").removeAttr("disabled");
+        },
         // submitHandler: function(form){
         //     $(".make_test").removeAttr("disabled");
         // form.submit();
@@ -38,6 +38,7 @@ $(document).ready(function () {
     //fetch frameworks with technology
     $("#load_Mcq_quiz").hide();
     $("#frameWorksT").hide();
+
     $(document).on("click", "#GoNext", function (e) {
         e.preventDefault();
         // alert("hwll");
@@ -48,7 +49,6 @@ $(document).ready(function () {
                 // console.log(technologyId);
             }
         });
-
         technologyId = technologyId.toString();
         // $('#quiz_technology_id').val(technologyId);
         //console.log(technologyId);
@@ -87,7 +87,6 @@ $(document).ready(function () {
                                     </div>`;
                         //console.log($frame);
                     });
-
                     $frame += `</div>
                     <div>
                     <button id="mcqGoBtn" class="btn btn-success">Next </button>
@@ -203,7 +202,7 @@ $(document).ready(function () {
     });
 
     //Create a mcq module
-    $(".mcqTest").on("click", function (e) {
+    $(".mcq_test").on("click", function (e) {
         e.preventDefault();
         // $("#McqDescriptionForm").valid();
         let MCQblock_name = $("#mcqDescription").val();
@@ -295,7 +294,7 @@ $(document).ready(function () {
     });
 
     //Create a mcq quiz module
-    $('.mcqTest').click(function (e) {
+    $('.mcq_test').click(function (e) {
         e.preventDefault();
         $('#McqDescriptionForm').valid();
         let block_name=$('#mcqDescription').val();

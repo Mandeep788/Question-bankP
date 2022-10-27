@@ -57,7 +57,6 @@ class McqQuizBlockController extends Controller
             $Mcq = DB::table('mcq_questions')->where('experience_id',$experienceId)
             ->join('frameworks','frameworks.id','=','mcq_questions.framework_id')
             ->whereIn('mcq_questions.framework_id',$frame_id);
-            
          }
             $Mcq = $Mcq->select('mcq_questions.id','mcq_questions.mcq_questions')
             ->offset($offset)->limit($limitt)

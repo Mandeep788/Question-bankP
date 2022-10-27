@@ -13,6 +13,59 @@ date_default_timezone_set("Asia/Calcutta");
 
 class quiz_questionController extends Controller
 {
+    public function mcqQuizQuestion($quiz_id,$u_id){
+        $startedTime=DB::table('userquizzes')->where('id',$quiz_id)->value('started_at');
+        if($startedTime==''){
+            DB::table('userquizzes')->where('id',$quiz_id)->update(['started_at'=>date('Y-m-d H:i:s')]);
+        }
+
+        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+
+        $query=DB::table('userquizzes')
+        ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
+        ->join('blocks','blocks.id','=','userquizzes.block_id')
+        ->join('mcq_questions','block_questions.question_id','=','mcq_questions.id')
+        ->where('userquizzes.id',$quiz_id)
+        ->select('userquizzes.id as quizId','block_questions.block_id','block_questions.id as blockQuestionIid','mcq_questions.mcq_questions as question','mcq_questions.id as questionId','blocks.timer','userquizzes.started_at')
+        ->get();
+
+        $quizQuestionData = array();
+        foreach($query as $key=> $userTech)
+        {
+            $array['quizId'] = $userTech->quizId;
+            $array['block_id'] = $userTech->block_id;
+            $array['timer'] = $userTech->timer;
+            $array['started_at'] = $userTech->started_at;
+            $array['blockQuestionIid'] = $userTech->blockQuestionIid;
+            $array['question'] = $userTech->question;
+            $array['answer'] = $this->getMcqAnswer($userTech->questionId);
+            $array['correctAnswer']=$this->getCorrectAnswer($userTech->questionId);
+
+            $quizQuestionData[] = $array;
+        }
+
+//         print '<pre>';
+//         print_r($quizQuestionData);
+//         exit;
+         return view('user.mcqQuiz',['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
+    }
+
+    public function getMcqAnswer($questionId)
+    {
+        $query = DB::table('mcq_answers')
+        ->select('mcq_answers')
+        ->where('mcq_question_id',$questionId)->get();
+        return $query;
+    }
+    public function getCorrectAnswer($questionId)
+    {
+        $query = DB::table('mcq_answers')
+        ->select('mcq_answers')
+        ->where([['mcq_question_id',$questionId],['status','=',1]])->value('mcq_answers');
+
+        return $query;
+    }
+
     public function quizQuestion($quiz_id,$u_id)
     {
         $startedTime=DB::table('userquizzes')->where('id',$quiz_id)->value('started_at');

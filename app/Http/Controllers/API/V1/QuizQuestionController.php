@@ -24,7 +24,7 @@ class QuizQuestionController extends Controller
             ->join('questions','block_questions.question_id','=','questions.id')
             ->where('userquizzes.id',$quiz_id)
             ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
-    
+
             $quizQuestionData = array();
             foreach($query as $key=> $userTech)
             {
@@ -34,7 +34,7 @@ class QuizQuestionController extends Controller
                 $array['question'] = $userTech->question;
                 $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
                 $array['answerId']=$this->getAnswerId($userTech->u,$userTech->id);
-    
+
                 $quizQuestionData[] = $array;
             }
         }catch(QueryException $e){
@@ -59,7 +59,7 @@ class QuizQuestionController extends Controller
         $query = DB::table('user_assessments as ua')
         ->select('ua.answer')
         ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('answer');
-        
+
         return $query;
 
     }
@@ -85,7 +85,7 @@ class QuizQuestionController extends Controller
         $query = DB::table('user_assessments as ua')
         ->where([['ua.quiz_id',$request->quiz_id],['ua.block_question_id', $request->question_id]])
         ->select('ua.block_question_id','ua.quiz_id')->get();
-        
+
         if(Count($query)>0)
         {
             return response()->json([
@@ -183,13 +183,13 @@ class QuizQuestionController extends Controller
             }
             else{
                     return response()->json([
-        
+
                    'message'=>"you have unsuccessfully submit your quiz"
                     ],404);
 
             }
-            
-            
+
+
 }
 
     public function statusInitiate()

@@ -8,7 +8,6 @@
                     <div class="page_title">
                         <div>
                             <h5 class="page-title p-3 mt-2">Quiz</h5>
-
                         </div>
                         <div class="d-flex">
                             <div>
@@ -29,8 +28,10 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
-                            {{-- <th>Number of Questions</th> --}}
+                            <th>Type</th>
+                            <th>Number of Questions</th>
                             <th>Action</th>
+
                         </thead>
                         <tbody>
                         </tbody>
@@ -64,7 +65,7 @@
                                     <option value="40">40</option>
                                 </select>
                             </div>
-                            <div>
+                        <div>
                             </div>
 
                         </div>

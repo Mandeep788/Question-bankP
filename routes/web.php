@@ -8,6 +8,7 @@ use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\McqQuizBlockController;
 use App\Http\Controllers\mcqQuestions;
+use App\Http\Controllers\McqController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -56,7 +57,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/experiences', [ExperienceController::class, 'store']);
     Route::get('/admin/experiences/edit/{id}', [ExperienceController::class, 'edit']);
     Route::post('/admin/experiences/edit/{id}', [ExperienceController::class, 'update']);
-    Route::delete('/admin/experiences/delete/{id}', [ExperienceController::class, 'destroy']);
+    // Route::delete('/admin/experiences/delete/{id}', [ExperienceController::class, 'destroy']);
 
     Route::get('/admin/questions/{id}/{limit}/{count}', [QuestionController::class, 'index']);
     Route::post('/admin/questions', [QuestionController::class, 'store']);
@@ -75,19 +76,27 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/feedback',[UserController::class,'feedbackData']);
     Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
     Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
-    //latest work of sandeep
-    Route::get('/admin/mcq_questions',[mcqQuestions::class, 'index'])->name('admin/mcq_questions');
-    Route::post('/admin/mcq_frameworks',[mcqQuestions::class, 'show']);
-    Route::post('/admin/mcq_questions',[mcqQuestions::class, 'getMcq']);
-    Route::post('/admin/mcq_questions/addMcq',[mcqQuestions::class,'addMcq']);
+
+
+    Route::get('/admin/mcq_questions',[McqController::class, 'index'])->name('admin/mcq_questions');
+    Route::post('/admin/mcq_frameworks',[McqController::class, 'show']);
+    Route::post('/admin/mcq_questions',[McqController::class, 'getMcq']);
+    Route::post('/admin/mcq_questions/addMcq',[McqController::class,'addMcq']);
+    Route::get('/admin/mcq_questions/getEditMcq',[McqController::class,'getMcqData']);
+    Route::delete('/admin/mcq_questions/removeAnswer',[McqController::class,'removeAnswer']);
+    Route::post('/admin/mcq_questions/editMcq',[McqController::class,'editMcq']);
+
     Route::get('/admin/McqQuizBlock',[McqQuizBlockController::class,'index'])->name('admin/McqQuizBlock');
     Route::get('/admin/QuizBlocks/Frameworks',[McqQuizBlockController::class,'fetchFramework']);
     Route::get('/admin/Mcq/questions',[McqQuizBlockController::class,'getMcqQuestions']);
-    //
+
+
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
+    Route::get('/admin/quiz/randomquestions', [QuizController::class, 'getRandomQuestions']);
+    // Route::post('/admin/quiz/randomquestions', [QuizController::class, 'saveRandomQuestions']);
     Route::get('/admin/indexblock', [QuizController::class, 'indexBlocks']);
     Route::get('/admin/totalquizblocks', [QuizController::class, 'fetchAllBlocks']);
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
@@ -131,14 +140,22 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
 
     Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);
-    Route::get('/quiz/{block_id}/{u_id}', [quiz_questionController::class, 'quizQuestion']);
+    Route::get('/quiz/{quizId}/{userId}', [quiz_questionController::class, 'quizQuestion']);
+
     Route::post('/insertanswer', [quiz_questionController::class, 'insertAnswer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
     Route::get('/quiz',[quiz_questionController::class,'statusInitiate']);
     Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
+
+    Route::get('/mcq/{quizId}/{userId}', [quiz_questionController::class, 'mcqQuizQuestion']);
+
     Route::get('/notificationPanel', [NotificationController::class, 'NotificationPanel']);
     Route::get('/user/download-pdf/{id}',[UserController::class,'downloadPDF']);
+
+    Route::get('/user/mcq',[UserController::class,'getIndex']);
+
+
 
 
 });

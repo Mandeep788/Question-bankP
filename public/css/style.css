@@ -512,3 +512,29 @@ color: black;
  }
 
 
+ .mcqQuesSection{
+    border-radius: 10px;
+    margin-top: 70px;
+    background-color: white;
+    padding: 35px 20px;
+    box-shadow: 5px 5px 5px rgb(184, 184, 184);
+ }
+
+ .mcqQues{
+    padding: 20px 15px;
+    background-color: rgb(180, 179, 179);
+    border-radius: 10px;
+ }
+
+ .mcqAns{
+    border-radius: 10px;
+ }
+
+ .mcqEachAns{
+    border-radius: 5px;
+    padding: 17px 15px;
+    background-color: rgb(231, 231, 235);
+    margin-top: 4px;
+ }
+
+

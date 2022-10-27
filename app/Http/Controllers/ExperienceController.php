@@ -68,14 +68,14 @@ class ExperienceController extends Controller
     }
 
 
-    public function destroy($id)
-    {
-        $query = DB::table('experiences')->find($id);
-        if ($query) {
-            DB::table('experiences')->delete($query->id);
-            return response()->json([
-                'status' => 200
-            ]);
-        }
-    }
+    // public function destroy($id)
+    // {
+    //     $query = DB::table('experiences')->find($id);
+    //     if ($query) {
+    //         DB::table('experiences')->delete($query->id);
+    //         return response()->json([
+    //             'status' => 200
+    //         ]);
+    //     }
+    // }
 }

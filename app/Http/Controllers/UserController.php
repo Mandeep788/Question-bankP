@@ -10,6 +10,12 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+    public function getIndex(){
+        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+        return view('user.mcqQuiz',['technologies'=>$technologies]);
+    }
+
+
     public function index()
     {
         $technologies = DB::table('technologies')->orderBy('technology_name', 'asc')->get();

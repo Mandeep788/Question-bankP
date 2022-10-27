@@ -49,6 +49,7 @@ $(document).ready(function () {
         // console.log(u_id);
         let block_id = $(this).data("id");
         $('#block_id').val(block_id);
+        let block_type = $(this).data('type');
         // console.log(block_id);
         $('#exampleModal').hide();
         $.ajax({
@@ -59,7 +60,11 @@ $(document).ready(function () {
                 if (response.status == 200) {
                     swal.fire("Start your quiz").then(function () {
                         // get_question(block_id);
-                        window.location = "/quiz/" + block_id + "/" + u_id;
+                        if(block_type == 'MCQ'){
+                            window.location = "/mcq/" + block_id + "/" + u_id;
+                        }else{
+                            window.location = "/quiz/" + block_id + "/" + u_id;
+                        }
                     })
                 }
 
