@@ -299,7 +299,7 @@ $(document).ready(function () {
     //Create a quiz module
     $('.make_test').click(function (e) {
         e.preventDefault();
-        $('#testDescriptionForm').valid();
+        $('#testDescriptionForm').validate();
         let block_name=$('#test_description').val();
         let timer=$('#test_timer').val();
         var insert = [];

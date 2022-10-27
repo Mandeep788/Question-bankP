@@ -19,7 +19,7 @@
     @foreach ($technologies as $techno)
         <button class="btn btn-info mt-2 mcqQuestion" data-id="{{ $techno->id }}">{{ $techno->technology_name }}</button>
     @endforeach
-    <div class="con" id="mcqFrameworks">
+    <div class="con" id="mcq">
 
     </div>
     <div class="conn" id="mcq_q">
@@ -34,14 +34,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Questions</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="mcq_frameworkid" name="frameworkId" value=""
-                        hidden><br>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="frameworkId" value=""
-                    hidden><br>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Add Question"><br>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -70,16 +70,17 @@
                             placeholder="Add Question" hidden><br>
                         <select name="experience" class="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example">
-                            
+
                             @foreach ($experiences as $experience)
                                 <option value="{{ $experience->id }}">{{ $experience->experience_name }}</option>
                             @endforeach
                         </select>
-                        
+
                         <input type="text" class="form-control" id="mcq_question" name="mcq_question" value=""
                             placeholder="Add Question"><br>
 
-                               
+
+
                             <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                                 placeholder="Add Answer option 1"><br>
                             <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
@@ -87,8 +88,8 @@
                             <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
                                 placeholder="Add Answer option 3 "><br>
                             <input type="text" class="form-control" id="mcq_answer" name="mcq_answer[]" value=""
-                                placeholder="Add Answer option 4 "><br>    
-                  
+                                placeholder="Add Answer option 4 "><br>
+
                         <input type="text" class="form-control" id="correctAnswer" name="correctAnswer" value=""
                             placeholder="Correct Answer"><br>
 

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('mcq_answers');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-                
             $table->foreign('mcq_question_id')->references('id')->on('mcq_questions')->onDelete('cascade');
         });
     }

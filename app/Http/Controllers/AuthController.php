@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
-use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\navbarTechnologyController;
 use Illuminate\Support\Facades\Cookie;
 use Yajra\DataTables\Facades\DataTables;
@@ -194,7 +192,7 @@ class AuthController extends Controller
             ->join('blocks as b', 'b.id', '=', 'uq.block_id')
             ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->where('b.admin_id', $adminId)
-            ->select('uq.id', 'uq.block_aggregate', 'uq.feedback', 'uq.status','uq.submitted_at', 'b.block_name', 'u.name')
+            ->select('uq.id', 'uq.block_aggregate', 'uq.feedback', 'uq.status','uq.submitted_at', 'b.block_name', 'u.name','uq.email_flag')
             ->orderBy('uq.id','desc')
             ->get();
 
@@ -247,7 +245,15 @@ class AuthController extends Controller
                         return $notificationData->feedback;
                     }
                 }
-                })
+            })
+            ->editColumn('mail', function ($notificationData) {
+                if ($notificationData->email_flag == 0){
+                    return '<i class="fa fa-envelope sendEmail" data-id="'.$notificationData->id.'"></i>';
+                }else{
+                    return '<i class="fa fa-envelope"></i>';
+                }
+
+            })
 
             ->rawColumns(['pdf', 'mail','feedback','status'])
             ->setRowId('id')

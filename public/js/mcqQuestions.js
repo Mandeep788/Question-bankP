@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $(".PHPQuestion").hide();
+   // $(".PHPQuestion").hide();
     $(".addTech").hide();
     $(".mcqQuestion").click(function (e) {
         e.preventDefault();
         $(".mcqQuestion").hide();
-        $(".PHPQuestion").show();
+       // $(".PHPQuestion").show();
 
         var technology_id = $(".mcqQuestion").data("id");
         //console.log(technology_id);
@@ -17,10 +17,10 @@ $(document).ready(function () {
             success: function (response) {
                 // console.log(response);
                 if (response.status == 200) {
-                    var mcq_questions = " ";
+                    var mcqFrameworks = " ";
                     let i = 1;
                     $.each(response.technology_id, function (key, value) {
-                        mcq_questions +=
+                        mcqFrameworks +=
                             `<div class="col-lg-12 col-md-12">
                         <div id="white_bo">
                         <div id="clicframework" data-id="` +
@@ -36,7 +36,7 @@ $(document).ready(function () {
                         </div>`;
                         i++;
                     });
-                    $("#mcq").append(mcq_questions);
+                    $("#mcqFrameworks").append(mcqFrameworks);
                 }
             },
         });
@@ -94,17 +94,12 @@ $(document).ready(function () {
                         });
                         `</div>
                          </div>
-                         
                         </div>`;
                         i++;
                     });
                     $("#mcq_q").append(mcqQuestion);
-                    $("#mcq_q").append(
-                        // '<button type="button" class="btn btn-primary" id="submitt" value="submit">Send</button>'
-                    );
                 }
             },
         });
     });
-    
 });

@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\block;
+use App\Models\Block;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class softDeletes extends Controller
+class SoftDeleteController extends Controller
 {
 
     public function destroy($id)

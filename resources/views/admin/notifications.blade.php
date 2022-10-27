@@ -58,57 +58,49 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- mail modal triger --}}
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <!-- Button trigger modal for mail icon-->
+                        <!-- Modal -->
+                        <div class="modal fade" id="sendEmailModal" tabindex="-1" aria-labelledby="sendEmailModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <h5 class="modal-title" id="sendEmailModalLabel">SEND EMAIL</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="/mail" method="post" id="mail_data">
-                                        @csrf
-                                        @method('post')
-                                        <div class="modal-body" id="mailData">
-                                            <input type="text" value="" name="id" id="mail_id" hidden>
+                                    <div class="modal-body">
+                                        <form  action ="/admin/send-email-pdf" method="post" id=sendDataInEmailForm>
+                                            @csrf
+                                            @method("post")
+                                            <input type="hidden" value="" name="id"  id="email-box">
+
                                             <div class="form-group mb-3">
                                                 <label for="Name">Name</label>
-                                                <input type="text" class="form-control" id="mail_name" value=""
-                                                    name="name">
+                                                <input type="text" class="form-control" id="name" value ="" name="name" readonly>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="Block name">Title</label>
-                                                <input type="text" class="form-control mb-3" id="mail_blockname"
-                                                    value="" name="block_name">
+                                                <label for="Block Nname">Block Name</label>
+                                                <input type="text" class="form-control mb-3" id="blockname" value =""name="block_name" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Email">Email</label>
-                                                <input type="email" class="form-control" id="mail_email" value=""
-                                                    name="email">
+                                                <input type="email" class="form-control" id="email" value =""name="email" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Subject">Subject</label>
-                                                <input type="text" class="form-control" id="mail_subject" value=""
-                                                    name="subject">
-
+                                                <input type="text" class="form-control" id="subject" value =""name="subject">
                                             </div>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="Email">Message</label>
+                                                <input type="text" class="form-control" id="emal" value ="" name="message">
+                                            </div>
+                                            <button type="submit" class="btn btn-success mt-3">Send Mail</button>
 
-                                        <div class="modal-footer">
-                                            <i class="bi bi-filetype-pdf"
-                                                style="font-size:50px; color:red; margin-right:180px;"></i>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Send
-                                                mail</button>
-                                        </div>
-                                    <form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                     </div>
                 </div>
             </div>

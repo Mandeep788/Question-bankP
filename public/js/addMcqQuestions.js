@@ -5,7 +5,6 @@ $(document).ready(function(){
             experience_id:{required:true},
             mcq_question:{required:true},
            'mcq_answer[]':{required:true},
-        
             correctAnswer:{required:true},
         },
         messages:{
@@ -13,12 +12,11 @@ $(document).ready(function(){
                 required:"Enter experience",
             },
             mcq_question:{
-                required:"Please enter Question",                
+                required:"Please enter Question",
             },
             'mcq_answer[]':{
                 required:"Please enter answer",
             },
-           
             correctAnswer:{
                 required:"Please enter correct answer",
             },

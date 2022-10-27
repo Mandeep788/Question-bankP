@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserUpdateController extends Controller
 {
@@ -81,27 +82,20 @@ class UserUpdateController extends Controller
         }
         return redirect('/user_edit');
     }
-    
-
 
     public function updatePassword(Request $request)
     {
-       
-
 
         #Match The Old Password
         if(!Hash::check($request->old_password, auth()->user()->password)){
            // dd('old_password');
             return back()->with("error", "Old Password Doesn't match!");
         }
-
-
         #Update the new Password
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        return back()->with("status", "Password changed successfully!");
+        return back()->with("status",'Password has been Updated');
     }
-
 }

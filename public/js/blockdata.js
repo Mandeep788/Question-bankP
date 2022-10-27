@@ -24,6 +24,18 @@ $(document).ready(function () {
         ]
     });
 
+    $('#restoreblock').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/restoreBlocks',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'block_name', name: 'block_name'},
+            // {data: 'question_count', name: 'question_count'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

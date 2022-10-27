@@ -1,4 +1,4 @@
-@extends('admin_layout.template')_checkbox
+@extends('admin_layout.template')
 @section('main-content')
     <input type="text" name="quiz_technology_id" id="quiz_technology_id" hidden>
     <input type="text" name="quiz_technology_name" id="quiz_technology_name" hidden>

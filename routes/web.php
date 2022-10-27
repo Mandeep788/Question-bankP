@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\McqQuizBlockController;
 use App\Http\Controllers\mcqQuestions;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
@@ -15,11 +16,7 @@ use App\Http\Controllers\tech_user_Controller;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
-use App\Http\Controllers\UserTechnology;
-use App\Http\Controllers\softDeletes;
-use App\Http\Controllers\McqQuizBlockController;
-
-
+use App\Http\Controllers\SoftDeleteController;
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
@@ -103,6 +100,12 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/restoreBlocks',[QuizController::class,'restoreBlocks'])->name ('restoreBlocks');
     /////
 
+
+    Route::get('/viewBlocks/destroy/{id}',[SoftDeleteController::class, 'destroy']);
+    Route::get('/admin/restoreBlocks/{id}',[SoftDeleteController::class, 'restore']);
+    Route::get('/viewBlocksRestore',function(){ return view('admin.viewBlocksRestore');});
+    Route::get('/admin/restoreBlocks',[QuizController::class,'restoreBlocks'])->name ('restoreBlocks');
+
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
 
@@ -124,6 +127,8 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/technologies_second/{id}',[UserTechnology::class,'index']);
     // Route::get('/technologies_second/{id}',[UserTechnology::class,'show']);
 
+    Route::post('/update-password', [UserUpdateController::class, 'updatePassword'])->name("update-password");
+
     Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);
     Route::get('/quiz/{block_id}/{u_id}', [quiz_questionController::class, 'quizQuestion']);
@@ -137,3 +142,6 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
 
 
 });
+
+Route::post('/admin/send-email-pdf', 'App\Http\Controllers\SendEmailController@sendMail');
+Route::get('/admin/show-data','App\Http\Controllers\SendEmailController@showDataOnMailBox');

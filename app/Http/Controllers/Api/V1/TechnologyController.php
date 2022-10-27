@@ -41,13 +41,14 @@ class TechnologyController extends Controller
     public function show()
     {
         try{
-            $technologies = DB::table('technologies')->get();
+            $technologies = DB::table('technologies')->select('id','technology_name as technologyName','technology_description as technologyDescription','created_at as createdAt','updated_at as updatedAt')->get();
+            if(!$technologies){
+                return response()->json(['message' => 'No technology found'], 404);
+        }
         }catch(QueryException $ex){
             return response()->json(['message' => 'No technology found'], 404);
         }
-        // if(!$technologies){
 
-        // }
             return response()->json(['technologies' => $technologies], 200);
     }
 
@@ -55,66 +56,59 @@ class TechnologyController extends Controller
     {
         try{
 
-            $technology = DB::table('technologies')->find($id);
+            $technology = DB::table('technologies')
+                    ->select('id','technology_name as technologyName','technology_description as technologyDescription','created_at as createdAt','updated_at as updatedAt')
+                    ->find($id);
         }catch(QueryException $ex){
             return response()->json(['message' => $ex->getMessage()], 404);
         }
         if(!$technology){
             return response()->json(['message' => 'No record found for technology id '.$id], 404);
         }
-            return response()->json([$technology], 200);
+        return response()->json([$technology], 200);
     }
 
 
     public function update($id, Request $request)
     {
-
-
         try{
             $techData = [
                 'technology_name' => $request->technologyName,
                 'technology_description' => $request->technologyDescription,
                 "updated_at" => carbon::now()
             ];
-            // dd($request);
             $updateQuery = DB::table('technologies')->where('id', $id)->update($techData);
+            if (!$updateQuery){
+                return response()->json([
+                    'message' => 'Technology updation unsuccessful'
+                ], 404);
+            }
+            $updatedData = DB::table('technologies')
+            ->select('id','technology_name as technologyName','technology_description as technologyDescription','created_at as createdAt','updated_at as updatedAt')
+            ->find($id);
         }catch(QueryException $ex){
             return response()->json(['message' => $ex->getMessage()], 404);
         }
-        if ($updateQuery) {
-            return response()->json([
-                'message' => 'Technology updated successfully'
+        return response()->json([
+            'updatedData' => $updatedData
             ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Technology updation unsuccessful'
-            ], 404);
-        }
-        // return view('admin.technologies.index');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-
-        $id = $request->id;
-        $query = DB::table('technologies')->find($id);
-        // $emp= $query->first();
-        if ($query) {
-            $deleteQuery = DB::table('technologies')->delete($query->id);
-            if ($deleteQuery) {
+        try{
+            $query = DB::table('technologies')->find($id);
+            if (!$query) {
                 return response()->json([
-                    'message' => 'Technology deleted successfully'
-                ], 200);
-            } else {
-                return response()->json([
-                    'message' => 'Technology is not deleted'
+                    'message' => 'No record found for technology id '.$id
                 ], 404);
             }
-            // $emp->delete();
-        } else {
-            return response()->json([
-                'message' => 'No record found'
-            ], 404);
+            DB::table('technologies')->delete($query->id);
+        }catch(QueryException $ex){
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
+        return response()->json([
+            'message' => 'Technology deleted successfully'
+            ], 200);
     }
 }

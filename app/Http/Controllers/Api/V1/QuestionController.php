@@ -11,125 +11,191 @@ use Illuminate\Support\Facades\DB;
 class QuestionController extends Controller
 {
     //Fetch Question
-    public function index(Request $request, $id, $limit, $count)
+    public function index(Request $request, $frameworkId, $experienceId)
     {
-        $tech_id = $request->technology_id;
-        $frame_id = $request->framework_id;
+        try {
+            $experienceId = $request->experienceId;
+            $frameworkId = $request->frameworkId;
+            $limitPerPage = $request->limitPerPage;
+            $loaderCount = $request->loaderCount;
 
-        if ($count == 0) {
-            $offset = 0;
-        } else {
-            $offset = $count * $limit;
-        }
-        $ques_ans = DB::table('answers as a')
-            ->join('questions as q', 'q.id', '=', 'a.question_id')
-            ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
-            ->where([
-                ['q.experience_id', $id],
-                ['f.technology_id', $tech_id],
-                ['q.framework_id', $frame_id]
-            ])
-            ->select('q.question', 'a.question_id', 'a.answer')
-            ->offset($offset)->limit($limit)
-            ->get();
-        $ques = DB::table('questions as q')
-            ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
-            ->select(
-                'q.id',
-                'q.question'
-            )
-            ->where([
-                ['q.experience_id', $id],
-                ['f.technology_id', $tech_id],
-                ['q.framework_id', $frame_id]
-            ])
-            ->leftJoin('answers as a', 'a.question_id', '=', 'q.id')
-            ->whereNull('a.question_id')
-            ->limit(2)
-            ->get();
-            if(count($ques_ans)>0 || count($ques)>0){
-                return response()->json([
-                    'Ques' => $ques,
-                    'QuesAnswer' => $ques_ans,
-                    'status' => 200
-                ]);
-            }else{
-                return response()->json(['status'=>404]);
+            if ($loaderCount == 0) {
+                $offset = 0;
+            } else {
+                $offset = $loaderCount * $limitPerPage;
             }
-
+            if (!($limitPerPage || $loaderCount)) {
+                if ($experienceId == 0) {
+                    $questionAnswer = DB::table('answers as a')
+                        ->join('questions as q', 'q.id', '=', 'a.question_id')
+                        ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
+                        ->where([
+                            ['q.framework_id', $frameworkId]
+                        ])
+                        ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                        ->get();
+                } else {
+                    $questionAnswer = DB::table('answers as a')
+                        ->join('questions as q', 'q.id', '=', 'a.question_id')
+                        ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
+                        ->where([
+                            ['q.experience_id', $experienceId],
+                            ['q.framework_id', $frameworkId]
+                        ])
+                        ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                        ->get();
+                }
+            } else {
+                if ($experienceId == 0) {
+                    $questionAnswer = DB::table('answers as a')
+                        ->join('questions as q', 'q.id', '=', 'a.question_id')
+                        ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
+                        ->where([
+                            ['q.framework_id', $frameworkId]
+                        ])
+                        ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                        ->offset($offset)->limit($limitPerPage)
+                        ->get();
+                } else {
+                    $questionAnswer = DB::table('answers as a')
+                        ->join('questions as q', 'q.id', '=', 'a.question_id')
+                        ->join('frameworks as f', 'f.id', '=', 'q.framework_id')
+                        ->where([
+                            ['q.experience_id', $experienceId],
+                            ['q.framework_id', $frameworkId]
+                        ])
+                        ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                        ->offset($offset)->limit($limitPerPage)
+                        ->get();
+                }
+            }
+            if (count($questionAnswer) == 0) {
+                return response()->json(['message' => 'No record found'], 404);
+            }
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        return response()->json([
+            'questionAnswer' => $questionAnswer
+        ], 200);
     }
+
     // Add Question
     public function store(Request $request)
     {
-        $tech_id = $request->ques_technology_id;
-        $query = DB::table('frameworks')->where('technology_id', $tech_id)->get();
-        if (count($query) > 0) {
-            $question_data = [
-                'framework_id' => $request->ques_framework_id,
-                'experience_id' => $request->ques_experience_id,
+        if (!isset($request->frameworkId)) {
+            return response()->json(['message' => ' Framework id is required'], 400);
+        }
+        if (!isset($request->experienceId)) {
+            return response()->json(['message' => ' Experience id is required'], 400);
+        }
+        if (!isset($request->question)) {
+            return response()->json(['message' => ' Question is required'], 400);
+        }
+        if (!isset($request->answer)) {
+            return response()->json(['message' => ' Answer is required'], 400);
+        }
+        try {
+            $questionData = [
+                'framework_id' => $request->frameworkId,
+                'experience_id' => $request->experienceId,
                 'question' => $request->question,
                 "created_at" => carbon::now()
             ];
-            DB::table('questions')->insert($question_data);
-            return response()->json([
-                'status' => 200
-            ]);
-        } else {
-            return response()->json([
-                'status' => 404
-            ]);
+
+            $insertedQuestion = DB::table('questions')->insert($questionData);
+            $insertedQuestionId = DB::getPdo()->lastInsertId();
+            if ($insertedQuestion) {
+                $answerData = [
+                    'question_id' => $insertedQuestionId,
+                    'answer' => $request->answer,
+                    "created_at" => carbon::now()
+                ];
+                $insertedAnswer = DB::table('answers')->insert($answerData);
+                if ($insertedAnswer) {
+                    $InsertedQuestionAnswer = DB::table('answers as a')
+                        ->join('questions as q', 'q.id', '=', 'a.question_id')
+                        ->where('a.question_id', $insertedQuestionId)
+                        ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                        ->first();
+                }
+            }
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
-    }
-    // Add Answer
-    public function storeAnswer(Request $request)
-    {
-        $answer_data = [
-            'question_id' => $request->store_question_id,
-            'answer' => $request->answer,
-            "created_at" => carbon::now()
-        ];
-        DB::table('answers')->insert($answer_data);
         return response()->json([
-            'status' => 200
-        ]);
+            'data' => $InsertedQuestionAnswer
+        ], 200);
     }
+
     //Fetch for editing
     public function edit($id)
     {
-        $ques_ans = DB::table('answers as a')
-            ->join('questions as q', 'q.id', '=', 'a.question_id')
-            ->where('a.question_id', $id)
-            ->select('q.question', 'a.question_id', 'a.answer')
-            ->first();
-        return response()->json($ques_ans);
+        try {
+            $questionAnswer = DB::table('answers as a')
+                ->join('questions as q', 'q.id', '=', 'a.question_id')
+                ->where('a.question_id', $id)
+                ->select('q.question', 'a.question_id as questionId', 'a.answer')
+                ->first();
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        if (!$questionAnswer) {
+            return response()->json(['message' => 'No record found for question id ' . $id], 404);
+        }
+        return response()->json(['data' => $questionAnswer], 200);
     }
+
     //Update Question Answer
     public function update(Request $request, $id)
     {
-        $Question_data = [
-            'question' => $request->edit_question,
-            "updated_at" => carbon::now()
-        ];
-        DB::table('questions')->where('id', '=', $id)->update($Question_data);
-        $Answer_data = [
-            'answer' => $request->edit_answer,
-            "updated_at" => carbon::now()
-        ];
-        DB::table('answers')->where('question_id', '=', $id)->update($Answer_data);
+        if (!isset($request->question)) {
+            return response()->json(['message' => ' Question is required'], 400);
+        }
+        if (!isset($request->answer)) {
+            return response()->json(['message' => ' Answer is required'], 400);
+        }
+        try {
+            $Question_data = [
+                'question' => $request->question,
+                "updated_at" => carbon::now()
+            ];
+            DB::table('questions')->where('id', '=', $id)->update($Question_data);
+            $Answer_data = [
+                'answer' => $request->answer,
+                "updated_at" => carbon::now()
+            ];
+            DB::table('answers')->where('question_id', '=', $id)->update($Answer_data);
+
+            $updatedQuestionAnswer = DB::table('questions as q')
+                ->join('answers as a', 'q.id', '=', 'a.question_id')
+                ->where('q.id', $id)
+                ->select('q.id as questionId', 'q.question', 'a.answer', 'a.updated_at as updatedAt')
+                ->get();
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
         return response()->json([
-            'status' => 200
-        ]);
+            'data' => $updatedQuestionAnswer
+        ], 200);
     }
 
     //Delete Question Answer
     public function destroy($id)
     {
-        $query = DB::table('questions')->find($id);
-        if ($query) {
+        try {
+            $query = DB::table('questions')->find($id);
+            if (!$query) {
+                return response()->json([
+                    'message' => 'No record found for technology id ' . $id
+                ], 404);
+            }
             DB::table('questions')->delete($query->id);
-            return response()->json([
-                'status' => 200
-            ]);
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
+        return response()->json([
+            'message' => 'Question Answer deleted successfully'
+        ], 200);
     }
 }

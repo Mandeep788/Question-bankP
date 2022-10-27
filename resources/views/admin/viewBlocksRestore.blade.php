@@ -40,7 +40,6 @@
                 </div>
             </div>
         </div>
-       
     </div>
     <div id="show_block_data">
         <div class="first_section">
@@ -111,7 +110,6 @@
                     </div>
                 </div>
             </div>
-        
             <div id="dynamic_users_detail" class="container-fluid">
                 <div class="first_section">
                     <div class="bg-white">

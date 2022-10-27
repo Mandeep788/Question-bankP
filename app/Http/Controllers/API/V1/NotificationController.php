@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class NotificationController extends Controller
+class NotificationControllers extends Controller
 {
-
-
     public function getNotification($u_id)
     {
         $statusInitiate = [
@@ -34,9 +32,7 @@ class NotificationController extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
-            ->orderBy('userquizzes.id','desc')
-            ->get();
+            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')->get();
 
         return response($notificaton)->json([
             'notification' => $notificaton,

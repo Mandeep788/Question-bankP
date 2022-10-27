@@ -6,7 +6,6 @@
     <input type="text" name="quiz_framework_name" id="quiz_framework_name" hidden>
     <div class=content>
         <div class="row">
-
             <div id="Technologynmae">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
@@ -34,15 +33,13 @@
                             </div>
                         @endforeach
                     </div>
+                    <div>
+                        <button id="GoNext" class="btn btn-success">Next </button>
+                    </div>
                 </div>
-                <div>
-                    <button id="GoNext" class="btn btn-success">Next </button>
-                </div>
-
                 <div id="frameworksNamee">
 
                 </div>
-
             </div>
         </div>
     </div>
@@ -50,7 +47,6 @@
 
     {{-- extra code --}}
     <div id="load_Mcq_quiz">
-        
         <div class="mcq_content">
             <div class="first_section">
                 <div class="bg-whitee">
@@ -73,10 +69,10 @@
                             <div class="d-flex">
                                 <div>
                                     <select id="McqPageLimit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
-                                        <option value="5" selected>5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
+                                        <option value="10" selected>10</option>
                                         <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
                                     </select>
                                 </div>
                                 <div>
@@ -134,21 +130,19 @@
                         </table>
                     </div>
                 </div>
-                <div class="addQuesForQuess">
-                    <button type="button" class="btn btn-info mb-3 aaaa">Add Questions for Quiz</button>
-                </div>
+                
                 <div class="noDataFound">
 
                 </div>
             </div>
 
             <!-- Modal -->
-
+{{-- 
             <div class="page_loaderr">
-                <button class="pageloader_buttonn" id="pageloader_mcq_button">Load more...</button>
+                <button class="pageloader_button" id="pageloader_mcq_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-            </div>
+            </div> --}}
         </div>
     </div>
     <div>

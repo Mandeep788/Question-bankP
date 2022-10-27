@@ -14,18 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mcq_questions', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->unsignedBigInteger('framework_id');
             $table->unsignedBigInteger('experience_id');
             $table->string('mcq_questions');
             $table->timestamps();
-            
+
             $table->foreign('framework_id')->references('id')->on('frameworks')->onDelete('cascade');
-            
+
             $table->foreign('experience_id')->references('id')->on('experiences')->onDelete('cascade');
         });
     }
- 
+
     /**
      * Reverse the migrations.
      *

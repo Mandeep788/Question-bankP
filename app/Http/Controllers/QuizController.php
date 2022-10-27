@@ -129,7 +129,8 @@ class QuizController extends Controller
     public function fetchAllBlocks(Request $request)
     {
         $blocks = DB::table('blocks as b')
-                    ->select('b.id','b.block_name')
+                    ->select('b.id','b.block_name',DB::raw("(SELECT COUNT(question_id) FROM block_questions
+                    WHERE block_id = b.id GROUP BY b.id) as question_count"))
                     ->whereNull('deleted_at')
                     ->get();
         return DataTables::of($blocks)
@@ -138,7 +139,7 @@ class QuizController extends Controller
         ->addColumn('action',function ($blocks){
             return '<button id="show_block_btn" type="button" data-id="'.$blocks->id.'"
         class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-       <a href="/viewBlocks/destroy/'.$blocks->id.'"> <button id="show_block_btn" type="button"
+        <a href="/viewBlocks/destroy/'.$blocks->id.'"> <button id="show_block_btn" type="button"
         class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Delete</button></a>
         ';
         })
@@ -149,6 +150,7 @@ class QuizController extends Controller
         ->removeColumn('id')
         ->make(true);
     }
+
     public function restoreBlocks(Request $request)
     {
         $blocks = DB::table('blocks as b')
@@ -159,9 +161,8 @@ class QuizController extends Controller
         ->addIndexColumn()
 
         ->addColumn('action',function ($blocks){
-            return '<button id="show_block_btn" type="button" data-id="'.$blocks->id.'"
-        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-       <a href="/admin/restoreBlocks/'.$blocks->id.'"> <button id="show_block_btn" type="button"
+            return '
+       <a href="/admin/restoreBlocks/'.$blocks->id.'"><button id="show_block_btn" type="button"
         class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Restore</button></a>
         ';
         })
@@ -172,6 +173,7 @@ class QuizController extends Controller
         ->removeColumn('id')
         ->make(true);
     }
+   
     
     public function fetchBlockQuestions(Request $request, $id)
     {

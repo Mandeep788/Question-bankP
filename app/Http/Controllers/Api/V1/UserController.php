@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Pdf;
-use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -19,197 +18,270 @@ class UserController extends Controller
     }
 
 
-    public function getUsers(Request $request)
+    public function getUsers()
     {
-        $query = DB::table('users as u')
-        ->select('u.id', 'u.name', 'u.email', 'u.designation', 'u.last_company', 'u.experience')
-        ->where('u.role', 'user')
-        ->get();
+        try {
+            $query = DB::table('users')
+                ->select('id', 'name', 'email', 'designation', 'last_company as lastCompany', 'experience')
+                ->where('role', 'user')
+                ->get();
 
-        return DataTables::of($query)
-            ->addIndexColumn()
-            // ->addColumn('action', function ($user) {
-            //     return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-            // })
-            ->addColumn('technology_name', function($user){
-                $query = DB::table('usertechnologies as ut')
-                ->select('t.technology_name')
-                ->where('ut.users_id',$user->id)
-                ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
-                $i=0;
-                if(count($query)>0){
-                    foreach($query as $key=> $userTech){
-                        $std[$i]=$userTech->technology_name;
-                        $i++;
-                    }
-                    $technologies=implode(',',$std);
-                }else{
-                    $technologies='';
-                }
-                return $technologies;
-            })
-            // ->editColumn('name', 'Shri: {{$name}}')
-            ->setRowId('id')
-            ->setRowClass(function ($user) {
-                return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
-            })
-            ->removeColumn('id')
-            ->make(true);
+            $getUsers = array();
+            foreach ($query as $key => $user) {
+                $array['id'] = $user->id;
+                $array['name'] = $user->name;
+                $array['email'] = $user->email;
+                $array['designation'] = $user->designation;
+                $array['lastCompany'] = $user->lastCompany;
+                $array['experience'] = $user->experience;
+                $array['technologyiesId'] = $this->getTechnologiesId($user->id);
+                $array['technologies'] = $this->getTechnologies($user->id);
+
+                $getUsers[] = $array;
+            }
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        return response()->json(['data' => $getUsers], 200);
+    }
+
+    public function getTechnologies($id)
+    {
+        $query = DB::table('usertechnologies as ut')
+            ->select('t.technology_name')
+            ->where('ut.users_id', $id)
+            ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
+        $i = 0;
+        if (count($query) > 0) {
+            foreach ($query as $key => $userTech) {
+                $std[$i] = $userTech->technology_name;
+                $i++;
+            }
+            $technologies = implode(',', $std);
+        } else {
+            $technologies = '';
+        }
+        return $technologies;
+    }
+
+    public function getTechnologiesId($id)
+    {
+        $query = DB::table('usertechnologies as ut')
+            ->select('t.id')
+            ->where('ut.users_id', $id)
+            ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('id');
+        $i = 0;
+        if (count($query) > 0) {
+            foreach ($query as $key => $userTech) {
+                $std[$i] = $userTech->id;
+                $i++;
+            }
+            $technologies = implode(',', $std);
+        } else {
+            $technologies = '';
+        }
+        return $technologies;
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        $validate = Validator::make($request->all(), [
-            'name' => 'string|required|min:4',
-            'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:8'
-        ]);
-        if ($validate->passes()) {
-            $values = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'role' => $request->role,
-                'designation' => $request->designation,
-                'current_company' => $request->current_company,
-                'last_company' => $request->last_company,
-                'experience' => $request->experience,
-            ];
-            $query = DB::table('users')->insert($values);
-            if ($query) {
-                $id = DB::table('users')->select('id')->where('name', $request->name)->value('id');
+        try {
+            $validate = Validator::make($request->all(), [
+                'name' => 'string|required|min:4',
+                'email' => 'string|email|required|max:100|unique:users',
+                'password' => 'string|required|confirmed|min:8',
+                'role' => 'required',
+                'designation' => 'required',
+                'currentCompany' => 'required',
+                'lastCompany' => 'required',
+                'experience' => 'required',
+                'technologiesId' => 'required',
+            ]);
+            if ($validate->passes()) {
+                $values = [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'role' => $request->role,
+                    'designation' => $request->designation,
+                    'current_company' => $request->currentCompany,
+                    'last_company' => $request->lastCompany,
+                    'experience' => $request->experience,
+                ];
+                $query = DB::table('users')->insert($values);
+                $id = DB::getPdo()->lastInsertId();
+                if ($query) {
+                    $technologiesId = $request->technologiesId;
+                    $technologiesIds = explode(", ", $technologiesId);
+                    $technologyData = array();
+                    foreach ($technologiesIds as $technologyId) {
+                        if ($technologyId != "") {
+                            $technologyData[] = array(
+                                'users_id' => $id,
+                                'technology_id' => $technologyId
+                            );
+                        }
+                    }
+                    $query2 = DB::table('usertechnologies')->insert($technologyData);
+                    if (!$query2) {
+                        return response()->json(['message' => 'Something went wrong...'], 404);
+                    } else {
+                        $data = DB::table('users')
+                            ->select('id', 'name', 'email', 'designation', 'last_company as lastCompany', 'experience')
+                            ->where('id', $id)
+                            ->get();
 
-                $technologies_id = $request->technologies_id;
-                $technologies_ids = explode(", ", $technologies_id);
-                $technology_data = array();
-                foreach ($technologies_ids as $technology_id) {
-                    if ($technology_id != "") {
-                        $technology_data[] = array(
-                            'users_id' => $id,
-                            'technology_id' => $technology_id
-                        );
+                        $insertedData = array();
+                        foreach ($data as $key => $user) {
+                            $array['id'] = $user->id;
+                            $array['name'] = $user->name;
+                            $array['email'] = $user->email;
+                            $array['designation'] = $user->designation;
+                            $array['lastCompany'] = $user->lastCompany;
+                            $array['experience'] = $user->experience;
+                            $array['technologies'] = $this->getTechnologies($user->id);
+
+                            $insertedData[] = $array;
+                        }
                     }
                 }
-                $query2 = DB::table('usertechnologies')->insert($technology_data);
-                if ($query2) {
-                    return response()->json(['status' => 200]);
-                } else {
-                    return response()->json(['status' => 404]);
-                }
+            } else {
+                return response()->json(['errors' => $validate->errors()->toArray()], 409);
             }
-        } else {
-            return response()->json(['status' => 409, 'errors' => $validate->errors()->toArray()]);
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
+        return response()->json(['data' => $insertedData], 200);
     }
-
-    public function assessmentIndex($id)
+    public function assessmentIndex($quizId)
     {
-
-        DB::table('userquizzes')->where('status','S')->update(['status'=>'U']);
-        $submittedblock = DB::table('userquizzes as uq')
-            ->join('users as u', 'u.id', '=', 'uq.users_id')
-            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
-            ->where([
-                ['uq.status', 'S'],
-                ['uq.id', $id],
-            ])
-            ->orWhere([
-                ['uq.status', 'U'],
-                ['uq.id', $id],
-            ])
-            ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
-            ->get();
-
-        return view('admin.userassessment', ['submittedblock' => $submittedblock]);
+        try {
+            DB::table('userquizzes')->where('status', 'S')->update(['status' => 'U']);
+            $submittedblock = DB::table('userquizzes as uq')
+                ->join('users as u', 'u.id', '=', 'uq.users_id')
+                ->join('blocks as b', 'b.id', '=', 'uq.block_id')
+                ->where([
+                    ['uq.status', 'S'],
+                    ['uq.id', $quizId],
+                ])
+                ->orWhere([
+                    ['uq.status', 'U'],
+                    ['uq.id', $quizId],
+                ])
+                ->select('uq.id', 'u.name', 'b.block_name', 'uq.submitted_at')
+                ->get();
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        return response()->json(['data' => $submittedblock], 200);
     }
 
     public function getSubmittedBlock(Request $request)
     {
-        $id = $request->id;
+        try {
+            $quizId = $request->quizId;
 
-        $submitted_data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
-            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
-            ->join('questions as q', 'q.id', '=', 'bq.question_id')
-            ->where([
-                ['ua.quiz_id', $id],
-            ])
-            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id',DB::raw("(SELECT COUNT(question_id) FROM block_questions
-            WHERE block_id = uq.block_id GROUP BY uq.block_id) as question_count"))
-            ->get();
+            $submittedData = DB::table('userquizzes as uq')
+                ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
+                ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
+                ->join('questions as q', 'q.id', '=', 'bq.question_id')
+                ->where([
+                    ['ua.quiz_id', $quizId],
+                ])
+                ->select('ua.users_id', 'uq.id', 'q.question', 'ua.answer', 'ua.id as question_id', DB::raw("(SELECT COUNT(question_id) FROM block_questions
+                WHERE block_id = uq.block_id GROUP BY uq.block_id) as question_count"))
+                ->get();
 
-        if ($submitted_data) {
-            if (count($submitted_data) > 0) {
-                return response()->json(['submitted_data' => $submitted_data, 'status' => 200]);
+            if ($submittedData) {
+                if (count($submittedData) > 0) {
+                    return response()->json(['submitted_data' => $submittedData, 'status' => 200]);
+                } else {
+                    return response()->json(['status' => 404]);
+                }
             } else {
-                return response()->json(['status' => 404]);
+                return response()->json(['message' => 'Query Failed', 'status' => 404]);
             }
-        }else{
-            return response()->json(['message'=>'Query Failed','status' => 404]);
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
     }
 
-    public function insertIndividualMarks(Request $request){
-        // $quiz_id=$request->quiz_id;
-        $ques_id=$request->ques_id;
-        $single_mark=$request->single_mark;
-        $data=[
-         'marks_per_ques'=>$single_mark
-        ];
-        $query=DB::table('user_assessments')->where('id',$ques_id)->update($data);
-        if($query){
-            return response()->json(['status'=>200]);
-        }else{
-            return response()->json(['status'=>404]);
-
+    public function insertIndividualMarks(Request $request)
+    {
+        try {
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
         }
-     }
+        $ques_id = $request->ques_id;
+        $single_mark = $request->single_mark;
+        $data = [
+            'marks_per_ques' => $single_mark
+        ];
+        $query = DB::table('user_assessments')->where('id', $ques_id)->update($data);
+        if ($query) {
+            return response()->json(['status' => 200]);
+        } else {
+            return response()->json(['status' => 404]);
+        }
+    }
 
-     public function feedbackBlock(Request $request){
-        $QuizId=$request->QuizId;
-        $Aggergate=$request->Aggergate;
+    public function feedbackBlock(Request $request)
+    {
+        try {
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        $QuizId = $request->QuizId;
+        $Aggergate = $request->Aggergate;
         // $Feedback=$request->Feedback;
 
-        $data=[
-            'block_aggregate'=>$Aggergate,
+        $data = [
+            'block_aggregate' => $Aggergate,
             // 'feedback'=>$Feedback,
-            'status'=>'C',
+            'status' => 'C',
         ];
 
-        $query=DB::table('userquizzes')->where('id',$QuizId)->update($data);
-        if($query){
-            return response()->json(['status'=>200]);
-        }else{
-            return response()->json(['status'=>404]);
+        $query = DB::table('userquizzes')->where('id', $QuizId)->update($data);
+        if ($query) {
+            return response()->json(['status' => 200]);
+        } else {
+            return response()->json(['status' => 404]);
         }
+    }
 
-     }
+    // Feedback Updation
+    public function feedbackData(Request $request)
+    {
+        try {
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        $quizId = $request->quizId;
+        $feedback = $request->feedback;
 
-     // Feedback Updation
-     public function feedbackData(Request $request){
-        $quizId=$request->quizId;
-        $feedback=$request->feedback;
-
-        $data=[
-            'feedback'=>$feedback,
+        $data = [
+            'feedback' => $feedback,
         ];
 
-        $query=DB::table('userquizzes')->where('id',$quizId)->update($data);
-        if($query){
-            return response()->json(['status'=>200]);
-        }else{
-            return response()->json(['status'=>404]);
+        $query = DB::table('userquizzes')->where('id', $quizId)->update($data);
+        if ($query) {
+            return response()->json(['status' => 200]);
+        } else {
+            return response()->json(['status' => 404]);
         }
+    }
 
-     }
-
-     //PDF View Functionality
-     public function viewPDF($id){
+    //PDF View Functionality
+    public function viewPDF($id)
+    {
+        try {
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
 
         $data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
-            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
+            ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
             ->join('questions as q', 'q.id', '=', 'bq.question_id')
             ->where([
                 ['uq.id', $id],
@@ -218,28 +290,33 @@ class UserController extends Controller
             ->get();
 
 
-            $userdata = DB::table('userquizzes as uq')
-            ->join('blocks as b','b.id','=','uq.block_id')
-            ->join('users as u','u.id','=','uq.users_id')
+        $userdata = DB::table('userquizzes as uq')
+            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
+            ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->where([
                 ['uq.id', $id],
             ])
-            ->select('u.name','b.block_name','uq.block_aggregate','uq.feedback',DB::raw("(SELECT name FROM users
+            ->select('u.name', 'b.block_name', 'uq.block_aggregate', 'uq.feedback', DB::raw("(SELECT name FROM users
             WHERE id = b.admin_id) as admin_name"))
             ->get();
 
 
-        $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
-        ->setPaper('a4', 'portrait');
-    return $pdf->stream();
-     }
+        $pdf =   Pdf::loadView('PDF.viewPdf', ['data' => $data, 'userdata' => $userdata])
+            ->setPaper('a4', 'portrait');
+        return $pdf->stream();
+    }
 
-      //PDF Download Functionality
-      public function downloadPDF($id){
+    //PDF Download Functionality
+    public function downloadPDF($id)
+    {
+        try {
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
 
         $data = DB::table('userquizzes as uq')
-            ->join('user_assessments as ua','uq.id','=','ua.quiz_id')
-            ->join('block_questions as bq','bq.id','=','ua.block_question_id')
+            ->join('user_assessments as ua', 'uq.id', '=', 'ua.quiz_id')
+            ->join('block_questions as bq', 'bq.id', '=', 'ua.block_question_id')
             ->join('questions as q', 'q.id', '=', 'bq.question_id')
             ->where([
                 ['uq.id', $id],
@@ -248,19 +325,19 @@ class UserController extends Controller
             ->get();
 
 
-            $userdata = DB::table('userquizzes as uq')
-            ->join('blocks as b','b.id','=','uq.block_id')
-            ->join('users as u','u.id','=','uq.users_id')
+        $userdata = DB::table('userquizzes as uq')
+            ->join('blocks as b', 'b.id', '=', 'uq.block_id')
+            ->join('users as u', 'u.id', '=', 'uq.users_id')
             ->where([
                 ['uq.id', $id],
             ])
-            ->select('u.name','b.block_name','uq.block_aggregate','uq.feedback',DB::raw("(SELECT name FROM users
+            ->select('u.name', 'b.block_name', 'uq.block_aggregate', 'uq.feedback', DB::raw("(SELECT name FROM users
             WHERE id = b.admin_id) as admin_name"))
             ->get();
 
 
-        $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
-        ->setPaper('a4', 'portrait');
-    return $pdf->download('Question-bank.pdf');
-     }
+        $pdf =   Pdf::loadView('PDF.viewPdf', ['data' => $data, 'userdata' => $userdata])
+            ->setPaper('a4', 'portrait');
+        return $pdf->download('Question-bank.pdf');
+    }
 }

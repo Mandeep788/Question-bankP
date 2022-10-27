@@ -8,13 +8,12 @@
                     <div class="page_title">
                         <div>
                             <h5 class="page-title p-3 mt-2">Quiz</h5>
-                            <a href="{{ url('/viewBlocksRestore')}}" class="btn btn-xs btn-info pull-right">Trash</a>
-                            
-                        </div>   <br>
+
+                        </div>
                         <div class="d-flex">
                             <div>
-
-                            </div>                        
+                                <a href="{{ url('/viewBlocksRestore')}}" class="btn btn-xs btn-danger pull-right " style="margin-top:25%; margin-left:-25%;  ">Trash</a>
+                            </div>
                             <div>
                             </div>
                         </div>

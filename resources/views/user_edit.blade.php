@@ -1,5 +1,66 @@
 @extends('user_layout.template')
 @section('main-content')
+<div class="updatepasswordBtn">
+    <!-- Button trigger modal -->
+    <button class="btn btn-secondary text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Update
+    Password</button>
+</div>
+
+{{-- UPDATE PASSWORD MODAL --}}
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Update Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('update-password') }}" id="formid" method="POST">
+                @csrf
+                {{-- @method('POST') --}}
+                <div class="card-body">
+
+                <div class="mb-3">
+                    <label for="oldPasswordInput" class="form-label">Old Password</label>
+                    <input type="password" name="old_password" class="form-control" id="oldPasswordInput" placeholder="Old Password">
+                    @error('new_password')
+                    <span class="text-danger">{{ $message }}</span>
+                     @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="newPasswordInput" class="form-label">New Password</label>
+                    <input type="password"  name="new_password" class="form-control" id="newPasswordInput" placeholder="New Password">
+                    @error('new_password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="confirmNewPasswordInput" class="form-label">Confirm Password</label>
+                    <input type="password" name="new_password_confirmation" class="form-control" id="confirmNewPasswordInput"
+                     placeholder="Confirm New Password">
+                     @error('new_password')
+                     <span class="text-danger">{{ $message }}</span>
+                     @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+@if (session('status'))
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
+@elseif (session('error'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
+
     <form class="form1" action="{{ url('/user_edit') }}" enctype="multipart/form-data" method="POST" id="userEditForm">
         @csrf
         <div class="container">
@@ -72,7 +133,7 @@
                         <svg style="margin-right:-40px;margin-left:50px;margin-top:10px; width: 30px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                             <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/>
                           </svg>
-                        <select name="userTechnology[]" id="userTechnology" placeholder="Enter your technologies" class="form-control p-2 mx-5 border-0 selectpicker error" multiple data-live-search="true">
+                        <select name="userTechnology[]" id="userTechnology" placeholder="Enter your technologies" class="p-2 mx-2 border-0 selectpicker" multiple data-live-search="true">
                             @foreach ($technologies as $technology)
                                 <option class="veer" value="{{ $technology->id}}">
                                     {{ $technology->technology_name }}</option>

@@ -56,6 +56,9 @@
 <script src="{{ asset('js/mcqQuestions.js') }}"></script>
 <script src="{{ asset('js/addMcqQuestions.js') }}"></script>
 <script src="{{ asset('js/McqQuizBlock.js') }}"></script>
+<script src="{{ asset('js/email.js') }}"></script>
+
+
 </body>
 </html>
 
