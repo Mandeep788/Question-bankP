@@ -194,7 +194,7 @@ $(document).ready(function () {
 
     //Select all Functionality
     $(document).on("click", "#select-all-mcq", function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         var $selectMcq = $(this);
         $(".mcq_checkbox").each(function () {
             this.checked = $selectMcq.is(":checked");
@@ -324,7 +324,7 @@ $(document).ready(function () {
         // console.log(insert);
         $.ajax({
             type: "Post",
-            url: "/admin/quiz/questions",
+            url: "/admin/quiz/mcqquestions",
             data: {
                 block_name:block_name,
                 insert:insert,

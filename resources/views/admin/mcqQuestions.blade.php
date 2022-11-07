@@ -16,7 +16,7 @@
         </div>
     </div>
     @foreach ($technologies as $techno)
-        <button class="btn btn-info mt-2 mcqQuestion" data-id="{{ $techno->id }}">{{ $techno->technology_name }}</button>
+        <button class="btn btn-info mt-2 mcqTechnology" data-id="{{ $techno->id }}">{{ $techno->technology_name }}</button>
     @endforeach
     <div class="con" id="mcq">
     </div>

@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div class="logo">
-        <img src="{{ asset('/img/index.png') }}" alt="logo" width="100px" height="100px"><b>Seasia</b> Infotech
+        <img src="{{asset('/img/index.png') }}" alt="logo" width="100px" height="100px"><b>Seasia</b> Infotech
     </div>
     <div class="sidebar_menu mt-3">
         <ul id="sidebarnav">

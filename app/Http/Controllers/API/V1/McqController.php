@@ -1,36 +1,38 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class McqController extends Controller
 {
-    public function index(){
-        $technologies = DB::table('technologies')->get();
+    // public function index(){
+    //     $technologies = DB::table('technologies')->get();
 
-        $experiences = DB::table('experiences')->get();
-        //dd($technologies);
-        return view('admin.mcqQuestions',['technologies'=>$technologies,'experiences'=>$experiences]);
-    }
+    //     $experiences = DB::table('experiences')->get();
+    //     //dd($technologies);
+    //     return view('admin.mcqQuestions',['technologies'=>$technologies,'experiences'=>$experiences]);
+    // }
     public function show(Request $request){
-        $technology_id= $request->technology_id;
-        //dd($technology_id);
-        $frameworks = DB::table('frameworks')
-            ->where('technology_id',$technology_id)->get();
-        // dd($frameworks);
+        try{
+                $technology_id= $request->technology_id;
+                $id = explode(',',$technology_id);
+                $frameworks = DB::table('frameworks')
+                    ->whereIn('frameworks.technology_id',$id)
+                    ->select('frameworks.technology_id','frameworks.id','frameworks.framework_name')->get();
+            } 
+        catch(QueryException $ex){
+            return response()->json(['message'=> $ex->getMessage()],404);
+        }
         if(count($frameworks)>0){
-            return response()->json([
-                'technology_id'=>$frameworks,
-                'status'=>200
-            ]);        
-        } else {
-            return response()->json([
-                'technology_id'=>$frameworks,
-                'status'=>400
-            ]);  
+                return response()->json(['technology_id'=>$frameworks],200);
+        }else{
+            return response()->json(['message'=>'Framework are not found'],404);
         }
     }
+    
     public function getMcq(Request $request){
         $frameworkId= $request->frameworkId;
         // dd($frameworkId);

@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailController;
@@ -95,6 +94,9 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
+    //new route for timer
+    Route::post('/admin/quiz/mcqquestions', [QuizController::class, 'saveMcqQuiz']);
+
     Route::get('/admin/quiz/randomquestions', [QuizController::class, 'getRandomQuestions']);
     // Route::post('/admin/quiz/randomquestions', [QuizController::class, 'saveRandomQuestions']);
     Route::get('/admin/indexblock', [QuizController::class, 'indexBlocks']);

@@ -1,17 +1,22 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 date_default_timezone_set("Asia/Calcutta");
+
+
 
 class McqQuizBlockController extends Controller
 {
     public function index()
     {
-        $technologies = DB::table('technologies')->get();
-        //dd($technologies);
+      $technologies = DB::table('technologies')->get();
       return view('admin.McqQuizBlock',['technologies'=>$technologies]);
     }
+
+
+
     public function fetchFramework(Request $request){
         $technologyId=$request->technologyId;
         //dd($technologyId);
@@ -33,6 +38,9 @@ class McqQuizBlockController extends Controller
         ]);
        }
     }
+
+
+
     public function getMcqQuestions(Request $request){
         $frameworkId =$request->frameworkId;
         $frame_id=explode(',', $frameworkId);
@@ -67,5 +75,53 @@ class McqQuizBlockController extends Controller
          }else{
             return response()->json(['status'=>404]);
          }
+    }
+
+
+
+    public function saveMcqQuiz(Request $request)
+    {
+        $admin_id = Auth::user()->id;
+        $block_name = $request->block_name;
+        $insert_data = $request->insert;
+        $timer = $request->timer;
+        $data=[
+            'block_name' => $block_name,
+            'timer'=>$timer,
+            'admin_id'=>$admin_id,
+            'created_at' => date('Y:m:d H:i:s')
+        ];
+        if(isset($request->type)){
+            $data['type']= $request->type;
+        }
+
+        $questions = explode(",", $insert_data);
+        $query = DB::table('blocks')->insert($data);
+        if ($query) {
+            $block_id = DB::table('blocks')->select('id')->where('block_name', $block_name)->value('id');
+            $data = array();
+            foreach ($questions as $question) {
+                if ($question != "") {
+                    $data[] = array(
+                        'block_id' => $block_id,
+                        'question_id' => $question
+                    );
+                }
+            }
+            $block_ques = DB::table('block_questions')->insert($data);
+            if ($block_ques) {
+                return response()->json([
+                    'status' => 200
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 404
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 404
+            ]);
+        }
     }
 }

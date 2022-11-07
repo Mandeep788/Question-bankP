@@ -11,6 +11,9 @@ use App\Http\Controllers\Api\V1\UserUpdateController;
 use App\Http\Controllers\Api\V1\NavBarController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\API\TechUserController;
+use App\Http\Controllers\API\V1\McqQuizBlockController;
+use App\Http\Controllers\API\V1\McqController;
+
 
 
 /*
@@ -53,8 +56,28 @@ Route::prefix('v1')->group(function () {
     Route::post('/admin/feedback',[UserController::class,'feedbackData']);
     Route::get('/admin/getpdfdata/{id}',[UserController::class,'getPdfData']);
     });
+//////////////////
+    Route::controller(McqQuizBlockController::class)->group(function () {
+        // Route::get('/admin/McqQuizBlock','index');
+        Route::get('/admin/QuizBlocks/Frameworks', 'fetchFramework');
+        Route::get('/admin/Mcq/questions','getMcqQuestions');
+        Route::get('/admin/quiz/mcqquestions','saveMcqQuiz');
+    });
+/////////////////
+    Route::controller(McqController::class)->group(function (){
+        Route::get('/admin/mcq_frameworks','show');
+    });
 });
 
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////
 Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function(){
         

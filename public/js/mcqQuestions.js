@@ -1,9 +1,10 @@
+//mcq frameworks
 $(document).ready(function () {
     $(".addTech").hide();
-    $(".mcqQuestion").click(function (e) {
+    $(".mcqTechnology").click(function (e) {
         e.preventDefault();
-        $(".mcqQuestion").hide();
-        var technology_id = $(".mcqQuestion").data("id");
+        $(".mcqTechnology").hide();
+        var technology_id = $(this).data("id");
         //console.log(technology_id);
         $.ajax({
             method: "post",
@@ -32,11 +33,19 @@ $(document).ready(function () {
                         </div>`;
                         i++;
                     });
-                    $('.con').append(mcqFrameworks);
+                    
+                } else if (response.status=400){
+                    Swal.fire(
+                        'Please add framework'
+                      )
+                      
                 }
+                $('.con').append(mcqFrameworks);
             },
         });
     });
+    ///end/////
+    //mcq frameworks//
     $(document).on("click", "#clicframework", function (e) {
         e.preventDefault();
         $(".con").hide();
@@ -45,7 +54,6 @@ $(document).ready(function () {
         $(".form3 #mcq_frameworkid").val(frameworkId);
         $(".formEdit #mcq_frameworkidEdit").val(frameworkId);
         //console.log(frameworkId);
-
         $.ajax({
             method: "post",
             url: "/admin/mcq_questions",
@@ -99,7 +107,7 @@ $(document).ready(function () {
             },
         });
     });
-
+//end mcq//
 
     $(document).on("click", ".remove", function (e) {
         $(this).parents(".control-group").remove();
@@ -173,7 +181,10 @@ $(document).ready(function () {
                     var mcqQuestion =response.mcqQuestions.mcq_questions;
                     $('#experience option[value='+experience+']').attr("selected", "selected");
                     $("#mcq_question_edit").val(mcqQuestion);
+                    
+                    $('#multipleAnswersDiv').empty();
                     $.each(response.mcqAnswers, function (key, value) {
+                       
                         var removeBtn ='<div class="input-group-btn"><button class="btn btn-danger removeDatabase" type="button" data-id="'+value.mcq_question_id+'"><i class="glyphicon glyphicon-remove"></i> Remove</button></div>';
                         var addBtn ='<div class="input-group-btn"><button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button></div>';
                         var html = '<div class="control-group input-group">\n' +
@@ -191,7 +202,7 @@ $(document).ready(function () {
                         }
                     })
 
-                }
+                }     
             }
         });
     })
